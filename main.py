@@ -38,7 +38,6 @@ def upbuild():
 # Vérifie la connexion
 @app.route("/upship", methods=['POST', 'GET'])
 def upship():
-
     vinf = request.form['vinf'].split(",")
     nb = request.form['nb']
     cost = (-int(nb)*int(vinf[1]), -int(nb)*int(vinf[2]), -int(nb)*int(vinf[3]))
@@ -58,12 +57,10 @@ def updatedata():
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
     full = ""
-
     session["bat"] = across.getbats(session["player"]["pseudo"],
                                     session["selected"])
     planetlist = across.getplanetslist(session["player"]["pseudo"])
     session["ress"] = ("*","*","*")
-
     vaisseaux = across.getvaisposs(session["player"]["pseudo"],
                                    session['selected'])
     hang = across.gethang(session["player"]["pseudo"],
@@ -84,7 +81,6 @@ def jeu():
             </li>
             '''
         full += tmp
-
     return render_template("jeu.html",
                            listpla=full,
                            ress=session["ress"],
@@ -92,6 +88,7 @@ def jeu():
                            bat=session["bat"],
                            vaisseaux=vaisseaux,
                            hang=hang)
+
 
 # Vérifie la connexion
 @app.route("/checkreg", methods=['POST', 'GET'])
