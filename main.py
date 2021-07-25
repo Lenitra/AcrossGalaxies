@@ -102,7 +102,6 @@ def checkreg():
         session["player"]["pseudo"] = pseudo
         session['selected'] = "*"
         return redirect("/jeu")
-
     return redirect("/login")
 
 
