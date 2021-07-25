@@ -1,0 +1,28 @@
+body {
+  background-image: url("../imgs/banner.jpg");
+
+}
+
+main {
+  background-color:rgba(252, 246, 250, 0.725);
+  display: grid;
+  grid-template-columns: 50%,50%;
+  grid-auto-flow: column;
+  text-align: center;
+  margin: 15%;
+  border-radius: 25px;
+}
+
+ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+div.col1{
+  margin-top: 5%;
+}
+
+li {
+  margin-bottom: 5%;
+}

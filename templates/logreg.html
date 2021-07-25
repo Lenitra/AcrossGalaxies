@@ -1,0 +1,40 @@
+<!-- Site créé par Thomas Lemartinel -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Accross Galaxies</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+  <link rel="stylesheet" media="screen" href="../static/css/login.css" />
+</head>
+
+
+<body>
+  <main>
+    <div class="col1">
+      <form action="/checklog" method="POST">
+        <ul>
+          <li><input type="text" name="l_mail" value="" placeholder="mail"></li>
+          <li><input type="password" name="l_mdp" value="" placeholder="mot de passe"></li>
+          <li><input type="submit" name="login" value="Connexion"></li>
+        </ul>
+      </form>
+    </div>
+    
+    <div class="col2">
+      <form action="/checkreg" method="POST">
+        <ul>
+          <li><input type="text" name="r_mail" value="" placeholder="mail"></li>
+          <li><input type="text" name="r_pseudo" value="" placeholder="pseudo"></li>
+          <li><input type="password" name="r_mdp" value="" placeholder="mot de passe"></li>
+          <li><input type="submit" name="register" value="Créer un compte"></li>
+        </ul>
+      </form>
+    </div>
+  </main>
+
+
+</body>
+
+</html>

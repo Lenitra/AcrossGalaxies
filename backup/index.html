@@ -1,0 +1,72 @@
+<!-- Site créé par Thomas Lemartinel -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Accross Galaxies</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+  <link rel="stylesheet" media="screen" href="../static/css/screen.css" />
+</head>
+
+
+<body>
+  <div class="pi">
+    <header>
+
+      <ul class="ress">
+        <li>Planet name : <u>{{ data.pname }}</u></li>
+        <li>Carbone : 100</li>
+        <li>Puces : 150</li>
+        <li>Hydrogène : 75</li>
+      </ul>
+      <br>
+    </header>
+
+    <main>
+
+      <section>
+        <img src="../static/imgs/logo.png" alt="">
+        <h6>Mine lunaire</h6>
+        <button type="button" name="upgrade">Améliorer</button>
+      </section>
+
+    </main>
+
+    <ul class="navfoot">
+      <li><button type="button" name="Stats">Stats</button></li>
+      <li><button type="button" name="Stats">Infrastructure</button></li>
+      <li><button type="button" name="button">Laboratoire</button></li>
+      <li><button type="button" name="button">Spatio-Port</button></li>
+      <li><button type="button" name="button">Hangars</button></li>
+    </ul>
+  </div>
+
+  <div class="pn">
+    <ul><li>
+      <form action="/action" method="POST">
+
+      </form>
+      <button type="button" name="Stats">
+        <h3>Planète xyz</h3>
+        <p>C : 100 | P : 150 | H : 75</p>
+      </button>
+      </li>
+
+      <li><button type="button" name="Stats">
+        <h3>Planète abc</h3>
+        <p>C : 10 | P : 15 | H : 7</p>
+      </button></li>
+
+      <li>
+        <form action="/login" method="POST">
+        <input  type="submit" name="red" value ="Login/Register" >
+        </form>
+      </li>
+
+    </ul>
+  </div>
+
+</body>
+
+</html>

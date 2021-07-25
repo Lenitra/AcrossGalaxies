@@ -1,0 +1,200 @@
+html {
+  background-color: black;
+}
+
+body {
+  display: grid;
+  grid-column: 2;
+  grid-auto-flow: column;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+/* PLANET NAVIGATOR */
+
+.pn{
+  background-color: #011C2D;
+  width: 25vw;
+  height: auto;
+}
+
+.pn ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pn .plist button {
+  width: 20vw;
+  margin-left: 2.5vw;
+  margin-top: 1vh;
+}
+
+.pn .princi li button {
+  float: left;
+}
+
+.pn .princi li button {
+  display: block;
+  color: #61bbda;
+  background-color: #011C2D;
+  border-radius: 2px;
+  border: 0px;
+  text-decoration: none;
+  font-size: 1.5vh;
+  margin-left: 7px;
+  height: 5vh;
+}
+
+.pn li button:hover {
+  background-color: #203c4e;
+}
+/* PLANET INTERFACE */
+
+.pi {
+  background-color: #538599;
+  /* background-image: url("../imgs/banner.jpg"); */
+  /* background: linear-gradient(#342e2c, black); */
+  width: 75vw;
+  height: 100vh;
+}
+
+.pi .ress li {
+  margin-left: 1vw;
+  float: left;
+  background-color: rgba(252, 246, 250, 0.725);
+  border-radius: 2px;
+}
+.pi .ress {
+  margin-bottom: 5vh;
+  font-size: 2.2vh;
+}
+.pi .ress img {
+  height: 3vh;
+  width: auto;
+  float: left;
+}
+
+
+.pi ul {
+    list-style-type: none;
+}
+
+.pi header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* background-color: black; */
+  height: 5vh;
+  width: 75vw;
+}
+
+
+.pi .navfoot li {
+  float: left;
+}
+
+.pi .princi li {
+  float: right;
+}
+
+
+.pi header li button {
+  display: block;
+  color: #61bbda;
+  background-color: #011C2D;
+  border-radius: 2px;
+  border: 0px;
+  text-decoration: none;
+  font-size: 1.5vh;
+  margin-left: 7px;
+  height: 5vh;
+}
+
+.pi li button:hover {
+  background-color: #203c4e;
+}
+
+.hide {
+  display: none;
+}
+/* #011C2D
+#0C6784
+ */
+
+
+/* BUILDS */
+
+.builds {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 2vh;
+ }
+
+ .builds section {
+   height: 28vh;
+   margin-bottom: 1vh;
+   margin-right: 10%;
+   margin-left: 10%;
+ }
+
+ .builds ul {
+   padding-left: 1vw;
+ }
+
+ .builds img {
+   float: right;
+   width: 50%;
+ }
+
+ .builds li img {
+   height: 2.5vh;
+   width: auto;
+   float: left
+ }
+ .builds li {
+   margin-top: 1vh;
+ }
+
+
+/* Spaceport */
+
+.sp {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 2vh;
+ }
+
+ .sp section {
+   height: 28vh;
+   margin-bottom: 1vh;
+   margin-right: 10%;
+   margin-left: 10%;
+ }
+
+ .sp ul {
+   padding-left: 1vw;
+ }
+
+ .sp img {
+   float: right;
+   width: 50%;
+ }
+
+ .sp li img {
+   height: 2.5vh;
+   width: auto;
+   float: left
+ }
+ .sp li {
+   margin-top: 1vh;
+ }
+
+
+ .hang img {
+   height: 2.5vh;
+   width: auto;
+   float: left
+ }

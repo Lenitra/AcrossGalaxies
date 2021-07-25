@@ -1,0 +1,209 @@
+<!-- Site créé par Thomas Lemartinel -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Accross Galaxies</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+  <link rel="stylesheet" media="screen" href="../static/css/screen.css" />
+</head>
+
+
+<body>
+  <div class="pi">
+    <header>
+      <ul class="navfoot">
+        <li><button type="button" name="Stats" id="pstats">Stats</button></li>
+        <li><button type="button" name="Stats" id="pbuilds">Infrastructure</button></li>
+        <li><button type="button" name="button" id="plab">Laboratoire</button></li>
+        <li><button type="button" name="button" id="psp">Spatio-Port</button></li>
+        <li><button type="button" name="button" id="phang">Hangars</button></li>
+      </ul>
+    </header>
+
+      <ul class="ress">
+        <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
+        <li><img src="../static/imgs/carbon.png" alt="Carbone :">  {{ ress[0] }}</li>
+        <li><img src="../static/imgs/cpu.png" alt="Puces :">  {{ ress[1] }} </li>
+        <li><img src="../static/imgs/atome.png" alt="Hydrogène :">  {{ ress[2] }}</li>
+      </ul>
+      <br>
+
+    
+
+    <main class="builds">
+
+
+      <section>
+        <img src="../static/imgs/mining.png" alt="">
+        <h4>Mine lunaire</h4> 
+        <p>Niv : {{bat["carbone"][0]}}</p>
+        <ul>
+          <li>Amélioration</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["carbone"][1]}}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["carbone"][2]}}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["carbone"][3]}}</li>
+          <li>
+            <form action="/upbuild" method="POST" name="carbone">
+              <input type="text" name="bat" value="carbone" class="hide">
+              <button type="submit">
+                Améliorer
+              </button>
+            </form>
+          </li>
+          
+        </ul>
+      </section>
+
+
+      <section>
+        <img src="../static/imgs/factory.png" alt="">
+        <h4>Raffinerie de puces</h4> 
+        <p>Niv : {{bat["puces"][0]}}</p>
+        <ul>
+          <li>Amélioration</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["puces"][1]}}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["puces"][2]}}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["puces"][3]}}</li>
+          <li>
+            <form action="/upbuild" method="POST" name="puces">
+              <input type="text" name="bat" value="puces" class="hide">
+              <button type="submit">
+                Améliorer
+              </button>
+            </form>
+          </li>
+          
+        </ul>
+      </section>
+
+
+      <section>
+        <img src="../static/imgs/powerplant.png" alt="">
+        <h4>Centrale d'hydrogène</h4> 
+        <p>Niv : {{bat["hydro"][0]}}</p>
+        <ul>
+          <li>Amélioration</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["hydro"][1]}}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["hydro"][2]}}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["hydro"][3]}}</li>
+
+          <li>
+            <form action="/upbuild" method="POST" name="hydro">
+              <input type="text" name="bat" value="hydro" class="hide">
+              <button type="submit">
+                Améliorer
+              </button>
+            </form>
+          </li>
+
+        </ul>
+      </section>
+
+      <section>
+        <img src="../static/imgs/flask.png" alt="">
+        <h4>Laboratoire</h4> 
+        <p>Niv : {{bat["lab"][0]}}</p>
+        <ul>
+          <li>Amélioration</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["lab"][1]}}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["lab"][2]}}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["lab"][3]}}</li>
+          <li>
+            <form action="/upbuild" method="POST" name="lab">
+              <input type="text" name="bat" value="lab" class="hide">
+              <button type="submit">
+                Améliorer
+              </button>
+            </form>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <img src="../static/imgs/spaceship.png" alt="">
+        <h4>Spatioport</h4> 
+        <p>Niv : {{bat["sp"][0]}}</p>
+        <ul>
+          <li>Amélioration</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["sp"][1]}}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["sp"][2]}}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["sp"][3]}}</li>
+          <li>
+            <form action="/upbuild" method="POST" name="sp">
+              <input type="text" name="bat" value="sp" class="hide">
+              <button type="submit">
+                Améliorer
+              </button>
+            </form>
+          </li>
+        </ul>
+      </section>
+    </main>  
+
+    <main class="sp">
+      {{ vaisseaux | safe }}
+    </main>
+    
+    <main class="hang">
+      {{ hang | safe }}
+    </main>
+
+
+  </div>
+
+  <div class="pn">
+    <ul class="princi">
+      <li><button type="button" name="Map">Map</button></li>
+      <li><button type="button" name="Alliance">Alliance</button></li>
+      <li><button type="button" name="Chat">Chat</button></li>
+    </ul>
+    <ul class="plist">
+      <li>
+        <form action="/giveress" method="POST" name="actu">
+          <input type="text" name="pla" value="actu" class="hide">
+          <button type="submit">
+            <h3>Actualiser</h3>
+          </button>
+        </form>
+      </li>
+        {{ listpla | safe }}
+
+
+    </ul>
+  </div>
+
+  <script>
+    "use strict";
+
+  document.getElementById("pbuilds").addEventListener('click', buildp);
+  document.getElementById("psp").addEventListener('click', spp);
+  document.getElementById("phang").addEventListener('click', hang);
+  hideall();
+  document.querySelector(".builds").style.display = "grid";
+  function hideall() {
+    document.querySelector(".sp").style.display = "none";
+    document.querySelector(".builds").style.display = "none";
+    document.querySelector(".hang").style.display = "none";
+  }
+
+  function buildp(event) {
+    hideall();
+    document.querySelector(".builds").style.display = "grid";
+  }
+
+  function spp(event) {
+    hideall();
+    document.querySelector(".sp").style.display = "grid";
+  }
+  function hang(event) {
+    hideall();
+    document.querySelector(".hang").style.display = "grid";
+  }
+
+
+  </script>
+</body>
+
+</html>

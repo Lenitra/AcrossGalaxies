@@ -1,0 +1,32 @@
+reco: 2021-07-25 22:36:41.257099
+vip: 0
+0:
+  bat:
+    carbone: 4
+    energy: 1
+    hydro: 4
+    lab: 1
+    puces: 5
+    sp: 2
+  flotte:
+    Eclaireur: '7'
+  lab: {}
+  ress: !!python/tuple
+  - 32
+  - 150
+  - 80
+666:
+  bat:
+    carbone: 10
+    energy: 1
+    hydro: 7
+    lab: 1
+    puces: 7
+    sp: 1
+  flotte:
+    spaceship: 5584
+  lab: {}
+  ress: !!python/tuple
+  - 341
+  - -3
+  - 76

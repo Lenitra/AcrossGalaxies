@@ -1,4 +1,5 @@
 import random
+from re import M
 import yaml
 import datetime
 import os
@@ -137,7 +138,6 @@ def updateressource(player):
     delta = datetime.datetime.now() - data["reco"]
     delta = delta.total_seconds()
     delta = (delta/60)/60
-    print(delta)
     if delta > 3:
         delta = 3
     for k,v in data.items():
@@ -188,13 +188,13 @@ def getbats(player, idpla):
                  data[int(idpla)]["bat"]["sp"] * 10,
                  data[int(idpla)]["bat"]["sp"]*10)
 
-    print(data[int(idpla)]["bat"])
 
     return {"carbone": c, "puces": p, "hydro": h, "lab": lab, "sp": spaceport}
 
 def upbat(player, batim, couts, plaid):
     if plaid == "*":
         return 0
+        
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0] - couts[1],
@@ -219,18 +219,21 @@ def getvaisposs(player, idpla):
         liste = "<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>"
 
     if lvl >= 1:
-        liste += '''
-          <section>
-        <img src="../static/imgs/spaceship.png" alt="">
-        <h4>Vaisseau 1</h4>
+        vinf = ("Eclaireur",50,50,50)
+        vinfi = "Eclaireur,50,50,50"
+        liste += f'''
+        <section>
+        <img src="../static/imgs/{vinf[0]}.png" alt="">
+        <h4>{vinf[0]}</h4>
         <ul>
           <li>Construction</li>
           <li><img src="../static/imgs/carbon.png" alt="Carbone :"> 50</li>
           <li><img src="../static/imgs/cpu.png" alt="Puces :"> 50</li>
           <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> 40</li>
           <li>
-            <form action="/upbuild" method="POST" name="carbone">
-              <input type="text" name="v1" value="">
+            <form action="/upship" method="POST" name="vinf">
+              <input type="text" name="vinf" value="{vinfi}" class="hide">
+              <input type="text" name="nb" value="">
               <button type="submit">
                 Construire
               </button>
@@ -241,3 +244,43 @@ def getvaisposs(player, idpla):
     '''
 
     return liste
+
+
+def addvaisseau(player, plaid, vaiss, nb):
+    with open(f'data/players/{player}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    if vaiss != None:
+        data[int(plaid)]["flotte"][vaiss] = nb
+    re = data[int(plaid)]["flotte"]
+    with open(f'data/players/{player}.yaml', 'w') as f:
+        data = yaml.dump(data, f)
+    return re
+
+
+def gethang(player, idpla):
+    if idpla == "*":
+        return '<h2>Aucun vaisseau sur cette planette</h3>'
+    liste = ""
+    flotte = addvaisseau(player, idpla, None, None)
+
+    if flotte == {} :
+        liste = '<h2>Aucun vaisseau sur cette planette</h3>'
+    for k, v in flotte.items():
+        liste += f'''
+          <section>
+        <img src="../static/imgs/{k}.png" alt="">
+        <h4>{k} - ({v})</h4>
+      </section>
+    '''
+
+    return liste
+
+def addplayerress(player, plaid, ress):
+    with open(f'data/players/{player}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0]+ress[0], data[int(plaid)]["ress"][1]+ress[1], data[int(plaid)]["ress"][2]+ress[2])
+    re = data[int(plaid)]["ress"]
+    with open(f'data/players/{player}.yaml', 'w') as f:
+        data = yaml.dump(data, f)
+
+    return re
