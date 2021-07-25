@@ -194,12 +194,10 @@ def getbats(player, idpla):
 def upbat(player, batim, couts, plaid):
     if plaid == "*":
         return 0
-        
+    addplayerress(player, plaid, (-couts[1],-couts[2],-couts[3]))
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0] - couts[1],
-                           data[int(plaid)]["ress"][1] - couts[2],
-                           data[int(plaid)]["ress"][2] - couts[3])
+
 
     data[int(plaid)]["bat"][batim] += 1
 

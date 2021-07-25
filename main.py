@@ -28,10 +28,10 @@ def giveress():
 
 @app.route("/upbuild", methods=['POST', 'GET'])
 def upbuild():
-    bat = session["bat"][request.form['bat']]
+    cout = session["bat"][request.form['bat']]
     ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
-    if bat[1] <= ress[0] and bat[2] <= ress[1] and bat[3] <= ress[2]:
-        across.upbat(session["player"]["pseudo"], request.form['bat'], bat, session["selected"])
+    if cout[1] <= ress[0] and cout[2] <= ress[1] and cout[3] <= ress[2]:
+        across.upbat(session["player"]["pseudo"], request.form['bat'], cout, session["selected"])
     return redirect("/jeu")
 
 
@@ -46,8 +46,6 @@ def upship():
     if ress[0] >= -cost[0] and ress[1] >= -cost[1] and ress[2] >= -cost[2]:
         ress = across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
         across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf[0], nb)
-
-
     return redirect("/jeu")
 
 
