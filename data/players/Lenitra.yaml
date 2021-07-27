@@ -1,4 +1,4 @@
-reco: 2021-07-25 22:55:36.737400
+reco: 2021-07-27 15:01:55.066661
 vip: 0
 0:
   bat:
@@ -12,9 +12,9 @@ vip: 0
     Eclaireur: '7'
   lab: {}
   ress: !!python/tuple
-  - 100
-  - 100
-  - 80
+  - 339
+  - 397
+  - 319
 666:
   bat:
     carbone: 10
@@ -28,6 +28,6 @@ vip: 0
     spaceship: 5584
   lab: {}
   ress: !!python/tuple
-  - 50
-  - 50
-  - 30
+  - 647
+  - 468
+  - 448

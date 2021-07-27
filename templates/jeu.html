@@ -14,11 +14,11 @@
   <div class="pi">
     <header>
       <ul class="navfoot">
-        <li><button type="button" name="Stats" id="pstats">Stats</button></li>
-        <li><button type="button" name="Stats" id="pbuilds">Infrastructure</button></li>
-        <li><button type="button" name="button" id="plab">Laboratoire</button></li>
-        <li><button type="button" name="button" id="psp">Spatio-Port</button></li>
-        <li><button type="button" name="button" id="phang">Hangars</button></li>
+        <li><button type="button" id="pstats">Stats</button></li>
+        <li><button type="button" id="pbuilds">Infrastructure</button></li>
+        <li><button type="button" id="plab">Laboratoire</button></li>
+        <li><button type="button" id="psp">Spatio-Port</button></li>
+        <li><button type="button" id="phang">Hangars</button></li>
       </ul>
     </header>
 
@@ -30,7 +30,7 @@
       </ul>
       <br>
 
-    
+
 
     <main class="builds">
 
@@ -143,7 +143,7 @@
     </main>  
 
     <main class="sp">
-      {{ vaisseaux | safe }}
+      {{ spaceport | safe }}
     </main>
     
     <main class="hang">
@@ -154,8 +154,14 @@
   </div>
 
   <div class="pn">
-    <ul class="princi">
-      <li><button type="button" name="Map">Map</button></li>
+    <ul class="princi">  
+
+      <li><form action="/wamap" method="POST" name="osef">
+        <button type="submit">
+          Map
+        </button>
+      </form></li>
+
       <li><button type="button" name="Alliance">Alliance</button></li>
       <li><button type="button" name="Chat">Chat</button></li>
     </ul>
@@ -175,13 +181,17 @@
   </div>
 
   <script>
-    "use strict";
-
+  "use strict";
+  let page = sessionStorage.getItem('page');
+  console.log(page);
+  // sessionStorage.setItem('page', 'builds');
   document.getElementById("pbuilds").addEventListener('click', buildp);
   document.getElementById("psp").addEventListener('click', spp);
   document.getElementById("phang").addEventListener('click', hang);
-  hideall();
-  document.querySelector(".builds").style.display = "grid";
+  // hideall();
+  // document.querySelector(".builds").style.display = "grid";
+  updatepage()
+
   function hideall() {
     document.querySelector(".sp").style.display = "none";
     document.querySelector(".builds").style.display = "none";
@@ -191,15 +201,22 @@
   function buildp(event) {
     hideall();
     document.querySelector(".builds").style.display = "grid";
+    sessionStorage.setItem('page', 'builds');
   }
 
   function spp(event) {
     hideall();
     document.querySelector(".sp").style.display = "grid";
+    sessionStorage.setItem('page', 'sp');
   }
   function hang(event) {
     hideall();
     document.querySelector(".hang").style.display = "grid";
+    sessionStorage.setItem('page', 'hang');
+  }
+  function updatepage(){
+    hideall();
+    document.querySelector("."+page).style.display = "grid";
   }
 
 

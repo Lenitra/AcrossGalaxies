@@ -4,20 +4,55 @@
 from threading import Semaphore
 from flask import Flask, render_template, request, redirect, session
 import socket
-import os
+import yaml
 import across
 
 app = Flask(__name__)
 app.secret_key = "ahcestcontulaspas"
 app.debug = True
 
-#
-
 
 @app.route('/')
 def home():
     # affichage
     return render_template("index.html")
+
+
+
+@app.route("/wamap", methods=['POST', 'GET'])
+def wamap():
+    return render_template("wamap.html")
+
+@app.route("/map", methods=['POST', 'GET'])
+def map():
+    ref = int(request.form['pla'])
+    try:
+        _ = ref-1
+    except:
+        return redirect("/wamap")
+    if ref < 12:
+        ref = 0
+    else:
+        ref -= 12
+    liste = ""
+    with open(f'data/planets.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for id in range(ref,ref+25):
+        print(id , " - " , data[int(id)])
+        liste += f'''
+            <li>
+            <form action="" method="POST" name="{id}">
+            <input type="text" name="pla" value ="{id}" class="hide">
+            <button type="submit">
+            <h3>Planète #{id}</h3>
+            <p>Appartient à {data[int(id)]}</p>
+            </button>
+            </form>
+            </li>
+            '''
+
+
+    return render_template("map.html",listpla=liste)
 
 
 @app.route("/giveress", methods=['POST', 'GET'])
@@ -35,7 +70,7 @@ def upbuild():
     return redirect("/jeu")
 
 
-# Vérifie la connexion
+
 @app.route("/upship", methods=['POST', 'GET'])
 def upship():
     vinf = request.form['vinf'].split(",")
@@ -56,38 +91,21 @@ def updatedata():
 
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
-    full = ""
-    session["bat"] = across.getbats(session["player"]["pseudo"],
-                                    session["selected"])
-    planetlist = across.getplanetslist(session["player"]["pseudo"])
-    session["ress"] = ("*","*","*")
-    vaisseaux = across.getvaisposs(session["player"]["pseudo"],
-                                   session['selected'])
-    hang = across.gethang(session["player"]["pseudo"],
-                                   session['selected'])
-    for k,v in planetlist.items():
-        if str(k) == session['selected']:
-            session["ress"] = v
-
-        tmp = f'''
-            <li>
-            <form action="/updatedata" method="POST" name="{k}">
-            <input type="text" name="pla" value ="{k}" class="hide">
-            <button type="submit">
-            <h3>Planète #{k}</h3>
-            <p>C : {v[0]} | P : {v[1]} | H : {v[2]}</p>
-            </button>
-            </form>
-            </li>
-            '''
-        full += tmp
-    return render_template("jeu.html",
-                           listpla=full,
-                           ress=session["ress"],
-                           pname=session['selected'],
-                           bat=session["bat"],
-                           vaisseaux=vaisseaux,
-                           hang=hang)
+    vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
+    spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
+    batiments = across.getbats(session["player"]["pseudo"], session["selected"])
+    ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
+    listeplanetes = across.getplanetslist(session["player"]["pseudo"])
+    
+    return render_template(
+        "jeu.html",
+        listpla=listeplanetes,
+        ress=ressources,
+        pname=session['selected'],
+        bat=batiments,
+        spaceport=spaceport,
+        hang=vaisseaux
+        )
 
 
 # Vérifie la connexion

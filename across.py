@@ -90,13 +90,26 @@ def register(mail, mdp, pseudo):
 
 def getplanetslist(player):
     ress = {}
+    plalist=''
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for k, v in data.items():
         if k != "reco" and k != "vip":
-            ress[k] = v["ress"]
+            v = v["ress"]
 
-    return ress
+            plalist +=f'''
+                <li>
+                <form action="/updatedata" method="POST" name="{k}">
+                <input type="text" name="pla" value ="{k}" class="hide">
+                <button type="submit">
+                <h3>Planète #{k}</h3>
+                <p>C : {v[0]} | P : {v[1]} | H : {v[2]}</p>
+                </button>
+                </form>
+                </li>
+                '''
+    return plalist
+
 
 def checkpla(id):
     with open(f'data/planets.yaml') as f:
@@ -205,7 +218,7 @@ def upbat(player, batim, couts, plaid):
         data = yaml.dump(data, f)
 
 
-def getvaisposs(player, idpla):
+def getsp(player, idpla):
     if idpla == "*":
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
     liste = ""
@@ -274,6 +287,8 @@ def gethang(player, idpla):
     return liste
 
 def addplayerress(player, plaid, ress):
+    if plaid == "*":
+        return ("*", "*", "*")
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0]+ress[0], data[int(plaid)]["ress"][1]+ress[1], data[int(plaid)]["ress"][2]+ress[2])
