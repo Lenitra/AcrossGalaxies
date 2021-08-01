@@ -1,20 +1,20 @@
-reco: 2021-07-27 15:01:55.066661
+reco: 2021-07-31 20:36:49.203451
 vip: 0
 0:
   bat:
-    carbone: 4
+    carbone: 6
     energy: 1
-    hydro: 4
-    lab: 1
-    puces: 5
-    sp: 2
+    hydro: 6
+    lab: 3
+    puces: 6
+    sp: 3
   flotte:
-    Eclaireur: '7'
+    Eclaireur: 114
   lab: {}
   ress: !!python/tuple
-  - 339
-  - 397
-  - 319
+  - 330
+  - 412
+  - 394
 666:
   bat:
     carbone: 10
@@ -22,12 +22,12 @@ vip: 0
     hydro: 7
     lab: 1
     puces: 7
-    sp: 2
+    sp: 13
   flotte:
-    Eclaireur: '1'
+    Eclaireur: 15001
     spaceship: 5584
   lab: {}
   ress: !!python/tuple
-  - 647
-  - 468
-  - 448
+  - 847
+  - 377
+  - 357

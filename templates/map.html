@@ -11,61 +11,52 @@
 
 
 <body>
-  <div class="planets">
-    {{ listpla | safe }}
+  <div class="pi">
+    {{ plas | safe }}
+
   </div>
 
-  <!-- <div class="pn">
+  <div class="pn">
     <ul class="princi">
-      <li><button type="button" name="Map">Map</button></li>
-      <li><button type="button" name="Alliance">Alliance</button></li>
-      <li><button type="button" name="Chat">Chat</button></li>
-    </ul>
-    <ul class="plist">
+
       <li>
-        <form action="/giveress" method="POST" name="actu">
-          <input type="text" name="pla" value="actu" class="hide">
+        <form action="/jeu" method="POST" name="osef">
           <button type="submit">
-            <h3>Actualiser</h3>
+            Colonie
           </button>
         </form>
       </li>
-        {{ listpla | safe }}
+
+      <li>
+        <form action="/map" method="POST" name="osef">
+          <button type="submit">
+            Map
+          </button>
+        </form>
+      </li>
+
+      <!-- <li><button type="button" name="Alliance">Alliance</button></li> -->
+      <!-- <li><button type="button" name="Chat">Chat</button></li> -->
+    </ul>
+    <br>
+    <br>
+    <br>
+    <ul class="plist">
+      <li>
+        <form action="/map" method="POST" name="wmap">
+          <input type="text" name="wmap" value="" placeholder="#ID de planète">
+          <button type="submit">
+            <h3>Y aller</h3>
+          </button>
+        </form>
+      </li>
 
 
     </ul>
-  </div> -->
-
-  <script>
-    "use strict";
-
-  document.getElementById("pbuilds").addEventListener('click', buildp);
-  document.getElementById("psp").addEventListener('click', spp);
-  document.getElementById("phang").addEventListener('click', hang);
-  hideall();
-  document.querySelector(".builds").style.display = "grid";
-  function hideall() {
-    document.querySelector(".sp").style.display = "none";
-    document.querySelector(".builds").style.display = "none";
-    document.querySelector(".hang").style.display = "none";
-  }
-
-  function buildp(event) {
-    hideall();
-    document.querySelector(".builds").style.display = "grid";
-  }
-
-  function spp(event) {
-    hideall();
-    document.querySelector(".sp").style.display = "grid";
-  }
-  function hang(event) {
-    hideall();
-    document.querySelector(".hang").style.display = "grid";
-  }
+  </div>
 
 
-  </script>
+
 </body>
 
 </html>

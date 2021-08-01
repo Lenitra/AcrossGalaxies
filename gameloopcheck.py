@@ -3,5 +3,5 @@ import across
 
 while 1:
     print("update")
-    across.updateallplanets
+    across.updateallplanets()
     time.sleep(10)

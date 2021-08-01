@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
+from datetime import datetime
 from threading import Semaphore
 from flask import Flask, render_template, request, redirect, session
 import socket
@@ -18,22 +19,25 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/selpla", methods=['POST', 'GET'])
+def selpla():
+    return redirect("/jeu")
 
-@app.route("/wamap", methods=['POST', 'GET'])
-def wamap():
-    return render_template("wamap.html")
 
 @app.route("/map", methods=['POST', 'GET'])
 def map():
-    ref = int(request.form['pla'])
     try:
-        _ = ref-1
+        ref = int(request.form['wmap'])
     except:
-        return redirect("/wamap")
+        liste = ""
+        return render_template("map.html", plas=liste)
+
+
     if ref < 12:
         ref = 0
     else:
         ref -= 12
+        
     liste = ""
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
@@ -52,7 +56,7 @@ def map():
             '''
 
 
-    return render_template("map.html",listpla=liste)
+    return render_template("map.html", plas = liste)
 
 
 @app.route("/giveress", methods=['POST', 'GET'])
@@ -63,7 +67,8 @@ def giveress():
 
 @app.route("/upbuild", methods=['POST', 'GET'])
 def upbuild():
-    cout = session["bat"][request.form['bat']]
+    cout = across.getbats(session["player"]["pseudo"],
+                          session["selected"])[request.form['bat']]
     ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
     if cout[1] <= ress[0] and cout[2] <= ress[1] and cout[3] <= ress[2]:
         across.upbat(session["player"]["pseudo"], request.form['bat'], cout, session["selected"])
@@ -96,7 +101,6 @@ def jeu():
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
     ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
     listeplanetes = across.getplanetslist(session["player"]["pseudo"])
-    
     return render_template(
         "jeu.html",
         listpla=listeplanetes,

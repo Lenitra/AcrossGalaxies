@@ -261,7 +261,7 @@ def addvaisseau(player, plaid, vaiss, nb):
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if vaiss != None:
-        data[int(plaid)]["flotte"][vaiss] = nb
+        data[int(plaid)]["flotte"][vaiss] = int(nb)+int(data[int(plaid)]["flotte"][vaiss])
     re = data[int(plaid)]["flotte"]
     with open(f'data/players/{player}.yaml', 'w') as f:
         data = yaml.dump(data, f)

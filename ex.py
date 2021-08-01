@@ -1,0 +1,3 @@
+import across
+
+across.updateallplanets()
