@@ -94,7 +94,7 @@ def getplanetslist(player):
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for k, v in data.items():
-        if k != "reco" and k != "vip" and k != "pinf":
+        if k != "pinf":
             v = v["ress"]
 
             plalist +=f'''
@@ -137,7 +137,7 @@ def updateallplanets():
         with open(f'data/players/{e}') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for d in data.keys():
-            if d != "reco" and d != "vip" and d != "pinf":
+            if d != "pinf":
                 allpla[d] = e.split(".")[0]
 
     with open(f'data/planets.yaml', 'w') as f:
@@ -154,7 +154,7 @@ def updateressource(player):
     if delta > 3:
         delta = 3
     for k,v in data.items():
-        if k != "reco" and k != "vip" and k != "pinf":
+        if k != "pinf":
             tmp1 = int(int(v["bat"]["carbone"])*10*(delta)) + v["ress"][0]
             tmp2 = int(int(v["bat"]["puces"]) * 10 * (delta)) + v["ress"][1]
             tmp3 = int(int(v["bat"]["hydro"]) * 10 * (delta)) + v["ress"][2]
