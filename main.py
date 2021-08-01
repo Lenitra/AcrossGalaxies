@@ -86,7 +86,7 @@ def upship():
         ress = across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
         across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf[0], nb)
     return redirect("/jeu")
-
+    
 
 @app.route("/updatedata", methods=['POST', 'GET'])
 def updatedata():

@@ -80,7 +80,7 @@ def register(mail, mdp, pseudo):
 
         bat = {"puces": 1, "carbone": 1, "hydro": 1, "energy": 1,
                "lab": 0, "sp": 0}
-        user = {"reco": datetime.datetime.now(), "vip": 0,
+        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0},
                 plaid: {'bat': bat, 'ress': (100, 100, 100), 'lab': {},
                     'flotte': {}}}
 
@@ -94,7 +94,7 @@ def getplanetslist(player):
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for k, v in data.items():
-        if k != "reco" and k != "vip":
+        if k != "reco" and k != "vip" and k != "pinf":
             v = v["ress"]
 
             plalist +=f'''
@@ -137,7 +137,7 @@ def updateallplanets():
         with open(f'data/players/{e}') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for d in data.keys():
-            if d != "reco" and d != "vip":
+            if d != "reco" and d != "vip" and d != "pinf":
                 allpla[d] = e.split(".")[0]
 
     with open(f'data/planets.yaml', 'w') as f:
@@ -148,13 +148,13 @@ def updateressource(player):
     onemore = False
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    delta = datetime.datetime.now() - data["reco"]
+    delta = datetime.datetime.now() - data["pinf"]["reco"]
     delta = delta.total_seconds()
     delta = (delta/60)/60
     if delta > 3:
         delta = 3
     for k,v in data.items():
-        if k != "reco" and k != "vip":
+        if k != "reco" and k != "vip" and k != "pinf":
             tmp1 = int(int(v["bat"]["carbone"])*10*(delta)) + v["ress"][0]
             tmp2 = int(int(v["bat"]["puces"]) * 10 * (delta)) + v["ress"][1]
             tmp3 = int(int(v["bat"]["hydro"]) * 10 * (delta)) + v["ress"][2]
@@ -163,7 +163,7 @@ def updateressource(player):
             data[k]["ress"] = (tmp1, tmp2, tmp3)
 
     if onemore:
-        data["reco"] = datetime.datetime.now()
+        data["pinf"]["reco"] = datetime.datetime.now()
     with open(f'data/players/{player}.yaml', 'w') as f:
         data = yaml.dump(data, f)
     # Nb ress/h = lvl*10
