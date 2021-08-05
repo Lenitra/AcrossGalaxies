@@ -11,31 +11,37 @@
 
 
 <body>
+
+
   <div class="pi">
-    <header>
-      <ul class="navfoot">
+
+    <div class="pr">
+
+      
+      <ul class="navpla">
         <!-- <li><button type="button" id="pstats">Stats</button></li> -->
         <li><button type="button" id="pbuilds">Infrastructure</button></li>
         <!-- <li><button type="button" id="plab">Laboratoire</button></li> -->
-        <li><button type="button" id="psp">Spatio-Port</button></li>
+        <li><button type="button" id="psp">Arsenal</button></li>
         <li><button type="button" id="phang">Hangars</button></li>
       </ul>
-    </header>
 
       <ul class="ress">
         <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-        <li><img src="../static/imgs/carbon.png" alt="Carbone :">  {{ ress[0] }}</li>
-        <li><img src="../static/imgs/cpu.png" alt="Puces :">  {{ ress[1] }} </li>
-        <li><img src="../static/imgs/atome.png" alt="Hydrogène :">  {{ ress[2] }}</li>
+        <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{ ress[0] }}</li>
+        <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{ ress[1] }} </li>
+        <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{ ress[2] }}</li>
       </ul>
-      <br>
+    </div>
+
+
 
 
 
     <main class="builds">
 
 
-      <section>
+      <section id="carbone">
         <img src="../static/imgs/mining.png" alt="">
         <h4>Mine lunaire</h4> 
         <p>Niv : {{bat["carbone"][0]}}</p>
@@ -209,23 +215,23 @@
 
   function buildp(event) {
     hideall();
-    document.querySelector(".builds").style.display = "grid";
+    document.querySelector(".builds").style.display = "";
     sessionStorage.setItem('page', 'builds');
   }
 
   function spp(event) {
     hideall();
-    document.querySelector(".sp").style.display = "grid";
+    document.querySelector(".sp").style.display = "";
     sessionStorage.setItem('page', 'sp');
   }
   function hang(event) {
     hideall();
-    document.querySelector(".hang").style.display = "grid";
+    document.querySelector(".hang").style.display = "";
     sessionStorage.setItem('page', 'hang');
   }
   function updatepage(){
     hideall();
-    document.querySelector("."+page).style.display = "grid";
+    document.querySelector("."+page).style.display = "";
   }
 
 

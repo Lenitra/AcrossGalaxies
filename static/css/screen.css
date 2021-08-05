@@ -1,25 +1,208 @@
-html {
-  background-color: black;
-}
+/* GLOBAL */
+    html {
+      background-color: black;
+    }
+
+    @font-face {
+    font-family: "Titres";
+    src: url("../fonts/Aileron.otf")
+    }
+    @font-face {
+    font-family: "Textes";
+    src: url("../fonts/neuro.ttf")
+    }
+    .hide {
+      display: none;
+    }
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+
+
+
+/* GRILLE */
 
 body {
+  margin: 0;
   display: grid;
-  grid-column: 2;
+  grid-template-columns: 80vw 20vw;
+  grid-template-rows: 100vh;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
   grid-auto-flow: column;
   height: 100vh;
   width: 100vw;
-  margin: 0;
-}
+} 
 
-/* PLANET NAVIGATOR */
+/* Interface principale (pi) GRID */
+
+
+  .pi {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 0px;
+    grid-row-gap: 10px;
+    grid-template-columns: 15vw 65vw;
+    background-color: #00568b;
+  }
+
+  /* Colonne 1 */
+  .pr {
+    background-color: #011C2D;
+  }
+  .pr .ress li {
+    background-color: rgba(252, 246, 250, 0.725);
+    border-radius: 2px;
+  }
+  .pr .ress {
+    font-size: 2.2vh;
+  }
+  .pr .ress img {
+    height: 3vh;
+    width: auto;
+    /* float: left; */
+  }
+
+  .navpla li {
+    text-align: center;
+    margin-bottom: 1vw;
+    
+  }
+  .navpla li button {
+    width: 12.5vw;
+    font-family: Titres;
+    font-size: 1.25vw;
+    border: none;
+  }
+
+  .navpla li button:hover {
+    color: #00568b;
+    background-color: #011C2D;
+    border: none;
+  }
+ .navpla {
+    width: auto;
+    overflow: hidden;
+  }
+
+  /* Colonne 2 */
+
+  /* BUILDS */
+
+  .builds {
+    width: 65vw;
+    margin-right: 15vw;
+    display: grid;
+    grid-template-columns: repeat(2, 28vw);
+    grid-template-rows: repeat(3, 30vh);
+    grid-column-gap: 3vh;
+    grid-row-gap: 1vw;
+  } 
+
+  
+
+  .builds section {
+    padding-right: 20%;
+    padding-left: 20%;
+  }
+  
+  .builds p, .builds li, .builds button, .builds h4  {
+    font-family: Textes;
+  }
+
+  .builds p, .builds li, .builds button {
+    font-size: 1.5vh;
+  }
+
+  .builds ul {
+    padding-left: 1vw;
+  }
+
+  .builds img {
+    float: right;
+    width: 50%;
+    margin-top: 1%;
+  }
+
+  .builds li img {
+    height: 2vh;
+    width: auto;
+    float: none;
+    margin-top: 0;
+  }
+  .builds li {
+    margin-top: 1vh;
+  } 
+
+
+  
+
+/* Interface de choix (pn) */
 
 .pn{
   background-color: #011C2D;
-  width: 25vw;
-  height: auto;
+}
+.pn ul {
+  text-align: center;
 }
 
-.pn ul {
+.pn .princi {
+  display: block;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 1vh;
+}
+.pn .princi li{
+  display: block;
+  float: left;
+  width: 10vw;
+}
+ .pn .princi li button{
+    border: none;
+    width: 100%;
+    color: white;
+    background-color: #011C2D;;
+  }
+ .pn .princi li button:hover{
+    border: none;
+    color: white;
+    background-color: #003758;;
+  }
+
+.pn .plist li button {
+  margin-top: 1vh;
+  width: 18vw;
+}
+
+
+
+
+
+
+/* Planet Ressources (pr)
+  
+
+
+/* 
+
+
+
+h4,h3 {
+  font-family:  Titres;
+  font-size: 3vh;
+}
+
+p, li, button {
+  font-family: Textes;
+  font-size: 1.2vh;
+} */
+
+/* PLANET NAVIGATOR */
+
+
+
+/* .pn ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -45,22 +228,22 @@ body {
   font-size: 1.5vh;
   margin-left: 7px;
   height: 5vh;
-}
-
+} */
+/* 
 .pn li button:hover {
-  background-color: #203c4e;
-}
+  background-color: #203c4e; */
+/* } */
 /* PLANET INTERFACE */
 
-.pi {
+/* .pi {
   background-color: #538599;
-  /* background-image: url("../imgs/banner.jpg"); */
-  /* background: linear-gradient(#342e2c, black); */
+  background-image: url("../imgs/banner.jpg");
+  background: linear-gradient(#342e2c, black);
   width: 75vw;
   height: 100vh;
-}
+} */
 
-.pi .ress li {
+/* .pi .ress li {
   margin-left: 1vw;
   float: left;
   background-color: rgba(252, 246, 250, 0.725);
@@ -87,20 +270,20 @@ body {
   padding: 0;
   overflow: hidden;
   /* background-color: black; */
-  height: 5vh;
+  /* height: 5vh;
   width: 75vw;
-}
+} */
 
-
+/* 
 .pi .navfoot li {
   float: left;
-}
+} */
 
-.pi .princi li {
+/* .pi .princi li {
   float: right;
-}
+} */
 
-
+/* 
 .pi header li button {
   display: block;
   color: #61bbda;
@@ -119,49 +302,20 @@ body {
 
 .hide {
   display: none;
-}
+} */ 
 /* #011C2D
 #0C6784
  */
 
 
 /* BUILDS */
+/* 
 
-.builds {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  font-size: 2vh;
- }
-
- .builds section {
-   height: 28vh;
-   margin-bottom: 1vh;
-   margin-right: 10%;
-   margin-left: 10%;
- }
-
- .builds ul {
-   padding-left: 1vw;
- }
-
- .builds img {
-   float: right;
-   width: 50%;
- }
-
- .builds li img {
-   height: 2.5vh;
-   width: auto;
-   float: left
- }
- .builds li {
-   margin-top: 1vh;
- }
 
 
 /* Spaceport */
 
-.sp {
+/* .sp {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   font-size: 2vh;
@@ -197,4 +351,4 @@ body {
    height: 2.5vh;
    width: auto;
    float: left
- }
+ } */
