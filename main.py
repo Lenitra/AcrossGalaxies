@@ -37,7 +37,7 @@ def map():
         ref = 0
     else:
         ref -= 12
-        
+
     liste = ""
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
@@ -86,7 +86,7 @@ def upship():
         ress = across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
         across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf[0], nb)
     return redirect("/jeu")
-    
+
 
 @app.route("/updatedata", methods=['POST', 'GET'])
 def updatedata():
@@ -96,6 +96,11 @@ def updatedata():
 
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
+    try:
+        session["player"]
+    except:
+        return redirect("/login")
+        
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])

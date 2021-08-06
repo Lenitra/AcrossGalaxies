@@ -21,7 +21,7 @@
 
 
 
-/* GRILLE */
+/* #region GRILLE */
 
 body {
   margin: 0;
@@ -34,10 +34,9 @@ body {
   height: 100vh;
   width: 100vw;
 } 
+/* #endregion */
 
-/* Interface principale (pi) GRID */
-
-
+/* #region Interface principale de gestion (pi) GRID */
   .pi {
     display: grid;
     grid-auto-flow: column;
@@ -47,35 +46,17 @@ body {
     background-color: #00568b;
   }
 
-  /* Colonne 1 */
-  .pr {
-    background-color: #011C2D;
-  }
-  .pr .ress li {
-    background-color: rgba(252, 246, 250, 0.725);
-    border-radius: 2px;
-  }
-  .pr .ress {
-    font-size: 2.2vh;
-  }
-  .pr .ress img {
-    height: 3vh;
-    width: auto;
-    /* float: left; */
-  }
-
-  .navpla li {
-    text-align: center;
-    margin-bottom: 1vw;
-    
-  }
+  /* #region colonne 1 */
   .navpla li button {
     width: 12.5vw;
     font-family: Titres;
     font-size: 1.25vw;
     border: none;
   }
-
+  .navpla li {
+    text-align: center;
+    margin-bottom: 1vw;
+  }
   .navpla li button:hover {
     color: #00568b;
     background-color: #011C2D;
@@ -85,10 +66,59 @@ body {
     width: auto;
     overflow: hidden;
   }
+  .pr {
+    background-color: #011C2D;
+  }
+  .pr .ress li {
+    /* background-color: rgba(252, 246, 250, 0.725); */
+    color: whitesmoke;
+    font-family: Textes;
+    border-radius: 2px;
+    margin-bottom: 3vh;
+  }
+  .pr .ress {
+    font-size: 2.2vh;
+  }
+  .pr .ress img {
+    height: 3vh;
+    width: auto;
+  }
+  /* #endregion */
+  /* #endregion */
 
-  /* Colonne 2 */
+  /* #region Colonne 2 */
+  
+  /* #region BUILDS */
 
-  /* BUILDS */
+   #carbone{
+    background-image: url("../imgs/mining.png");
+    background-size: 20%;
+    background-repeat: no-repeat;
+  }
+
+  #puces{
+    background-image: url("../imgs/factory.png");
+    background-size: 17%;
+    background-repeat: no-repeat;
+  }
+
+  #hydro{
+    background-image: url("../imgs/powerplant.png");
+    background-size: 20%;
+    background-repeat: no-repeat;
+  }
+
+  #sp{
+    background-image: url("../imgs/control-tower.png");
+    background-size: 20%;
+    background-repeat: no-repeat;
+  }
+
+  #lab{
+    background-image: url("../imgs/flask.png");
+    background-size: 20%;
+    background-repeat: no-repeat;
+  }
 
   .builds {
     width: 65vw;
@@ -99,8 +129,6 @@ body {
     grid-column-gap: 3vh;
     grid-row-gap: 1vw;
   } 
-
-  
 
   .builds section {
     padding-right: 20%;
@@ -135,10 +163,33 @@ body {
     margin-top: 1vh;
   } 
 
+  /* #endregion */  
+  
+  /* #region SPACEPORT */
+  main.sp{
+    width: 65vw;
+    margin-right: 15vw;
+    display: grid;
+    grid-template-columns: repeat(2, 28vw);
+    grid-template-rows: repeat(3, 30vh);
+    grid-column-gap: 3vh;
+    grid-row-gap: 1vw;
+  } 
+  .sp section {
+    padding-left: 21%;
+  }
+  .sp img {
+    height: 2vh;
+    width: auto;
+    float: none;
+    margin-top: 0;
+  }
 
+  /* #endregion */
+  /* #endregion */
   
 
-/* Interface de choix (pn) */
+/* Interface de navigation (pn) */
 
 .pn{
   background-color: #011C2D;
@@ -177,18 +228,14 @@ body {
 
 
 
+.pn button {
+  font-family: Textes;
+}
 
 
 
-/* Planet Ressources (pr)
-  
 
-
-/* 
-
-
-
-h4,h3 {
+/* h4,h3 {
   font-family:  Titres;
   font-size: 3vh;
 }
@@ -196,7 +243,7 @@ h4,h3 {
 p, li, button {
   font-family: Textes;
   font-size: 1.2vh;
-} */
+} */ 
 
 /* PLANET NAVIGATOR */
 

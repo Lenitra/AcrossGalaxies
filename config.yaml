@@ -1,0 +1,27 @@
+Vaisseaux:
+  Eclaireur : 
+   - 75
+   - 50
+   - 10
+
+Infra:
+  Carbone : 
+   - 10
+   - 5
+   - 5
+  Puces : 
+   - 4
+   - 9
+   - 7
+  Hydro : 
+   - 10
+   - 8
+   - 2
+  Lab : 
+   - 4
+   - 10
+   - 10
+  Sp : 
+   - 10
+   - 10
+   - 10
