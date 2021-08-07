@@ -184,7 +184,7 @@ def getcostup(bat, lvl):
     cost[2] = int(cost[2])
     return cost
 
-
+# Retourne un dictionnaire contenant les couts d'upgrade des batiments
 def getbats(player, idpla):
     if idpla == "*":
         return {
@@ -217,6 +217,7 @@ def getbats(player, idpla):
 
     return {"carbone": c, "puces": p, "hydro": h, "lab": lab, "sp": spaceport}
 
+# Améliora un batiment et retire les ressources du joueur
 def upbat(player, batim, couts, plaid):
     if plaid == "*":
         return 0
@@ -239,30 +240,32 @@ def getsp(player, idpla):
         data = yaml.load(f, Loader=yaml.FullLoader)
     lvl = data[int(idpla)]["bat"]["sp"]
 
-    if lvl < 1 :
+    with open(f'config.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+    if lvl < 1:
         liste = "<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>"
 
-    if lvl >= 1:
-        v = ("Eclaireur",75,40,30)
-
-        liste += f'''
+    for k,v in data["Vaisseaux"].items():
+        if v[3] <= lvl:
+            liste += f'''
         <style>
-            #{v[0]} {{
-                background-image: url("../static/imgs/{v[0]}.png");
+            #{k} {{
+                background-image: url("../static/imgs/{k}.png");
                 background-repeat: no-repeat;
                 background-size: 20%;
              }}
         </style>
-        <section id="{v[0]}">
-        <h4>{v[0]}</h4>
+        <section id="{k}">
+        <h4>{k}</h4>
         <ul>
           <li>Construction</li>
-          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {v[1]}</li>
-          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {v[2]}</li>
-          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {v[3]}</li>
+          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {v[0]}</li>
+          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {v[1]}</li>
+          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {v[2]}</li>
           <li>
             <form action="/upship" method="POST" name="vinf">
-              <input type="text" name="vinf" value="{v[0]}" class="hide">
+              <input type="text" name="vinf" value="{k}" class="hide">
               <input type="text" name="nb" value="">
               <button type="submit">
                 Construire
@@ -272,16 +275,17 @@ def getsp(player, idpla):
         </ul>
       </section>
     '''
-
     return liste
-
 
 # Ajoute un vaisseau et retourne la liste de vaisseaux construits
 def addvaisseau(player, plaid, vaiss, nb):
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if vaiss != None:
-        data[int(plaid)]["flotte"][vaiss] = int(nb)+int(data[int(plaid)]["flotte"][vaiss])
+        try:
+            data[int(plaid)]["flotte"][vaiss] = int(nb)+int(data[int(plaid)]["flotte"][vaiss])
+        except:
+            data[int(plaid)]["flotte"][vaiss] = int(nb)
     re = data[int(plaid)]["flotte"]
     with open(f'data/players/{player}.yaml', 'w') as f:
         data = yaml.dump(data, f)
@@ -306,6 +310,7 @@ def gethang(player, idpla):
 
     return liste
 
+# Modifie les ressources du jouer et les retournes
 def addplayerress(player, plaid, ress):
     if plaid == "*":
         return ("*", "*", "*")
@@ -317,3 +322,13 @@ def addplayerress(player, plaid, ress):
         data = yaml.dump(data, f)
 
     return re
+
+# Récupère le cout de création d'un "nb" de vaisseaux
+def getvaisscost(vaiss, nb):
+    with open('config.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    cost = data["Vaisseaux"][vaiss]
+    cost[0] = -cost[0]*int(nb)
+    cost[1] = -cost[1]*int(nb)
+    cost[2] = -cost[2]*int(nb)
+    return cost

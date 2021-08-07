@@ -1,10 +1,13 @@
 Vaisseaux:
+  # carbone - Puces - Hydrogène - lvl du sp
   Eclaireur : 
    - 75
    - 50
    - 10
+   - 1
 
 Infra:
+  # carbone - Puces - Hydrogène
   Carbone : 
    - 10
    - 5

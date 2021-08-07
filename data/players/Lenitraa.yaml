@@ -1,5 +1,5 @@
 pinf:
-  reco: 2021-08-07 00:19:33.589606
+  reco: 2021-08-07 01:35:40.832399
   vip: 0
 3444:
   bat:
@@ -9,9 +9,10 @@ pinf:
     lab: 1
     puces: 1
     sp: 1
-  flotte: {}
+  flotte:
+    Eclaireur: 35423
   lab: {}
   ress: !!python/tuple
-  - 9
-  - 1
-  - 1
+  - 47668
+  - 31710
+  - 6516

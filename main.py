@@ -78,13 +78,13 @@ def upbuild():
 
 @app.route("/upship", methods=['POST', 'GET'])
 def upship():
-    vinf = request.form['vinf'].split(",")
+    vinf = request.form['vinf']
     nb = request.form['nb']
-    cost = (-int(nb)*int(vinf[1]), -int(nb)*int(vinf[2]), -int(nb)*int(vinf[3]))
+    cost = across.getvaisscost(vinf, nb)
     ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
     if ress[0] >= -cost[0] and ress[1] >= -cost[1] and ress[2] >= -cost[2]:
-        ress = across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
-        across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf[0], nb)
+        across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
+        across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf, nb)
     return redirect("/jeu")
 
 
