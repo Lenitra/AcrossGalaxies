@@ -1,33 +1,33 @@
 pinf:
-  reco: 2021-08-06 23:49:00.162467
+  reco: 2021-08-07 15:41:32.789345
   vip: 0
 0:
   bat:
-    carbone: 6
+    carbone: 12
     energy: 1
-    hydro: 6
-    lab: 3
-    puces: 6
-    sp: 3
+    hydro: 14
+    lab: 5
+    puces: 13
+    sp: 5
   flotte:
     Eclaireur: 114
   lab: {}
   ress: !!python/tuple
-  - 1917
-  - 1999
-  - 1981
+  - 67
+  - 239
+  - 1070
 666:
   bat:
-    carbone: 12
+    carbone: 13
     energy: 1
-    hydro: 8
-    lab: 3
-    puces: 8
-    sp: 13
+    hydro: 12
+    lab: 10
+    puces: 13
+    sp: 14
   flotte:
     Eclaireur: 15001
   lab: {}
   ress: !!python/tuple
-  - 3303
-  - 2040
-  - 2139
+  - 1814
+  - 168
+  - 973

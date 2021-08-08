@@ -140,7 +140,7 @@ def checklog():
     mdp = request.form['l_mdp']
     if across.connect(mail, mdp) != False:
         session["player"]["mail"] = mail
-        session["player"]["pseudo"] = "Lenitra"
+        session["player"]["pseudo"] = across.getpsd(mail)
         session['selected'] = "*"
         return redirect("/jeu")
     else:
