@@ -1,5 +1,5 @@
 pinf:
-  reco: 2021-08-07 15:41:32.789345
+  reco: 2021-08-08 13:13:03.846598
   vip: 0
 0:
   bat:
@@ -13,9 +13,9 @@ pinf:
     Eclaireur: 114
   lab: {}
   ress: !!python/tuple
-  - 67
-  - 239
-  - 1070
+  - 568
+  - 781
+  - 1654
 666:
   bat:
     carbone: 13
@@ -28,6 +28,6 @@ pinf:
     Eclaireur: 15001
   lab: {}
   ress: !!python/tuple
-  - 1814
-  - 168
-  - 973
+  - 2356
+  - 710
+  - 1474

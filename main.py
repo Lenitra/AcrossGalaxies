@@ -32,28 +32,47 @@ def map():
         liste = ""
         return render_template("map.html", plas=liste)
 
+    if ref >= 9999:
+        ref = 9999 - 12
 
     if ref < 12:
         ref = 0
     else:
         ref -= 12
+        print(ref)
+
 
     liste = ""
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for id in range(ref,ref+25):
-        print(id , " - " , data[int(id)])
-        liste += f'''
-            <li>
-            <form action="" method="POST" name="{id}">
-            <input type="text" name="pla" value ="{id}" class="hide">
-            <button type="submit">
-            <h3>Planète #{id}</h3>
-            <p>Appartient à {data[int(id)]}</p>
-            </button>
-            </form>
-            </li>
-            '''
+        # print(id , " - " , data[int(id)])
+        if data[int(id)] == None:
+            liste += f'''
+                <li class="mappla">
+                    <form action="" method="POST" name="{id}">
+                        <input type="text" name="pla" value ="{id}" class="hide">
+                        <button type="submit" style="border: 0; background: transparent">
+                            <img src="/static/imgs/planet.png" alt="submit" />
+                            <h3>#{id}</h3>
+                            <h3> &nbsp; </h3>
+                        </button>
+                    </form>
+                </li>
+                '''
+        else:
+            liste += f'''
+                <li class="mappla">
+                    <form action="" method="POST" name="{id}">
+                        <input type="text" name="pla" value ="{id}" class="hide">
+                        <button type="submit" style="border: 0; background: transparent">
+                            <img src="/static/imgs/planetcol.png" alt="submit" />
+                            <h3>{id}</h3>
+                            <h3 class="conqueror">{data[int(id)]}</h3>
+                        </button>
+                    </form>
+                </li>
+                '''
 
 
     return render_template("map.html", plas = liste)
@@ -100,7 +119,7 @@ def jeu():
         session["player"]
     except:
         return redirect("/login")
-        
+
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])

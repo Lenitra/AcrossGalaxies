@@ -110,7 +110,6 @@ def getplanetslist(player):
                 '''
     return plalist
 
-
 def checkpla(id):
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
@@ -176,9 +175,9 @@ def getcostup(bat, lvl):
         data = yaml.load(f, Loader=yaml.FullLoader)
     cost = (data["Infra"][bat])
     for _ in range(lvl-1):
-        cost[0] += cost[0]/3
-        cost[1] += cost[1]/3
-        cost[2] += cost[2]/3
+        cost[0] += cost[0]/2
+        cost[1] += cost[1]/2
+        cost[2] += cost[2]/2
     cost[0] = int(cost[0])
     cost[1] = int(cost[1])
     cost[2] = int(cost[2])
@@ -302,12 +301,18 @@ def gethang(player, idpla):
         liste = '<h2>Aucun vaisseau sur cette planette</h3>'
     for k, v in flotte.items():
         liste += f'''
-          <section>
-        <img src="../static/imgs/{k}.png" alt="">
-        <h4>{k} - ({v})</h4>
-      </section>
-    '''
-
+            <style>
+            #{k} {{
+                background-image: url("../static/imgs/{k}.png");
+                background-repeat: no-repeat;
+                background-size: 20%;
+             }}
+        </style>
+          <section id="{k}">
+            <h4>{k} - ({v})</h4>
+          </section>
+        '''
+    
     return liste
 
 # Modifie les ressources du jouer et les retournes
