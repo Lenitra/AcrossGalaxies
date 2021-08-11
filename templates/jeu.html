@@ -45,12 +45,10 @@
       </div>
 
 
-
+      
 
 
       <main class="builds">
-
-
         <section id="carbone">
           <!-- <img src="../static/imgs/mining.png" alt=""> -->
           <h4>Mine lunaire</h4> 
@@ -115,17 +113,17 @@
           </ul>
         </section>
 
-        <section id="lab">
-          <h4>Laboratoire</h4> 
-          <p>Niv : {{bat["lab"][0]}}</p>
+        <section id="rad">
+          <h4>Radar</h4> 
+          <p>Niv : {{bat["rad"][0]}}</p>
           <ul>
             <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["lab"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["lab"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["lab"][3]}}</li>
+            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["rad"][1]}}</li>
+            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["rad"][2]}}</li>
+            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["rad"][3]}}</li>
             <li>
-              <form action="/upbuild" method="POST" name="lab">
-                <input type="text" name="bat" value="lab" class="hide">
+              <form action="/upbuild" method="POST" name="rad">
+                <input type="text" name="bat" value="rad" class="hide">
                 <button type="submit">
                   Améliorer
                 </button>
@@ -243,12 +241,6 @@
     document.querySelector("."+page).style.display = "";
   }
 
-  if(document.querySelector(".ress li strong").textContent === "#*"){
-    hideall();
-    let txt = document.createElement('h1');
-    txt.textContent = "Veuillez selectionner une planète dans l'interface à droite.";
-    document.querySelector(".pi").append(txt);
-  }
 
   </script>
 

@@ -1,18 +1,19 @@
 pinf:
-  reco: 2021-08-09 12:00:53.791604
+  reco: 2021-08-11 16:45:04.249867
   vip: 0
 3444:
   bat:
     carbone: 1
     energy: 1
     hydro: 1
-    lab: 1
     puces: 1
+    rad: 3
     sp: 10
   flotte:
     Croiseur: 5
+    Nano-Sonde: 1
   lab: {}
   ress: !!python/tuple
-  - 163
-  - 163
-  - 163
+  - 175
+  - 120
+  - 120

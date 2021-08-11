@@ -63,11 +63,11 @@ def map():
         else:
             liste += f'''
                 <li class="mappla">
-                    <form action="" method="POST" name="{id}">
-                        <input type="text" name="pla" value ="{id}" class="hide">
+                    <form action="mapla" method="POST" name="{id}">
+                        <input type="text" name="pla" value ="{id}|{data[int(id)]}" class="hide">
                         <button type="submit" style="border: 0; background: transparent">
                             <img src="/static/imgs/planetcol.png" alt="submit" />
-                            <h3>{id}</h3>
+                            <h3>#{id}</h3>
                             <h3 class="conqueror">{data[int(id)]}</h3>
                         </button>
                     </form>
@@ -107,6 +107,37 @@ def upship():
     return redirect("/jeu")
 
 
+@app.route("/mapla", methods=['POST', 'GET'])
+def mapla():
+    sel = request.form['pla']
+    player = sel.split("|")[1]
+    plaid = sel.split("|")[0]
+    playerpla = across.getallplaid(session["player"]["pseudo"])
+    flotte = {}
+    for p in playerpla:
+
+        for vai, nb in across.addvaisseau(session["player"]["pseudo"], p, None, 0).items():
+            try:
+                flotte[vai] += nb
+            except:
+                flotte[vai] = nb
+
+    infos = f'<h1>{plaid} - {player}</h1>'
+    for k,v in flotte.items():
+        infos += f"""
+        <ul>
+            <li><img src='static/imgs/{k}.png'></li>
+            <li><h3>{v}</h3></li>
+        </ul>
+    """
+    # <p>{vadispo}</p>
+    # <button>ATTAQUER</button>
+    # <button>TRANSPORTER</button>
+    # <button>DOCKER</button>
+    # <button>CONQUÉRIR</button>
+    liste = infos
+    return render_template("map.html", plas=liste)
+
 @app.route("/updatedata", methods=['POST', 'GET'])
 def updatedata():
     session['selected'] = request.form['pla']
@@ -119,7 +150,12 @@ def jeu():
         session["player"]
     except:
         return redirect("/login")
-
+    with open(f'data/players/{session["player"]["pseudo"]}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for e in data:
+        if e != 'pinf':
+            session["selected"] = e
+            break 
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])

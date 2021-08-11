@@ -79,9 +79,9 @@ def register(mail, mdp, pseudo):
             data = yaml.dump(users, f)
 
         bat = {"puces": 1, "carbone": 1, "hydro": 1, "energy": 1,
-               "lab": 1, "sp": 1}
+               "rad": 1, "sp": 1}
         user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0},
-                plaid: {'bat': bat, 'ress': (100, 100, 100), 'lab': {},
+                plaid: {'bat': bat, 'ress': (100, 100, 100),
                     'flotte': {}}}
 
         with open(f'data/players/{pseudo}.yaml', 'w') as f:
@@ -207,14 +207,16 @@ def getbats(player, idpla):
     tmp = getcostup("Hydro", data[int(idpla)]["bat"]["puces"])
     h = (data[int(idpla)]["bat"]["hydro"], tmp[0], tmp[1], tmp[2])
 
-    tmp = getcostup("Lab", data[int(idpla)]["bat"]["lab"])
-    lab = (data[int(idpla)]["bat"]["lab"], tmp[0], tmp[1], tmp[2])
+    tmp = getcostup("Rad", data[int(idpla)]["bat"]["rad"])
+    rad = (data[int(idpla)]["bat"]["rad"], tmp[0], tmp[1], tmp[2])
 
     tmp = getcostup("Sp", data[int(idpla)]["bat"]["sp"])
     spaceport = (data[int(idpla)]["bat"]["sp"], tmp[0], tmp[1], tmp[2])
 
 
-    return {"carbone": c, "puces": p, "hydro": h, "lab": lab, "sp": spaceport}
+
+
+    return {"carbone": c, "puces": p, "hydro": h, "rad": rad, "sp": spaceport}
 
 # Améliora un batiment et retire les ressources du joueur
 def upbat(player, batim, couts, plaid):
@@ -312,7 +314,7 @@ def gethang(player, idpla):
             <h4>{k} - ({v})</h4>
           </section>
         '''
-    
+
     return liste
 
 # Modifie les ressources du jouer et les retournes
@@ -337,3 +339,18 @@ def getvaisscost(vaiss, nb):
     cost[1] = -cost[1]*int(nb)
     cost[2] = -cost[2]*int(nb)
     return cost
+
+# Récupère les infos d'espionage de la planète
+def getplainfos(player, plaid):
+    with open(f'data/players/{player}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    return {"ress": data[int(plaid)]["ress"], "flotte": data[int(plaid)]["flotte"]}
+
+def getallplaid(player):
+    with open(f'data/players/{player}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    plaids = []
+    for k in data:
+        if k != "pinf":
+            plaids.append(k)
+    return plaids
