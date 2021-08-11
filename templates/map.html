@@ -21,9 +21,9 @@
   <div class="page page-wrapper">
 
   <div class="map ">
-    <ul>{{ plas | safe }}</ul>
-    
-
+    <!-- <form action="/atta" method="POST" name="atta"> -->
+      {{ plas | safe }}
+    <!-- </form> -->
   </div>
 
   <div class="pn">
@@ -69,6 +69,51 @@
 </div>
 </body>
 
+<script>
+
+  function hideinput(){
+    let vaisseaux = document.querySelectorAll("section.vaissmap input")
+    for (let index = 0; index < vaisseaux.length; index++) {
+      vaisseaux[index].remove()
+    }
+  }
+  function showin(){
+    let vname;
+    let vaisseaux = document.querySelectorAll("section.vaissmap")
+    for (let index = 0; index < vaisseaux.length; index++) {
+      vname = vaisseaux[index].children[1].textContent.split(':')[0];
+      vname = vname.substring(0, vname.length - 1);
+      im = document.createElement("input");
+      im.setAttribute("type", "text");
+      im.setAttribute("name", vname);
+      im.setAttribute("value", "0");
+      im.setAttribute("placeholder", "Nombre de vaisseaux à envoyer");
+      vaisseaux[index].appendChild(im)
+    }
+  }
+
+  function showress(){
+    alert("AFFICHER LES RESSOURCES");
+  }
+
+  function selectaction(element) {
+    hideinput()
+    let im; 
+    let val = element.options[element.options.selectedIndex].value;
+    console.log(val);
+    if (val == "Attaquer"){
+      hideinput()
+      showin()
+      }
+    if (val == "Docker" || val == "Transporter"){
+      hideinput()
+      showin()
+      showress()
+      }
+    }
+  
+
+</script>
 </html>
 
 

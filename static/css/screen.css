@@ -253,6 +253,10 @@ div.page {
 
 /* #region PARTIE 1 Map */
 
+.map .mapti{
+  text-align: center;
+}
+
 .map form {
   margin: 1vh;
 }
@@ -276,7 +280,6 @@ div.page {
 .map img {
   width: 6vw;
 }
-
 
 
 .mappla {

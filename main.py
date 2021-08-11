@@ -46,7 +46,6 @@ def map():
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for id in range(ref,ref+25):
-        # print(id , " - " , data[int(id)])
         if data[int(id)] == None:
             liste += f'''
                 <li class="mappla">
@@ -94,7 +93,7 @@ def upbuild():
     return redirect("/jeu")
 
 
-
+# Intermédiaire pour la construction de vaisseaux
 @app.route("/upship", methods=['POST', 'GET'])
 def upship():
     vinf = request.form['vinf']
@@ -122,28 +121,71 @@ def mapla():
             except:
                 flotte[vai] = nb
 
-    infos = f'<h1>{plaid} - {player}</h1>'
+    infos = f'<form action="/atta" method="POST" name="atta">'
+    infos += f'''<input type="text" class="hide" name="plaid" value="{plaid}|{player}">'''
+    infos += f'<h1 class="mapti">#{plaid} - {player}</h1>'
     for k,v in flotte.items():
         infos += f"""
-        <ul>
-            <li><img src='static/imgs/{k}.png'></li>
-            <li><h3>{v}</h3></li>
-        </ul>
+        <section class="vaissmap">
+            <img src='static/imgs/{k}.png'>
+            <h3>{k} : {v}</h3>
+        </section>
     """
-    # <p>{vadispo}</p>
-    # <button>ATTAQUER</button>
-    # <button>TRANSPORTER</button>
-    # <button>DOCKER</button>
-    # <button>CONQUÉRIR</button>
     liste = infos
+    liste += """
+            <select name="select" onchange="selectaction(this)">
+                <option>Action</option>
+                <option>Attaquer</option>
+                <option>Espioner</option>
+                <option>Docker</option>
+                <option>Transporter</option>
+                <option>Coloniser</option>
+            </select>
+            <button type="submit">
+                <h3>Valider</h3>
+            </button>
+        </form>
+        """
     return render_template("map.html", plas=liste)
 
+# Intermédiaire pour lancer une attaque
+@app.route("/atta", methods=['POST', 'GET'])
+def atta():
+    # region Récupération des éléments
+    action = request.form['select']
+    pladef = request.form['plaid'].split('|')[0]
+    player = request.form['plaid'].split('|')[1]
+    try:
+        Croiseur = int(request.form['Croiseur'])
+    except:
+        pass
+    try:
+        Nano_Sonde = int(request.form['Nano-Sonde'])
+    except:
+        pass
+    try:
+        Cargo = int(request.form['Cargo'])
+    except:
+        pass
+    try:
+        Victoire = int(request.form['Victoire'])
+    except:
+        pass
+    try:
+        Colonisateur = int(request.form['Colonisateur'])
+    except:
+        pass
+    # endregion
+
+    return redirect("/map")
+
+# Intermédiaire pour update les ressources
 @app.route("/updatedata", methods=['POST', 'GET'])
 def updatedata():
     session['selected'] = request.form['pla']
     return redirect("/jeu")
 
-
+# Page principale du jeu (colonie)
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
     try:
@@ -155,7 +197,7 @@ def jeu():
     for e in data:
         if e != 'pinf':
             session["selected"] = e
-            break 
+            break
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
@@ -185,7 +227,6 @@ def checkreg():
         session['selected'] = "*"
         return redirect("/jeu")
     return redirect("/login")
-
 
 # Vérifie la connexion
 @app.route("/checklog", methods=['POST', 'GET'])
