@@ -10,7 +10,7 @@ import speedtest
 
 prefix = "$"
 # region Jeton
-jeton = "NzExOTQzNDExNjU3MDgwODUy.XsKW-A.rkCEdJOEwYdTmVlJNa2o_aQY9nA"
+jeton = "NzExOTQzNDExNjU3MDgwODUy.XsKW-A.H4DQnB9GWrWKiv81PzWNWBu1Nk4"
 # endregion
 
 bot = commands.Bot(command_prefix=prefix)
@@ -46,31 +46,9 @@ async def serveur(ctx):
     msg.add_field(name="Latence du bot", inline= False,
                   value=f"{round(bot.latency * 1000)} ms")
 
-    servers = []
-    threads = None
-    s = speedtest.Speedtest()
-    s.get_servers(servers)
-    s.get_best_server()
-    s.download(threads=threads)
-    s.upload(threads=threads)
-    s.results.share()
-    results_dict = s.results.dict()
-    for k, v in results_dict.items():
-        if k == "download":
-            dl = round((int(v)/1000000), 2)
-        if k == "upload":
-            up = round((int(v)/1000000), 2)
-        if k == "ping":
-            ping = int(v)
-
-
-    msg.add_field(name="Informations connexion",value=f".", inline= False)
-    msg.add_field(name="Download",value=f"{dl} mbps/s", inline= False)
-    msg.add_field(name="Upload",value=f"{up} mbps/s")
-    msg.add_field(name="Ping",value=f"{ping} ms")
-
     await ctx.send(embed=msg)
     await a.delete()
+
 
 @bot.command()
 async def infos(ctx):
@@ -85,16 +63,14 @@ async def infos(ctx):
     nb_pla_col = 0
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    for e in data:
+    for e in data.values():
         if e != None:
             nb_pla_col +=1
 
     msg.add_field(name="Nombre d'inscrits :", value=f"{inscrits}")
     msg.add_field(name="Nombre de planètes colonisées :",
-                  value=f"{nb_pla_col}")
+                  value=f"{nb_pla_col}", inline=False)
     await ctx.send(embed=msg)
-
-
 
 
 @bot.command()
@@ -102,7 +78,7 @@ async def restart(ctx):
     if ctx.author.id in op:
         await bot.change_presence(activity=discord.Game(name="redémarrer"))
         await ctx.send("Redémarrage de la machine en cours")
-        os.system("reboot")
+        os.system("sudo reboot")
 
 
 # @bot.command()
@@ -122,8 +98,6 @@ async def help(ctx):
                                   f"\n     # Affiche les donées de la machine."
                                   f"\n - {prefix}infos"
                                   f"\n     # Affiche les stats du jeu."
-                                  f"\n - {prefix}screen"
-                                  f"\n     # Envoie un screenshot de la machine."
                                   "\n```"
                    f"**Les commandes Admin** :```"
                                   f"\n - {prefix}purge <nombre>"
@@ -132,6 +106,7 @@ async def help(ctx):
                    f"**Les commandes Opérateur (TauMah)** :```"
                                   f"\n - {prefix}restart"
                                   f"\n     # Redémarre la machine."
+                                  "\n```"
 
                    )
 
