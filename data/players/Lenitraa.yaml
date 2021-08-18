@@ -1,7 +1,23 @@
 pinf:
-  reco: 2021-08-11 16:45:04.249867
+  reco: 2021-08-15 10:48:00.115110
   vip: 0
 3444:
+  bat:
+    carbone: 1
+    energy: 1
+    hydro: 1
+    puces: 1
+    rad: 4
+    sp: 10
+  flotte:
+    Croiseur: 5
+    Nano-Sonde: 1
+  lab: {}
+  ress: !!python/tuple
+  - 471
+  - 513
+  - 950
+3445:
   bat:
     carbone: 1
     energy: 1
@@ -10,10 +26,11 @@ pinf:
     rad: 3
     sp: 10
   flotte:
-    Croiseur: 5
-    Nano-Sonde: 1
+    Croiseur: 556
+    Nano-Sonde: 10
+    Victoire: 50
   lab: {}
   ress: !!python/tuple
-  - 175
-  - 120
-  - 120
+  - 205
+  - 150
+  - 150

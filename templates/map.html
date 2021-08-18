@@ -70,7 +70,7 @@
 </body>
 
 <script>
-
+// Pour afficher/cacher les inputs des vaisseaux
   function hideinput(){
     let vaisseaux = document.querySelectorAll("section.vaissmap input")
     for (let index = 0; index < vaisseaux.length; index++) {
@@ -113,6 +113,28 @@
     }
   
 
+</script>
+<script>
+  // Pour afficher les vaisseaux dispo
+
+  function hideele() {
+    let vaisseaux = document.querySelectorAll("section.vaissmap");
+    for (let index = 0; index < vaisseaux.length; index++) {
+      vaisseaux[index].classList.add("hide");
+    }
+  }
+
+  function selectpla(element){
+    hideele()
+    let val = element.options[element.options.selectedIndex].value.split('#')[1];
+    val = String(val)
+    let vaisseaux = document.querySelectorAll("section");
+    for (let index = 0; index < vaisseaux.length; index++) {
+      if (vaisseaux[index].id == val) {
+        vaisseaux[index].classList.remove("hide");;
+      }
+    }
+  }
 </script>
 </html>
 

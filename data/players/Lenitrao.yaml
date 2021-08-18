@@ -1,0 +1,19 @@
+pinf:
+  reco: 2021-08-17 22:41:10.290843
+  vip: 0
+6342:
+  bat:
+    carbone: 3
+    energy: 1
+    hydro: 3
+    puces: 3
+    rad: 3
+    sp: 10
+  flotte:
+    Croiseur: 20
+    Nano-Sonde: 10
+    Victoire: 50
+  ress: !!python/tuple
+  - 1110
+  - 286
+  - 701

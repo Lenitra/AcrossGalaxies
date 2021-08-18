@@ -42,7 +42,7 @@ def connect(mail, mdp):
 def register(mail, mdp, pseudo):
     updateallplanets()
     plaid = 0
-    while not checkpla(plaid):
+    while checkpla(plaid) != False:
         plaid = random.randint(0, 9999)
 
 
@@ -110,13 +110,15 @@ def getplanetslist(player):
                 '''
     return plalist
 
+# Check si une planète est occupée et si oui retourne le psd du joueur
 def checkpla(id):
     with open(f'data/planets.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if data[id] != None:
-        return False
+        return data[id]
     else:
-        return True
+        return False
+
 
 def getpsd(mail):
     with open('data/accounts.yaml') as f:
@@ -295,12 +297,12 @@ def addvaisseau(player, plaid, vaiss, nb):
 # Retourne le html des vaisseaux construitss
 def gethang(player, idpla):
     if idpla == "*":
-        return '<h2>Aucun vaisseau sur cette planette</h3>'
+        return '<h2>Aucun vaisseau sur cette planète</h3>'
     liste = ""
     flotte = addvaisseau(player, idpla, None, None)
 
     if flotte == {} :
-        liste = '<h2>Aucun vaisseau sur cette planette</h3>'
+        liste = '<h2>Aucun vaisseau sur cette planète</h3>'
     for k, v in flotte.items():
         liste += f'''
             <style>
@@ -346,6 +348,7 @@ def getplainfos(player, plaid):
         data = yaml.load(f, Loader=yaml.FullLoader)
     return {"ress": data[int(plaid)]["ress"], "flotte": data[int(plaid)]["flotte"]}
 
+# Réucupère toutes les id e planètes d'un joueur
 def getallplaid(player):
     with open(f'data/players/{player}.yaml') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
@@ -354,3 +357,44 @@ def getallplaid(player):
         if k != "pinf":
             plaids.append(k)
     return plaids
+
+# region Gestion d'attaques
+def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
+    print(flota)
+    with open('config.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data = data['Vaisseaux']
+    powatta = 0
+    tata = 0
+    powdeff = 0
+    for k, v in flota.items():
+        powatta += data[k][4] * v
+        tata += data[k][5] * v
+    for k, v in flotd.items():
+        powdeff += data[k][4] * v
+    if powatta >= powdeff:
+        attkwin(attaker, aplaid, ptarget, idtarget)
+        return True
+    else:
+        attklost(attaker, aplaid, ptarget, idtarget)
+        return False
+
+def attklost(attaker, aplaid, ptarget, idtarget):
+    print("attaque failed")
+
+
+def attkwin(attaker, aplaid, ptarget, idtarget):
+    delflotte(ptarget, idtarget)
+    tmp = addplayerress(ptarget, idtarget, (0,0,0))
+    print(tmp)
+    tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))
+    addplayerress(ptarget, idtarget, (-tmp[0],-tmp[1],-tmp[2]))
+    addplayerress(attaker, aplaid, (tmp[0],tmp[1],tmp[2]))
+# endregion
+
+def delflotte(player, plaid):
+    with open(f'data/players/{player}.yaml') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data[int(plaid)]["flotte"] = {}
+    with open(f'data/players/{player}.yaml', 'w') as f:
+        data = yaml.dump(data, f)

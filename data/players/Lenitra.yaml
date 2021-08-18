@@ -9,13 +9,11 @@ pinf:
     lab: 5
     puces: 13
     sp: 5
-  flotte:
-    Eclaireur: 114
-  lab: {}
+  flotte: {}
   ress: !!python/tuple
-  - 568
-  - 781
-  - 1654
+  - 284
+  - 391
+  - 827
 666:
   bat:
     carbone: 13
@@ -24,10 +22,8 @@ pinf:
     lab: 10
     puces: 13
     sp: 14
-  flotte:
-    Eclaireur: 15001
-  lab: {}
+  flotte: {}
   ress: !!python/tuple
-  - 2356
-  - 710
-  - 1474
+  - 1178
+  - 355
+  - 737

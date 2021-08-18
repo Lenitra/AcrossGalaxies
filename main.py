@@ -2,6 +2,7 @@
 # -*- coding: Utf-8 -*-
 
 from datetime import datetime
+from os import access
 from threading import Semaphore
 from flask import Flask, render_template, request, redirect, session
 import socket
@@ -113,26 +114,33 @@ def mapla():
     plaid = sel.split("|")[0]
     playerpla = across.getallplaid(session["player"]["pseudo"])
     flotte = {}
-    for p in playerpla:
-
-        for vai, nb in across.addvaisseau(session["player"]["pseudo"], p, None, 0).items():
-            try:
-                flotte[vai] += nb
-            except:
-                flotte[vai] = nb
-
-    infos = f'<form action="/atta" method="POST" name="atta">'
-    infos += f'''<input type="text" class="hide" name="plaid" value="{plaid}|{player}">'''
+    infos = ''
     infos += f'<h1 class="mapti">#{plaid} - {player}</h1>'
-    for k,v in flotte.items():
-        infos += f"""
-        <section class="vaissmap">
-            <img src='static/imgs/{k}.png'>
-            <h3>{k} : {v}</h3>
-        </section>
-    """
+    infos += '<form action="/atta" method="POST" name="atta">'
+    infos += "<h3>A partir de quelle planète executer une action :</h3>"
+    infos += '''<select name="attaplaid" onchange="selectpla(this)">
+                <option>Selectionner</option>'''
+    plist = across.getallplaid(session["player"]["pseudo"])
+    for e in plist:
+        infos += f"<option>#{e}</option>"
+
+    infos += f'</select><br>'
+
+    infos += "<h3>Que voulez vous faire :</h3>"
+    infos += f'''<input type="text" class="hide" name="plaid" value="{plaid}">''' # Infos a récupérer(id target)
+
+    for e in plist:
+        for k, v in across.addvaisseau(session["player"]["pseudo"], e, None, 0).items():
+            infos += f"""
+                <section class="vaissmap hide" id="{e}">
+                    <img src='static/imgs/{k}.png'>
+                    <h3>{k} : {v}</h3>
+                </section>
+            """
     liste = infos
+
     liste += """
+            <br>
             <select name="select" onchange="selectaction(this)">
                 <option>Action</option>
                 <option>Attaquer</option>
@@ -141,6 +149,8 @@ def mapla():
                 <option>Transporter</option>
                 <option>Coloniser</option>
             </select>
+            <br>
+            <br>
             <button type="submit">
                 <h3>Valider</h3>
             </button>
@@ -153,29 +163,54 @@ def mapla():
 def atta():
     # region Récupération des éléments
     action = request.form['select']
-    pladef = request.form['plaid'].split('|')[0]
-    player = request.form['plaid'].split('|')[1]
-    try:
-        Croiseur = int(request.form['Croiseur'])
-    except:
-        pass
-    try:
-        Nano_Sonde = int(request.form['Nano-Sonde'])
-    except:
-        pass
-    try:
-        Cargo = int(request.form['Cargo'])
-    except:
-        pass
-    try:
-        Victoire = int(request.form['Victoire'])
-    except:
-        pass
-    try:
-        Colonisateur = int(request.form['Colonisateur'])
-    except:
-        pass
-    # endregion
+    pladef = int(request.form['plaid'])
+    plaatta = int(request.form['attaplaid'].split("#")[1])
+    player = across.checkpla(pladef)
+    pflo = across.addvaisseau(session["player"]['pseudo'], plaatta, None, None)
+    if action == 'Attaquer':
+        if player == session["player"]["pseudo"]:
+            return redirect("/map")
+        try:
+            Croiseur = int(request.form['Croiseur'])
+            if Croiseur > pflo["Croiseur"]:
+                Croiseur = pflo["Croiseur"]
+        except:
+            Croiseur = 0
+        try:
+            Nano_Sonde = int(request.form['Nano-Sonde'])
+            if Nano_Sonde > pflo["Nano-Sonde"]:
+                Nano_Sonde = pflo["Nano-Sonde"]
+        except:
+            Nano_Sonde = 0
+        try:
+            Cargo = int(request.form['Cargo'])
+            if Nano_Sonde > pflo["Nano-Sonde"]:
+                Nano_Sonde = pflo["Nano-Sonde"]
+        except:
+            Cargo = 0
+        try:
+            Victoire = int(request.form['Victoire'])
+            if Victoire > pflo["Victoire"]:
+                Victoire = pflo["Victoire"]
+        except:
+            Victoire = 0
+        try:
+            Colonisateur = int(request.form['Colonisateur'])
+            if Colonisateur > pflo["Colonisateur"]:
+                Colonisateur = pflo["Colonisateur"]
+        except:
+            Colonisateur = 0
+            # endregion
+        flotatta = {
+            "Croiseur": Croiseur,
+            "Nano-Sonde": Nano_Sonde,
+            "Victoire": Victoire,
+            "Colonisateur": Colonisateur,
+            'Cargo': Cargo
+        }
+        deff = across.addvaisseau(player, pladef, None, None)
+        resultat = across.attackmanager(session["player"]["pseudo"], plaatta , player,
+                             pladef, flotatta, deff)
 
     return redirect("/map")
 
@@ -250,4 +285,4 @@ def login():
 
 
 if __name__ == '__main__':
-    app.run(host=socket.gethostname(), port=8080)
+    app.run(host="0.0.0.0", port=8080)
