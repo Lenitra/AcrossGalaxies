@@ -1,4 +1,4 @@
 #!/bin/sh
 cd ~
 cd /home/AcrossGalaxies/
-python3 main.py
+gnome-terminal -e "python3 main.py"
