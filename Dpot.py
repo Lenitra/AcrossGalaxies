@@ -10,7 +10,7 @@ import speedtest
 
 prefix = "$"
 # region Jeton
-jeton = "NzExOTQzNDExNjU3MDgwODUy.XsKW-A.kSRAlBaSrUT79sCmaV3u546zBaw"
+jeton = "NzExOTQzNDExNjU3MDgwODUy.XsKW-A.rkCEdJOEwYdTmVlJNa2o_aQY9nA"
 # endregion
 
 bot = commands.Bot(command_prefix=prefix)
