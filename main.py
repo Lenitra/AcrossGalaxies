@@ -131,12 +131,13 @@ def mapla():
 
     for e in plist:
         for k, v in across.addvaisseau(session["player"]["pseudo"], e, None, 0).items():
-            infos += f"""
-                <section class="vaissmap hide" id="{e}">
-                    <img src='static/imgs/{k}.png'>
-                    <h3>{k} : {v}</h3>
-                </section>
-            """
+            if v != 0:
+                infos += f"""
+                    <section class="vaissmap hide" id="{e}">
+                        <img src='static/imgs/{k}.png'>
+                        <h3>{k} : {v}</h3>
+                    </section>
+                """
     liste = infos
 
     liste += """

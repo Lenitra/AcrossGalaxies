@@ -100,6 +100,8 @@
       vname = vname.substring(0, vname.length - 1);
       im = document.createElement("input");
       im.setAttribute("type", "number");
+      im.setAttribute("min", "0");
+      im.setAttribute("max", vaisseaux[index].childNodes[3].textContent.split(':')[1].split(" ")[1]);
       im.setAttribute("name", vname);
       im.setAttribute("value", "0");
       im.setAttribute("placeholder", "Nombre de vaisseaux à envoyer");
