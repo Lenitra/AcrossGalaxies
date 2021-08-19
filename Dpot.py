@@ -107,9 +107,7 @@ async def help(ctx):
                                   f"\n - {prefix}restart"
                                   f"\n     # Redémarre la machine."
                                   "\n```"
-
                    )
-
 
 
 @commands.has_permissions(administrator=True)

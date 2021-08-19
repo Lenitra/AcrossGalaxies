@@ -1,0 +1,100 @@
+<!-- Site créé par Thomas Lemartinel -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Accross Galaxies</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+  <link rel="stylesheet" media="screen" href="../static/css/screen.css" />
+</head>
+
+
+<body>
+<div class="page-bg"></div>
+    <div class="animation-wrapper">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+    </div>
+  <div class="page page-wrapper">
+
+  <div class="msgs">
+
+  </div>
+
+  <div class="pn">
+    <ul class="princi">
+
+      <li>
+        <form action="/jeu" method="POST" name="osef">
+          <button type="submit">
+            Colonie
+          </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="/map" method="POST" name="osef">
+          <button type="submit">
+            Map
+          </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="/messages" method="POST" name="osef">
+          <button type="submit">
+            Rapports
+          </button>
+        </form>
+      </li>
+
+    </ul>
+    <br>
+    <br>
+    <br>
+    <ul class="plist">
+      {{ msgs | safe }}
+    </ul>
+  </div>
+
+
+</div>
+
+<script>
+  "use strict";
+
+    function elmsg(event) {
+        console.log(event.currentTarget.childNodes[0].childNodes[2].textContent);
+        try{ document.querySelector('.msgs').removeChild(document.querySelector('.msgs > div'));}
+        catch{}
+        let eldiv = document.createElement("div");
+        let title = document.createElement('h2');
+        let date = document.createElement('h6');
+        let contenu = document.createElement('p');
+        contenu.textContent = event.currentTarget.childNodes[0].childNodes[2].textContent;
+        title.textContent = event.currentTarget.childNodes[0].childNodes[0].textContent;
+        date.textContent = event.currentTarget.childNodes[0].childNodes[1].textContent;
+
+        eldiv.appendChild(title);
+        eldiv.appendChild(date);
+        eldiv.appendChild(contenu);
+        document.querySelector(".msgs").appendChild(eldiv)
+      }
+
+  let msgs = document.querySelectorAll(".unmsg");
+  for (let index = 0; index < msgs.length; index++) {
+    msgs[index].addEventListener('click', elmsg);
+  }
+
+
+</script>
+
+</body>
+
+</html>
+
+
+

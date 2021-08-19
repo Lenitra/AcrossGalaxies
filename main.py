@@ -159,6 +159,12 @@ def mapla():
     return render_template("map.html", plas=liste)
 
 # Intermédiaire pour lancer une attaque
+@app.route("/messages", methods=['POST', 'GET'])
+def messages():
+    msgs = across.getmsg(session["player"]["pseudo"])
+    return render_template("messages.html", msgs = msgs)
+
+# Intermédiaire pour lancer une attaque
 @app.route("/atta", methods=['POST', 'GET'])
 def atta():
     # region Récupération des éléments

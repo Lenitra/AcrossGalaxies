@@ -1,5 +1,9 @@
 pinf:
-  reco: 2021-08-15 10:48:00.115110
+  msgs:
+    2021-08-19 12:46:04.820057:
+      contenu: "Vous avez r\xE9ussi \xE0 voler pas mal de ressources"
+      title: "Attaque r\xE9ussie"
+  reco: 2021-08-19 12:46:04.820057
   vip: 0
 3444:
   bat:
@@ -14,9 +18,9 @@ pinf:
     Nano-Sonde: 1
   lab: {}
   ress: !!python/tuple
-  - 471
-  - 513
-  - 950
+  - 501
+  - 543
+  - 980
 3445:
   bat:
     carbone: 1
@@ -31,6 +35,6 @@ pinf:
     Victoire: 50
   lab: {}
   ress: !!python/tuple
-  - 205
-  - 150
-  - 150
+  - 235
+  - 180
+  - 180

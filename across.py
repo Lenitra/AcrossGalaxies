@@ -22,7 +22,7 @@ def decode(token: bytes):
 
 
 def connect(mail, mdp):
-    with open('data/accounts.yaml') as f:
+    with open('data/accounts.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for users in data:
         if users["mail"] == mail and decode(users["mdp"]) == mdp:
@@ -46,7 +46,7 @@ def register(mail, mdp, pseudo):
         plaid = random.randint(0, 9999)
 
 
-    with open('data/accounts.yaml') as f:
+    with open('data/accounts.yaml', encoding='utf8') as f:
         users = yaml.load(f, Loader=yaml.FullLoader)
 
     if mail == "" or mdp == "" or pseudo == "":
@@ -80,18 +80,18 @@ def register(mail, mdp, pseudo):
 
         bat = {"puces": 1, "carbone": 1, "hydro": 1, "energy": 1,
                "rad": 1, "sp": 1}
-        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0},
+        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0, "msgs":""},
                 plaid: {'bat': bat, 'ress': (100, 100, 100),
                     'flotte': {}}}
 
-        with open(f'data/players/{pseudo}.yaml', 'w') as f:
+        with open(f'data/players/{pseudo}.yaml', 'w', encoding='utf8') as f:
             data = yaml.dump(user, f)
         return 255
 
 def getplanetslist(player):
     ress = {}
     plalist=''
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for k, v in data.items():
         if k != "pinf":
@@ -112,7 +112,7 @@ def getplanetslist(player):
 
 # Check si une planète est occupée et si oui retourne le psd du joueur
 def checkpla(id):
-    with open(f'data/planets.yaml') as f:
+    with open(f'data/planets.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if data[id] != None:
         return data[id]
@@ -121,7 +121,7 @@ def checkpla(id):
 
 
 def getpsd(mail):
-    with open('data/accounts.yaml') as f:
+    with open('data/accounts.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for user in data:
         if user["mail"] == mail:
@@ -136,19 +136,19 @@ def updateallplanets():
     li = os.listdir("data/players")
 
     for e in li:
-        with open(f'data/players/{e}') as f:
+        with open(f'data/players/{e}', encoding='utf8') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for d in data.keys():
             if d != "pinf":
                 allpla[d] = e.split(".")[0]
 
-    with open(f'data/planets.yaml', 'w') as f:
+    with open(f'data/planets.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(allpla, f)
 
 # Système de récolte des ressources
 def updateressource(player):
     onemore = False
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     delta = datetime.datetime.now() - data["pinf"]["reco"]
     delta = delta.total_seconds()
@@ -166,14 +166,14 @@ def updateressource(player):
 
     if onemore:
         data["pinf"]["reco"] = datetime.datetime.now()
-    with open(f'data/players/{player}.yaml', 'w') as f:
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
     # Nb ress/h = lvl*10
 
 # Retourne les couts d'amélioration d'un batiment en fonction de son lvl (c,p,h)
 def getcostup(bat, lvl):
     cost = 0
-    with open('config.yaml') as f:
+    with open('config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     cost = (data["Infra"][bat])
     for _ in range(lvl-1):
@@ -195,7 +195,7 @@ def getbats(player, idpla):
             "lab": ("*", "*", "*", "*"),
             "sp": ("*", "*", "*", "*")
         }
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     tmp = getcostup("Carbone", data[int(idpla)]["bat"]["carbone"])
     c = (data[int(idpla)]["bat"]["carbone"],
@@ -215,9 +215,6 @@ def getbats(player, idpla):
     tmp = getcostup("Sp", data[int(idpla)]["bat"]["sp"])
     spaceport = (data[int(idpla)]["bat"]["sp"], tmp[0], tmp[1], tmp[2])
 
-
-
-
     return {"carbone": c, "puces": p, "hydro": h, "rad": rad, "sp": spaceport}
 
 # Améliora un batiment et retire les ressources du joueur
@@ -226,12 +223,12 @@ def upbat(player, batim, couts, plaid):
         return 0
     addplayerress(player, plaid, (-couts[1],-couts[2],-couts[3]))
     with open(f'data/players/{player}.yaml') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+        data = yaml.load(f, Loader=yaml.FullLoader, encoding='utf8')
 
 
     data[int(plaid)]["bat"][batim] += 1
 
-    with open(f'data/players/{player}.yaml', 'w') as f:
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
 
 # Récupère le html des vaisseaux dispo en fonction du lvl du sp
@@ -239,11 +236,11 @@ def getsp(player, idpla):
     if idpla == "*":
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
     liste = ""
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     lvl = data[int(idpla)]["bat"]["sp"]
 
-    with open(f'config.yaml') as f:
+    with open(f'config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
     if lvl < 1:
@@ -282,7 +279,7 @@ def getsp(player, idpla):
 
 # Ajoute un vaisseau et retourne la liste de vaisseaux construits
 def addvaisseau(player, plaid, vaiss, nb):
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if vaiss != None:
         try:
@@ -290,7 +287,7 @@ def addvaisseau(player, plaid, vaiss, nb):
         except:
             data[int(plaid)]["flotte"][vaiss] = int(nb)
     re = data[int(plaid)]["flotte"]
-    with open(f'data/players/{player}.yaml', 'w') as f:
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
     return re
 
@@ -323,18 +320,18 @@ def gethang(player, idpla):
 def addplayerress(player, plaid, ress):
     if plaid == "*":
         return ("*", "*", "*")
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0]+ress[0], data[int(plaid)]["ress"][1]+ress[1], data[int(plaid)]["ress"][2]+ress[2])
     re = data[int(plaid)]["ress"]
-    with open(f'data/players/{player}.yaml', 'w') as f:
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
 
     return re
 
 # Récupère le cout de création d'un "nb" de vaisseaux
 def getvaisscost(vaiss, nb):
-    with open('config.yaml') as f:
+    with open('config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     cost = data["Vaisseaux"][vaiss]
     cost[0] = -cost[0]*int(nb)
@@ -344,13 +341,13 @@ def getvaisscost(vaiss, nb):
 
 # Récupère les infos d'espionage de la planète
 def getplainfos(player, plaid):
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     return {"ress": data[int(plaid)]["ress"], "flotte": data[int(plaid)]["flotte"]}
 
 # Réucupère toutes les id e planètes d'un joueur
 def getallplaid(player):
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     plaids = []
     for k in data:
@@ -361,7 +358,7 @@ def getallplaid(player):
 # region Gestion d'attaques
 def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     print(flota)
-    with open('config.yaml') as f:
+    with open('config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     data = data['Vaisseaux']
     powatta = 0
@@ -392,9 +389,30 @@ def attkwin(attaker, aplaid, ptarget, idtarget):
     addplayerress(attaker, aplaid, (tmp[0],tmp[1],tmp[2]))
 # endregion
 
+# Supprime la flotte complète d'une planète d'un joueur
 def delflotte(player, plaid):
-    with open(f'data/players/{player}.yaml') as f:
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     data[int(plaid)]["flotte"] = {}
-    with open(f'data/players/{player}.yaml', 'w') as f:
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
+
+
+# Retourne le html des messages d'un joueur pour les afficher
+def getmsg(player):
+    html = ''
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for k,v in data["pinf"]["msgs"].items():
+        html += "<li class='unmsg'><button>"
+        html += f"<h3>{v['title']}</h3>"
+        html += f"<h6>{k.day}/{k.month}-{k.hour}:{k.minute}</h6>"
+        html += f"<p class='hide'>{v['contenu']}</p>"
+        html += "</button></li>"
+    return html
+
+    #   <li>
+    #     <button>
+    #       <h3>Attaque</h3><h6>19/08-13:02</h6>
+    #     </button>
+    #   </li>
