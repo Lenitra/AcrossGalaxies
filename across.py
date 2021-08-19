@@ -80,12 +80,14 @@ def register(mail, mdp, pseudo):
 
         bat = {"puces": 1, "carbone": 1, "hydro": 1, "energy": 1,
                "rad": 1, "sp": 1}
-        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0, "msgs":""},
+        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0, "msgs":{}},
                 plaid: {'bat': bat, 'ress': (100, 100, 100),
                     'flotte': {}}}
 
         with open(f'data/players/{pseudo}.yaml', 'w', encoding='utf8') as f:
             data = yaml.dump(user, f)
+
+        sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu !"))
         return 255
 
 def getplanetslist(player):
@@ -222,8 +224,8 @@ def upbat(player, batim, couts, plaid):
     if plaid == "*":
         return 0
     addplayerress(player, plaid, (-couts[1],-couts[2],-couts[3]))
-    with open(f'data/players/{player}.yaml') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader, encoding='utf8')
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
 
 
     data[int(plaid)]["bat"][batim] += 1
@@ -266,7 +268,7 @@ def getsp(player, idpla):
           <li>
             <form action="/upship" method="POST" name="vinf">
               <input type="text" name="vinf" value="{k}" class="hide">
-              <input type="text" name="nb" value="">
+              <input type="number" name="nb" value="" min="1">
               <button type="submit">
                 Construire
               </button>
@@ -301,18 +303,19 @@ def gethang(player, idpla):
     if flotte == {} :
         liste = '<h2>Aucun vaisseau sur cette planète</h3>'
     for k, v in flotte.items():
-        liste += f'''
-            <style>
-            #{k} {{
-                background-image: url("../static/imgs/{k}.png");
-                background-repeat: no-repeat;
-                background-size: 20%;
-             }}
-        </style>
-          <section id="{k}">
-            <h4>{k} - ({v})</h4>
-          </section>
-        '''
+        if v > 0 :
+            liste += f'''
+                <style>
+                #{k} {{
+                    background-image: url("../static/imgs/{k}.png");
+                    background-repeat: no-repeat;
+                    background-size: 20%;
+                 }}
+            </style>
+              <section id="{k}">
+                <h4>{k} - ({v})</h4>
+              </section>
+            '''
 
     return liste
 
@@ -373,11 +376,16 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
         attkwin(attaker, aplaid, ptarget, idtarget)
         return True
     else:
-        attklost(attaker, aplaid, ptarget, idtarget)
+        attklost(attaker, aplaid, ptarget, idtarget, flota)
         return False
 
-def attklost(attaker, aplaid, ptarget, idtarget):
-    print("attaque failed")
+def attklost(attaker, aplaid, ptarget, idtarget, flota):
+    for k, v in flota.items():
+        addvaisseau(attaker, aplaid, k, -v)
+    sendmsg(attaker, (
+        f"Attaque depuis {aplaid}",
+        f"L'attaque vers la planète {idtarget} qui appartient à {ptarget} à échoué. Les vaisseaux qui ont été envoyés sont détruits."
+    ))
 
 
 def attkwin(attaker, aplaid, ptarget, idtarget):
@@ -387,6 +395,10 @@ def attkwin(attaker, aplaid, ptarget, idtarget):
     tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))
     addplayerress(ptarget, idtarget, (-tmp[0],-tmp[1],-tmp[2]))
     addplayerress(attaker, aplaid, (tmp[0],tmp[1],tmp[2]))
+    sendmsg(attaker, (
+        f"Attaque depuis {aplaid}",
+        f"Vous avez attaqué la planète {idtarget} qui appartenait à {ptarget}. Vous lui avez suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène"
+    ))
 # endregion
 
 # Supprime la flotte complète d'une planète d'un joueur
@@ -403,16 +415,47 @@ def getmsg(player):
     html = ''
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
+    if len(data["pinf"]["msgs"].items()) == 0:
+        html = '<h3>Aucun message</h3>'
+        return html
     for k,v in data["pinf"]["msgs"].items():
         html += "<li class='unmsg'><button>"
         html += f"<h3>{v['title']}</h3>"
-        html += f"<h6>{k.day}/{k.month}-{k.hour}:{k.minute}</h6>"
+        html += f"<h6>{v['date'].day}/{v['date'].month}-{v['date'].hour}:{v['date'].minute}</h6>"
         html += f"<p class='hide'>{v['contenu']}</p>"
+        html += f"<p class='hide'>{k}</p>"
         html += "</button></li>"
     return html
 
-    #   <li>
-    #     <button>
-    #       <h3>Attaque</h3><h6>19/08-13:02</h6>
-    #     </button>
-    #   </li>
+def sendmsg(player, msg):
+    titre = msg[0]
+    contenu = msg[1]
+
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    idss = []
+    if len(data["pinf"]["msgs"]) >= 1:
+        for ids in data["pinf"]["msgs"].keys():
+            idss.append(ids)
+
+    idmsg = 0
+    while idmsg in idss:
+        idmsg = random.randint(0, 9999)
+
+    data["pinf"]["msgs"][idmsg] = {
+        "title": titre,
+        "contenu": contenu,
+        "date": datetime.datetime.now()
+    }
+
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(data, f)
+
+
+def dellmsg(player, idmsg):
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    del data["pinf"]["msgs"][int(idmsg)]
+
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(data, f)

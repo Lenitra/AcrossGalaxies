@@ -51,6 +51,14 @@
         </form>
       </li>
 
+      <li>
+        <form action="/options" method="POST" name="osef">
+          <button type="submit">
+            Options
+          </button>
+        </form>
+      </li>
+
     </ul>
     <br>
     <br>
@@ -71,16 +79,32 @@
         try{ document.querySelector('.msgs').removeChild(document.querySelector('.msgs > div'));}
         catch{}
         let eldiv = document.createElement("div");
+        let form = document.createElement('form')
         let title = document.createElement('h2');
         let date = document.createElement('h6');
         let contenu = document.createElement('p');
+        let input = document.createElement("input");
+        let button = document.createElement('button');
         contenu.textContent = event.currentTarget.childNodes[0].childNodes[2].textContent;
         title.textContent = event.currentTarget.childNodes[0].childNodes[0].textContent;
         date.textContent = event.currentTarget.childNodes[0].childNodes[1].textContent;
+        button.textContent = "Supprimer";
+        form.setAttribute('action', "/delmsg")
+        form.setAttribute('method', "POST")
 
-        eldiv.appendChild(title);
-        eldiv.appendChild(date);
-        eldiv.appendChild(contenu);
+        input.setAttribute('class', "hide")
+        input.setAttribute('name', "idmsg")
+        input.setAttribute('value', event.currentTarget.childNodes[0].childNodes[3].textContent)
+
+
+
+
+        form.appendChild(title);
+        form.appendChild(date);
+        form.appendChild(contenu);
+        form.appendChild(input);
+        form.appendChild(button);
+        eldiv.appendChild(form);
         document.querySelector(".msgs").appendChild(eldiv)
       }
 

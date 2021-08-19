@@ -44,7 +44,7 @@ def map():
 
 
     liste = ""
-    with open(f'data/planets.yaml') as f:
+    with open(f'data/planets.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for id in range(ref,ref+25):
         if data[int(id)] == None:
@@ -158,11 +158,18 @@ def mapla():
         """
     return render_template("map.html", plas=liste)
 
-# Intermédiaire pour lancer une attaque
+# Page des messages 
 @app.route("/messages", methods=['POST', 'GET'])
 def messages():
     msgs = across.getmsg(session["player"]["pseudo"])
     return render_template("messages.html", msgs = msgs)
+
+# Intermédiaire pour supprimer un message
+@app.route("/delmsg", methods=['POST', 'GET'])
+def delmsg():
+    id = request.form['idmsg']
+    across.dellmsg(session["player"]["pseudo"], id)
+    return redirect("/messages")
 
 # Intermédiaire pour lancer une attaque
 @app.route("/atta", methods=['POST', 'GET'])
@@ -233,7 +240,7 @@ def jeu():
         session["player"]
     except:
         return redirect("/login")
-    with open(f'data/players/{session["player"]["pseudo"]}.yaml') as f:
+    with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for e in data:
         if e != 'pinf':

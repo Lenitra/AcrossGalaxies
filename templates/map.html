@@ -52,6 +52,13 @@
           </button>
         </form>
       </li>
+      <li>
+        <form action="/options" method="POST" name="osef">
+          <button type="submit">
+            Options
+          </button>
+        </form>
+      </li>
 
       <!-- <li><button type="button" name="Alliance">Alliance</button></li> -->
       <!-- <li><button type="button" name="Chat">Chat</button></li> -->
@@ -92,7 +99,7 @@
       vname = vaisseaux[index].children[1].textContent.split(':')[0];
       vname = vname.substring(0, vname.length - 1);
       im = document.createElement("input");
-      im.setAttribute("type", "text");
+      im.setAttribute("type", "number");
       im.setAttribute("name", vname);
       im.setAttribute("value", "0");
       im.setAttribute("placeholder", "Nombre de vaisseaux à envoyer");
