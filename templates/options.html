@@ -12,249 +12,119 @@
 
 <body>
 <div class="page-bg"></div>
-<div class="animation-wrapper">
-  <div class="particle particle-1"></div>
-  <div class="particle particle-2"></div>
-  <div class="particle particle-3"></div>
-  <div class="particle particle-4"></div>
-</div>
-<div class="page page-wrapper">
-    <div class="pi">
-
-      <div class="pr">
-
-        <ul class="ress">
-
-          <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{ ress[0] }}</li>
-          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{ ress[1] }} </li>
-          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{ ress[2] }}</li>
-        </ul>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <ul class="navpla">
-          <li><button class="kave-btn" id="pbuilds"><span class="kave-line"></span>Infrastructure</button></li>
-          <li><button class="kave-btn" id="psp"><span class="kave-line"></span>Spaceport</button></li>
-          <li><button class="kave-btn" id="phang"><span class="kave-line"></span>Hangars</button></li>
-        </ul>
-        <!-- <img src="/static/imgs/logo.png" alt="" class="logo"> -->
-
-      </div>
-
-
-      
-
-
-      <main class="builds">
-        <section id="carbone">
-          <!-- <img src="../static/imgs/mining.png" alt=""> -->
-          <h4>Mine lunaire</h4> 
-          <p>Niv : {{bat["carbone"][0]}}</p>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["carbone"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["carbone"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["carbone"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="carbone">
-                <input type="text" name="bat" value="carbone" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-            
-          </ul>
-        </section>
-
-
-        <section id="puces">
-          <h4>Raffinerie de puces</h4> 
-          <p>Niv : {{bat["puces"][0]}}</p>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["puces"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["puces"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["puces"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="puces">
-                <input type="text" name="bat" value="puces" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-            
-          </ul>
-        </section>
-
-
-        <section  id="hydro">
-          <h4>Centrale d'hydrogène</h4> 
-          <p>Niv : {{bat["hydro"][0]}}</p>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["hydro"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["hydro"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["hydro"][3]}}</li>
-
-            <li>
-              <form action="/upbuild" method="POST" name="hydro">
-                <input type="text" name="bat" value="hydro" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-
-          </ul>
-        </section>
-
-        <section id="rad">
-          <h4>Radar</h4> 
-          <p>Niv : {{bat["rad"][0]}}</p>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["rad"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["rad"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["rad"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="rad">
-                <input type="text" name="bat" value="rad" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-          </ul>
-        </section>
-
-        <section id="sp">
-          <h4>Spatioport</h4> 
-          <p>Niv : {{bat["sp"][0]}}</p>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["sp"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["sp"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["sp"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="sp">
-                <input type="text" name="bat" value="sp" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-          </ul>
-        </section>
-      </main>  
-
-      <main class="sp">
-        {{ spaceport | safe }}
-      </main>
-      
-      <main class="hang">
-        {{ hang | safe }}
-      </main>
-
-
+    <div class="animation-wrapper">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
     </div>
+  <div class="page page-wrapper">
 
-    <div class="pn">
-      <ul class="princi">  
+  <div class="msgs">
+      <h3>Discord</h3>
+      <p>Permet de lier son compte Across Galaxies avec son compte discord pour avoir accès à certaines commandes du bot.</p>
+      <p>Pour récupérer <strong>votre id</strong> soit vous savez comment faire soit on vous a créé une commande à faire sur
+        le serveur discord : $myid</p>
+      <form action="/optiondidi" method="POST" name="wmap">
+        <input type="number" placeholder="Votre id discord">
+        <button type="submit">Valider</button>
+      </form>
+  </div>
 
-        <li>
-          <form action="/jeu" method="POST" name="osef">
-            <button type="submit">
-              Colonie
-            </button>
-          </form>
-        </li>
+  <div class="pn">
+    <ul class="princi">
 
-        <li><form action="/map" method="POST" name="osef">
+      <li>
+        <form action="/jeu" method="POST" name="osef">
+          <button type="submit">
+            Colonie
+          </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="/map" method="POST" name="osef">
           <button type="submit">
             Map
           </button>
-        </form></li>
+        </form>
+      </li>
 
-        <li><form action="/messages" method="POST" name="osef">
+      <li>
+        <form action="/messages" method="POST" name="osef">
           <button type="submit">
             Rapports
           </button>
-        </form></li>
-        <li>
-          <form action="/options" method="POST" name="osef">
-            <button type="submit">
-              Options
-            </button>
-          </form>
-        </li>
+        </form>
+      </li>
 
-      </ul>
-      <ul class="plist">
-        <li>
-          <form action="/giveress" method="POST" name="actu">
-            <input type="text" name="pla" value="actu" class="hide">
-            <button type="submit">
-              <h3>Actualiser</h3>
-            </button>
-          </form>
-        </li>
-          {{ listpla | safe }}
+      <li>
+        <form action="/options" method="POST" name="osef">
+          <button type="submit">
+            Options
+          </button>
+        </form>
+      </li>
 
-
-      </ul>
-    </div>
+    </ul>
+    <br>
+    <br>
+    <br>
+    <ul class="plist">
+    </ul>
   </div>
 
-  <script>
+
+</div>
+
+<script>
   "use strict";
 
-  hideall()
+    function elmsg(event) {
+        console.log(event.currentTarget.childNodes[0].childNodes[2].textContent);
+        try{ document.querySelector('.msgs').removeChild(document.querySelector('.msgs > div'));}
+        catch{}
+        let eldiv = document.createElement("div");
+        let form = document.createElement('form')
+        let title = document.createElement('h2');
+        let date = document.createElement('h6');
+        let contenu = document.createElement('p');
+        let input = document.createElement("input");
+        let button = document.createElement('button');
+        contenu.textContent = event.currentTarget.childNodes[0].childNodes[2].textContent;
+        title.textContent = event.currentTarget.childNodes[0].childNodes[0].textContent;
+        date.textContent = event.currentTarget.childNodes[0].childNodes[1].textContent;
+        button.textContent = "Supprimer";
+        form.setAttribute('action', "/delmsg")
+        form.setAttribute('method', "POST")
 
-  let page = sessionStorage.getItem('page');
+        input.setAttribute('class', "hide")
+        input.setAttribute('name', "idmsg")
+        input.setAttribute('value', event.currentTarget.childNodes[0].childNodes[3].textContent)
 
-  if(page == null){
-    sessionStorage.setItem('page', 'builds');
+
+
+
+        form.appendChild(title);
+        form.appendChild(date);
+        form.appendChild(contenu);
+        form.appendChild(input);
+        form.appendChild(button);
+        eldiv.appendChild(form);
+        document.querySelector(".msgs").appendChild(eldiv)
+      }
+
+  let msgs = document.querySelectorAll(".unmsg");
+  for (let index = 0; index < msgs.length; index++) {
+    msgs[index].addEventListener('click', elmsg);
   }
-  document.getElementById("pbuilds").addEventListener('click', buildp);
-  document.getElementById("psp").addEventListener('click', spp);
-  document.getElementById("phang").addEventListener('click', hang);
-  updatepage()
-
-  function hideall() {
-    document.querySelector(".sp").style.display = "none";
-    document.querySelector(".builds").style.display = "none";
-    document.querySelector(".hang").style.display = "none";
-  }
-
-  function buildp(event) {
-    hideall();
-    document.querySelector(".builds").style.display = "";
-    sessionStorage.setItem('page', 'builds');
-  }
-
-  function spp(event) {
-    hideall();
-    document.querySelector(".sp").style.display = "";
-    sessionStorage.setItem('page', 'sp');
-  }
-  function hang(event) {
-    hideall();
-    document.querySelector(".hang").style.display = "";
-    sessionStorage.setItem('page', 'hang');
-  }
-  function updatepage(){
-    hideall();
-    document.querySelector("."+page).style.display = "";
-  }
 
 
-  </script>
-
+</script>
 
 </body>
+
 </html>
+
+
+

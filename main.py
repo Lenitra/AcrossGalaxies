@@ -159,7 +159,7 @@ def mapla():
         """
     return render_template("map.html", plas=liste)
 
-# Page des messages 
+# Page des messages
 @app.route("/messages", methods=['POST', 'GET'])
 def messages():
     msgs = across.getmsg(session["player"]["pseudo"])
@@ -296,6 +296,17 @@ def checklog():
 def login():
     session["player"] = {"pseudo": "", "mail": ""}
     return render_template("logreg.html")
+
+
+@app.route("/options", methods=['GET', 'POST'])
+def options():
+    return render_template("options.html")
+
+
+@app.route("/optiondidi", methods=['GET', 'POST'])
+def optiondidi():
+    
+    return render_template("options.html")
 
 
 if __name__ == '__main__':

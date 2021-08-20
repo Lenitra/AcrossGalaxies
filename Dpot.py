@@ -77,7 +77,7 @@ async def infos(ctx):
 async def restart(ctx):
     if ctx.author.id in op:
         await bot.change_presence(activity=discord.Game(name="redémarrer"))
-        await ctx.send("Redémarrage de la machine en cours")
+        await ctx.channel.purge(limit=1)
         os.system("sudo reboot")
 
 
@@ -98,6 +98,8 @@ async def help(ctx):
                                   f"\n     # Affiche les donées de la machine."
                                   f"\n - {prefix}infos"
                                   f"\n     # Affiche les stats du jeu."
+                                  f"\n - {prefix}myid"
+                                  f"\n     # Affiche votre id discord."
                                   "\n```"
                    f"**Les commandes Admin** :```"
                                   f"\n - {prefix}purge <nombre>"
@@ -116,6 +118,10 @@ async def help(ctx):
 @bot.command()
 async def purge(ctx, limit: int):
     await ctx.channel.purge(limit=limit + 1)
+
+@bot.command()
+async def myid(ctx):
+    await ctx.send(f"L'id de {ctx.author} est : {ctx.author.name}")
 
 
 

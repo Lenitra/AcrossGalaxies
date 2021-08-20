@@ -144,8 +144,9 @@ def updateallplanets():
             if d != "pinf":
                 allpla[d] = e.split(".")[0]
 
-    with open(f'data/planets.yaml', 'w', encoding='utf8') as f:
+    with open(f'data/tmp.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(allpla, f)
+    os.system('cp data/tmp.yaml data/planets.yaml')
 
 # Système de récolte des ressources
 def updateressource(player):
