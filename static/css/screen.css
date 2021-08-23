@@ -159,6 +159,10 @@ div.page {
     padding-left: 1vw;
   }
 
+  abbr {
+    text-decoration: none;
+  }
+
   .builds img {
     float: right;
     width: 50%;
@@ -199,6 +203,14 @@ div.page {
     width: auto;
     float: none;
     margin-top: 0;
+  }
+  
+  .sp>section *, .hang>section *, h6.clsmsg,p.clsmsg{
+    font-family: Textes;
+  }
+
+  h2.clsmsg{
+    font-family: Titres;
   }
 
   /* #endregion */
@@ -257,6 +269,10 @@ div.page {
   text-align: center;
 }
 
+.map {
+  list-style: none;
+}
+
 .map form {
   margin: 1vh;
 }
@@ -289,6 +305,21 @@ div.page {
 /* #endregion */
 
 
+/* #region messages/rapports */
+.clsmsg {
+  color: white;
+
+  margin:3%;
+}
+.msgsuppbutton {
+  margin:3%;
+}
+
+ul.plist>h3 {
+  color: white;
+}
+
+/* #endregion */
 
 /* #region Bouttons */
 .kave-btn {

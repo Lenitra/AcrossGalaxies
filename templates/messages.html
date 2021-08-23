@@ -42,11 +42,11 @@
           </button>
         </form>
       </li>
-
+      
       <li>
         <form action="/messages" method="POST" name="osef">
           <button type="submit">
-            Rapports
+            Messages
           </button>
         </form>
       </li>
@@ -92,12 +92,14 @@
         form.setAttribute('action', "/delmsg")
         form.setAttribute('method', "POST")
 
+        title.setAttribute('class', "clsmsg")
+        date.setAttribute('class', "clsmsg")
+        contenu.setAttribute('class', "clsmsg")
+        button.setAttribute('class', "msgsuppbutton")
+
         input.setAttribute('class', "hide")
         input.setAttribute('name', "idmsg")
         input.setAttribute('value', event.currentTarget.childNodes[0].childNodes[3].textContent)
-
-
-
 
         form.appendChild(title);
         form.appendChild(date);

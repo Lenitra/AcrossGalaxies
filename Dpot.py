@@ -5,7 +5,8 @@ import psutil
 import os
 import pyscreenshot as ImageGrab
 import yaml
-import speedtest
+from tcp_latency import measure_latency
+import across
 
 
 prefix = "$"
@@ -19,6 +20,15 @@ bot.remove_command("help")
 client = discord.Client()
 
 op = [304868399492759553]
+
+
+def getping(ip, port):
+    try:
+        pin = int(measure_latency(host=ip, port=port)[0])
+    except:
+        return -1
+    return pin
+
 
 @bot.event
 async def on_ready():
@@ -41,8 +51,6 @@ async def serveur(ctx):
                   value=f"{psutil.virtual_memory().percent}%")
     msg.add_field(name="Processeur",
                   value=f"{psutil.cpu_percent(5)}%")
-    #msg.add_field(name="Température", inline=False,value=f"{int(GPUtil.getGPUs()[0].temperature)} °C")
-
     msg.add_field(name="Latence du bot", inline= False,
                   value=f"{round(bot.latency * 1000)} ms")
 
@@ -76,8 +84,8 @@ async def infos(ctx):
 @bot.command()
 async def restart(ctx):
     if ctx.author.id in op:
-        await bot.change_presence(activity=discord.Game(name="redémarrer"))
         await ctx.channel.purge(limit=1)
+        await bot.change_presence(activity=discord.Game(name="redémarrer"))
         os.system("sudo reboot")
 
 
@@ -91,28 +99,58 @@ async def restart(ctx):
 # region Commande help (affiche le message d'aide) (à finir)
 @bot.command()
 async def help(ctx):
-    await ctx.send(f"**Les commandes utilisateur** :```"
-                                  f"\n - {prefix}help"
-                                  f"\n     # Affiche ce message."
-                                  f"\n - {prefix}serveur"
-                                  f"\n     # Affiche les donées de la machine."
-                                  f"\n - {prefix}infos"
-                                  f"\n     # Affiche les stats du jeu."
-                                  f"\n - {prefix}myid"
-                                  f"\n     # Affiche votre id discord."
-                                  "\n```"
-                   f"**Les commandes Admin** :```"
-                                  f"\n - {prefix}purge <nombre>"
-                                  f"\n     # Permet d'effacer un nombre de message définis."
-                                  "\n```"
-                   f"**Les commandes Opérateur (TauMah)** :```"
-                                  f"\n - {prefix}restart"
-                                  f"\n     # Redémarre la machine."
-                                  "\n```"
+    await ctx.send(
+        f"**Les commandes utilisateur** :```"
+        f"\n - {prefix}help"
+        f"\n     # Affiche ce message."
+        f"\n - {prefix}serveur"
+        f"\n     # Affiche les donées de la machine."
+        f"\n - {prefix}infos"
+        f"\n     # Affiche les stats du jeu."
+        f"\n - {prefix}link <e-mail>"
+        f"\n     # Lier votre compte de jeu avec votre compte discord."
+        f"\n - {prefix}me"
+        f"\n     # Vous affiche les données de votre compte Across Galaxies si il est lié à votre compte discord."
+        "\n```"
+        f"**Les commandes Admin** :```"
+        f"\n - {prefix}msgingame <titre>;<contenu>"
+        f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
+        f"\n - {prefix}purge <nombre>"
+        f"\n     # Permet d'effacer un nombre de message définis."
+        "\n```"
+        f"**Les commandes Opérateur (TauMah)** :```"
+        f"\n - {prefix}restart"
+        f"\n     # Redémarre la machine."
+        "\n```")
 
-                   )
 
 
+@commands.has_permissions(administrator=True)
+@bot.command()
+async def msgingame(ctx, *args):
+    print(args)
+    if not ";" in args:
+        await ctx.send(f"Usage : ```{prefix}msgingame <titre> ; <contenu> ```")
+        return
+    titre = ""
+    contenu = ""
+    dotcheck = False
+    for m in args:
+        if m != ";":
+            if not dotcheck:
+                titre += m
+                titre += " "
+            else:
+                contenu += m
+                contenu += " "
+        else:
+            dotcheck = True
+
+    msg = (titre, contenu)
+    li = os.listdir("data/players")
+    for e in li:
+        player = e.split(".")[0]
+        across.sendmsg(player, msg)
 
 @commands.has_permissions(administrator=True)
 @bot.command()
@@ -120,16 +158,65 @@ async def purge(ctx, limit: int):
     await ctx.channel.purge(limit=limit + 1)
 
 @bot.command()
-async def myid(ctx):
-    await ctx.send(f"L'id de {ctx.author} est : {ctx.author.name}")
+async def link(ctx, mail:str):
+    await ctx.channel.purge(limit=1)
 
+    game = across.getpsd(mail)
+    discord = ctx.author.id
+
+    if not game:
+        await ctx.send(
+            "Mail Across Galaxies introuvable.")
+        return
+
+    with open(f'data/discorddata.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+    for iddis, psds in data.items():
+        if game == psds :
+            await ctx.send("Ce compte Across Galaxies est déjà lié à compte discord")
+            return
+        if discord == iddis :
+            await ctx.send("Ce compte discord est déjà lié à compte Across Galaxies")
+            return
+
+    data[discord] = game
+
+    with open(f'data/discorddata.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(data, f)
+
+    await ctx.send("Vos comptes ont bien été liés")
 
 
 @bot.command()
-async def screen(ctx):
-    im = ImageGrab.grab()
-    im.save("cache_full.png")
-    await ctx.send(file=discord.File('cache_full.png'))
+async def me(ctx):
+
+    with open(f'data/discorddata.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    user = data[ctx.author.id]
+    with open(f'data/players/{user}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+
+    msg = discord.Embed(title=f"Infos de {user}",
+                        description="",
+                        colour=discord.Colour.blue())
+    msg.add_field(name="Messages",
+                  value=f"{len(data['pinf']['msgs'])} non lus",
+                  inline=False)
+    for plaid, dete in data.items():
+        if plaid != "pinf":
+            msg.add_field(name=f"\x00", value=f"__-----__", inline=False)
+            msg.add_field(name=f"Planète #{plaid}", value=f"\x00", inline=False)
+            msg.add_field(name=f"Ressources", value=f"{dete['ress']}")
+            msg.add_field(name=f"Batiments", value=f"{dete['bat']}")
+            msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")
+
+
+    await ctx.author.send(embed=msg)
+
+    # await ctx.send(data)
+
 
 
 @purge.error

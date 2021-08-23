@@ -50,8 +50,7 @@
 
       <main class="builds">
         <section id="carbone">
-          <!-- <img src="../static/imgs/mining.png" alt=""> -->
-          <h4>Mine lunaire</h4> 
+          <h4> <abbr title="Augmente la production de carbone (10/h/lvl)">Mine lunaire</abbr></h4> 
           <p>Niv : {{bat["carbone"][0]}}</p>
           <ul>
             <li>Amélioration</li>
@@ -72,7 +71,7 @@
 
 
         <section id="puces">
-          <h4>Raffinerie de puces</h4> 
+          <h4> <abbr title="Augmente la production de puces (10/h/lvl)">Raffinerie de puces</abbr></h4>
           <p>Niv : {{bat["puces"][0]}}</p>
           <ul>
             <li>Amélioration</li>
@@ -93,7 +92,7 @@
 
 
         <section  id="hydro">
-          <h4>Centrale d'hydrogène</h4> 
+          <h4> <abbr title="Augmente la production d'hydrogène (10/h/lvl)">Centrale d'hydrogène</abbr></h4>
           <p>Niv : {{bat["hydro"][0]}}</p>
           <ul>
             <li>Amélioration</li>
@@ -114,7 +113,7 @@
         </section>
 
         <section id="rad">
-          <h4>Radar</h4> 
+          <h4><abbr title="Permet de se protéger contre l'espionage">Radar</abbr></h4>
           <p>Niv : {{bat["rad"][0]}}</p>
           <ul>
             <li>Amélioration</li>
@@ -133,7 +132,7 @@
         </section>
 
         <section id="sp">
-          <h4>Spatioport</h4> 
+          <h4> <abbr title="Permet de débloquer des vaisseaux et d'augmenter leurs stats">Spatioport</abbr></h4> 
           <p>Niv : {{bat["sp"][0]}}</p>
           <ul>
             <li>Amélioration</li>
@@ -179,12 +178,13 @@
             Map
           </button>
         </form></li>
-
-        <li><form action="/messages" method="POST" name="osef">
+      <li>
+        <form action="/messages" method="POST" name="osef">
           <button type="submit">
-            Rapports
+            Messages
           </button>
-        </form></li>
+        </form>
+      </li>
         <li>
           <form action="/options" method="POST" name="osef">
             <button type="submit">

@@ -1,5 +1,9 @@
 pinf:
-  msgs: {}
+  msgs:
+    0:
+      contenu: Cafonctionne?
+      date: 2021-08-23 14:41:56.335513
+      title: KEKE
   reco: 2021-08-19 17:59:05.266702
   vip: 0
 3444:
@@ -13,9 +17,9 @@ pinf:
   flotte: {}
   lab: {}
   ress: !!python/tuple
-  - 266
-  - 287
-  - 505
+  - 67
+  - 72
+  - 127
 3445:
   bat:
     carbone: 1

@@ -21,14 +21,7 @@
   <div class="page page-wrapper">
 
   <div class="msgs">
-      <h3>Discord</h3>
-      <p>Permet de lier son compte Across Galaxies avec son compte discord pour avoir accès à certaines commandes du bot.</p>
-      <p>Pour récupérer <strong>votre id</strong> soit vous savez comment faire soit on vous a créé une commande à faire sur
-        le serveur discord : $myid</p>
-      <form action="/optiondidi" method="POST" name="wmap">
-        <input type="number" placeholder="Votre id discord">
-        <button type="submit">Valider</button>
-      </form>
+    <h3>OPTIONS</h3>
   </div>
 
   <div class="pn">
@@ -53,7 +46,7 @@
       <li>
         <form action="/messages" method="POST" name="osef">
           <button type="submit">
-            Rapports
+            Messages
           </button>
         </form>
       </li>
@@ -76,51 +69,6 @@
 
 
 </div>
-
-<script>
-  "use strict";
-
-    function elmsg(event) {
-        console.log(event.currentTarget.childNodes[0].childNodes[2].textContent);
-        try{ document.querySelector('.msgs').removeChild(document.querySelector('.msgs > div'));}
-        catch{}
-        let eldiv = document.createElement("div");
-        let form = document.createElement('form')
-        let title = document.createElement('h2');
-        let date = document.createElement('h6');
-        let contenu = document.createElement('p');
-        let input = document.createElement("input");
-        let button = document.createElement('button');
-        contenu.textContent = event.currentTarget.childNodes[0].childNodes[2].textContent;
-        title.textContent = event.currentTarget.childNodes[0].childNodes[0].textContent;
-        date.textContent = event.currentTarget.childNodes[0].childNodes[1].textContent;
-        button.textContent = "Supprimer";
-        form.setAttribute('action', "/delmsg")
-        form.setAttribute('method', "POST")
-
-        input.setAttribute('class', "hide")
-        input.setAttribute('name', "idmsg")
-        input.setAttribute('value', event.currentTarget.childNodes[0].childNodes[3].textContent)
-
-
-
-
-        form.appendChild(title);
-        form.appendChild(date);
-        form.appendChild(contenu);
-        form.appendChild(input);
-        form.appendChild(button);
-        eldiv.appendChild(form);
-        document.querySelector(".msgs").appendChild(eldiv)
-      }
-
-  let msgs = document.querySelectorAll(".unmsg");
-  for (let index = 0; index < msgs.length; index++) {
-    msgs[index].addEventListener('click', elmsg);
-  }
-
-
-</script>
 
 </body>
 

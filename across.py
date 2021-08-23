@@ -128,6 +128,7 @@ def getpsd(mail):
     for user in data:
         if user["mail"] == mail:
             return user["pseudo"]
+    return False
 
 # Permet l'update de "/data/planets.yaml"
 def updateallplanets():
@@ -397,7 +398,7 @@ def attkwin(attaker, aplaid, ptarget, idtarget):
     addplayerress(ptarget, idtarget, (-tmp[0],-tmp[1],-tmp[2]))
     addplayerress(attaker, aplaid, (tmp[0],tmp[1],tmp[2]))
     sendmsg(attaker, (
-        f"Attaque depuis {aplaid}",
+        f"Attaque depuis #{aplaid}",
         f"Vous avez attaqué la planète {idtarget} qui appartenait à {ptarget}. Vous lui avez suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène"
     ))
 # endregion
