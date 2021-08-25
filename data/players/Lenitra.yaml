@@ -1,10 +1,6 @@
 pinf:
-  msgs:
-    0:
-      contenu: Cafonctionne?
-      date: 2021-08-23 14:41:56.318559
-      title: KEKE
-  reco: 2021-08-23 14:12:06.903943
+  msgs: {}
+  reco: 2021-08-25 00:38:34.594820
   vip: 0
 0:
   bat:
@@ -15,16 +11,15 @@ pinf:
     rad: 20
     sp: 20
   flotte:
-    Cargo: 0
-    Colonisateur: 0
+    Cargo: 1
+    Colonisateur: 1
     Croiseur: 250
-    Nano-Sonde: 0
-    Victoire: 0
+    Nano-Sonde: 1
+    Victoire: 1
   ress: !!python/tuple
-  - 759
-  - 796
-  - 1178
-
+  - 11173
+  - 12847
+  - 15958
 859:
   bat:
     carbone: 20
@@ -40,6 +35,6 @@ pinf:
     Nano-Sonde: 0
     Victoire: 0
   ress: !!python/tuple
-  - 759
-  - 796
-  - 1178
+  - 2269
+  - 2306
+  - 2688

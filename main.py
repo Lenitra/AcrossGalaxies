@@ -5,7 +5,6 @@ from datetime import datetime
 from os import access
 from threading import Semaphore
 from flask import Flask, render_template, request, redirect, session
-import socket
 import yaml
 import across
 
@@ -114,32 +113,35 @@ def mapla():
     plaid = sel.split("|")[0]
     playerpla = across.getallplaid(session["player"]["pseudo"])
     flotte = {}
-    infos = ''
-    infos += f'<h1 class="mapti">#{plaid} - {player}</h1>'
-    infos += '<form action="/atta" method="POST" name="atta">'
-    infos += "<h3>A partir de quelle planète executer une action :</h3>"
-    infos += '''<select name="attaplaid" onchange="selectpla(this)">
-                <option>Selectionner</option>'''
-    plist = across.getallplaid(session["player"]["pseudo"])
-    for e in plist:
-        infos += f"<option>#{e}</option>"
 
-    infos += f'</select><br>'
+    liste = ""
 
-    infos += "<h3>Que voulez vous faire :</h3>"
-    infos += f'''<input type="text" class="hide" name="plaid" value="{plaid}">''' # Infos a récupérer(id target)
+    liste += '<form action="/atta" method="POST" name="atta">'
+    liste += "<div class='firstgridd'>"
+    liste += f'<h1 class="mapti">#{plaid} - {player}</h1>'
+    liste += "<section>"
+    liste += "<h3>A partir de quelle planète executer une action :</h3>"
+    liste += "<br>"
+    liste += '<select name="attaplaid" onchange="selectpla(this)">'
+    liste += "<option>Selectionner</option>"
+    for e in playerpla:
+        liste += f"<option>#{e}</option>"
+    liste += "</select>"
+    liste += "</section>"
+    liste += "</div>"
 
-    for e in plist:
+    liste += f'''<input type="text" class="hide" name="plaid" value="{plaid}">'''
+    liste += "<div class='secondgrid'>"
+    for e in playerpla:
         for k, v in across.addvaisseau(session["player"]["pseudo"], e, None, 0).items():
             if v != 0:
-                infos += f"""
+                liste += f"""
                     <section class="vaissmap hide" id="{e}">
                         <img src='static/imgs/{k}.png'>
                         <h3>{k} : {v}</h3>
                     </section>
                 """
-    liste = infos
-
+    liste += "</div>"
     liste += """
             <br>
             <select name="select" onchange="selectaction(this)">
@@ -149,14 +151,9 @@ def mapla():
                 <option>Docker</option>
                 <option>Transporter</option>
                 <option>Coloniser</option>
-            </select>
-            <br>
-            <br>
-            <button type="submit">
-                <h3>Valider</h3>
-            </button>
-        </form>
-        """
+            </select>"""
+    liste += '<button type="submit"><h3>Valider</h3></button>'
+    liste += "</form>"
     return render_template("map.html", plas=liste)
 
 # Page des messages
@@ -178,9 +175,13 @@ def atta():
     # region Récupération des éléments
     action = request.form['select']
     pladef = int(request.form['plaid'])
+    if request.form['attaplaid'] == "Selectionner":
+        return redirect("/map")
+        
     plaatta = int(request.form['attaplaid'].split("#")[1])
     player = across.checkpla(pladef)
     pflo = across.addvaisseau(session["player"]['pseudo'], plaatta, None, None)
+    # endregion
     if action == 'Attaquer':
         if player == session["player"]["pseudo"]:
             return redirect("/map")
@@ -214,7 +215,6 @@ def atta():
                 Colonisateur = pflo["Colonisateur"]
         except:
             Colonisateur = 0
-            # endregion
         flotatta = {
             "Croiseur": Croiseur,
             "Nano-Sonde": Nano_Sonde,
@@ -225,7 +225,8 @@ def atta():
         deff = across.addvaisseau(player, pladef, None, None)
         resultat = across.attackmanager(session["player"]["pseudo"], plaatta , player,
                              pladef, flotatta, deff)
-
+    if action == "Espioner":
+        pass
     return redirect("/map")
 
 # Intermédiaire pour update les ressources
@@ -302,11 +303,6 @@ def login():
 def options():
     return render_template("options.html")
 
-
-@app.route("/optiondidi", methods=['GET', 'POST'])
-def optiondidi():
-    
-    return render_template("options.html")
 
 
 if __name__ == '__main__':

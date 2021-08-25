@@ -300,8 +300,18 @@ div.page {
 
 .mappla {
   float: left;
-  
 }
+
+.map .firstgridd {
+  display: grid;
+  grid-auto-flow: column;
+}
+.map .secondgrid {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+
 /* #endregion */
 
 

@@ -50,13 +50,16 @@
 
       <main class="builds">
         <section id="carbone">
-          <h4> <abbr title="Augmente la production de carbone (10/h/lvl)">Mine lunaire</abbr></h4> 
+          <abbr title="Augmente la production de carbone (10/h/lvl)">
+          <h4> Mine lunaire</h4> 
           <p>Niv : {{bat["carbone"][0]}}</p>
+          </abbr>
           <ul>
             <li>Amélioration</li>
             <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["carbone"][1]}}</li>
             <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["carbone"][2]}}</li>
             <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["carbone"][3]}}</li>
+          
             <li>
               <form action="/upbuild" method="POST" name="carbone">
                 <input type="text" name="bat" value="carbone" class="hide">
@@ -71,8 +74,10 @@
 
 
         <section id="puces">
-          <h4> <abbr title="Augmente la production de puces (10/h/lvl)">Raffinerie de puces</abbr></h4>
+          <abbr title="Augmente la production de puces (10/h/lvl)">
+          <h4>Raffinerie de puces</h4>
           <p>Niv : {{bat["puces"][0]}}</p>
+          </abbr>
           <ul>
             <li>Amélioration</li>
             <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["puces"][1]}}</li>
@@ -92,8 +97,10 @@
 
 
         <section  id="hydro">
-          <h4> <abbr title="Augmente la production d'hydrogène (10/h/lvl)">Centrale d'hydrogène</abbr></h4>
+          <abbr title="Augmente la production d'hydrogène (10/h/lvl)">
+          <h4>Centrale d'hydrogène</h4>
           <p>Niv : {{bat["hydro"][0]}}</p>
+          </abbr>
           <ul>
             <li>Amélioration</li>
             <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["hydro"][1]}}</li>
@@ -113,8 +120,10 @@
         </section>
 
         <section id="rad">
-          <h4><abbr title="Permet de se protéger contre l'espionage">Radar</abbr></h4>
+          <abbr title="Permet de se protéger contre l'espionage">
+          <h4>Radar</h4>
           <p>Niv : {{bat["rad"][0]}}</p>
+          </abbr>
           <ul>
             <li>Amélioration</li>
             <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["rad"][1]}}</li>
@@ -132,8 +141,10 @@
         </section>
 
         <section id="sp">
-          <h4> <abbr title="Permet de débloquer des vaisseaux et d'augmenter leurs stats">Spatioport</abbr></h4> 
+          <abbr title="Permet de débloquer des vaisseaux et d'augmenter leurs stats">
+          <h4>Spatioport</h4>
           <p>Niv : {{bat["sp"][0]}}</p>
+          </abbr>
           <ul>
             <li>Amélioration</li>
             <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["sp"][1]}}</li>
@@ -199,7 +210,7 @@
           <form action="/giveress" method="POST" name="actu">
             <input type="text" name="pla" value="actu" class="hide">
             <button type="submit">
-              <h3>Actualiser</h3>
+              <h3>Récolter</h3>
             </button>
           </form>
         </li>

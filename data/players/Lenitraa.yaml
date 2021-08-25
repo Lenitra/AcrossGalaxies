@@ -17,9 +17,9 @@ pinf:
   flotte: {}
   lab: {}
   ress: !!python/tuple
-  - 67
-  - 72
-  - 127
+  - 17
+  - 18
+  - 32
 3445:
   bat:
     carbone: 1

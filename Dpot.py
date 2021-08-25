@@ -110,7 +110,7 @@ async def help(ctx):
         f"\n - {prefix}link <e-mail>"
         f"\n     # Lier votre compte de jeu avec votre compte discord."
         f"\n - {prefix}me"
-        f"\n     # Vous affiche les données de votre compte Across Galaxies si il est lié à votre compte discord."
+        f"\n     # Vous affiche les données (en mp) de votre compte Across Galaxies si il est lié à votre compte discord."
         "\n```"
         f"**Les commandes Admin** :```"
         f"\n - {prefix}msgingame <titre>;<contenu>"
@@ -190,7 +190,7 @@ async def link(ctx, mail:str):
 
 @bot.command()
 async def me(ctx):
-
+    await ctx.channel.purge(limit=1)
     with open(f'data/discorddata.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     user = data[ctx.author.id]
