@@ -1,3 +1,4 @@
+from datetime import datetime
 import discord
 from discord.ext import commands
 from discord.utils import get
@@ -115,6 +116,8 @@ async def help(ctx):
         f"**Les commandes Admin** :```"
         f"\n - {prefix}msgingame <titre>;<contenu>"
         f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
+        f"\n - {prefix}log [<day>-<month>-<year>]"
+        f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
         f"\n - {prefix}purge <nombre>"
         f"\n     # Permet d'effacer un nombre de message définis."
         "\n```"
@@ -122,6 +125,24 @@ async def help(ctx):
         f"\n - {prefix}restart"
         f"\n     # Redémarre la machine."
         "\n```")
+
+
+
+@commands.has_permissions(administrator=True)
+@bot.command()
+async def logs(ctx, *args):
+    pass
+    date = datetime.now()
+    if args == ():
+        with open(f'logs/{date.day}-{date.month}-{date.year}.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+            for e in data:
+                await ctx.send(e)
+    else:
+        with open(f'logs/{args[0]}.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+            for e in data:
+                await ctx.send(e)
 
 
 
