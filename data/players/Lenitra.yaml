@@ -1,6 +1,12 @@
 pinf:
-  msgs: {}
-  reco: 2021-08-25 00:38:34.594820
+  msgs:
+    0:
+      contenu: "L'attaque vers la plan\xE8te 3445 qui appartient \xE0 Lenitraa a \xE9\
+        chou\xE9e. Les vaisseaux qui ont \xE9t\xE9 envoy\xE9s sont d\xE9sormais d\xE9\
+        truits."
+      date: 2021-08-25 10:57:51.092565
+      title: Attaque depuis 0
+  reco: 2021-08-25 10:58:07.653900
   vip: 0
 0:
   bat:
@@ -13,13 +19,13 @@ pinf:
   flotte:
     Cargo: 1
     Colonisateur: 1
-    Croiseur: 250
+    Croiseur: 0
     Nano-Sonde: 1
     Victoire: 1
   ress: !!python/tuple
-  - 11173
-  - 12847
-  - 15958
+  - 11775
+  - 13449
+  - 16560
 859:
   bat:
     carbone: 20
@@ -35,6 +41,6 @@ pinf:
     Nano-Sonde: 0
     Victoire: 0
   ress: !!python/tuple
-  - 2269
-  - 2306
-  - 2688
+  - 2871
+  - 2908
+  - 3290

@@ -492,7 +492,7 @@ def addlog(log):
     except:
         pass
 
-    data.append(f"{date.hour}:{date.minute}:{date.second} >> ", log)
+    data.append(f"{date.hour}:{date.minute}:{date.second} >> {log}")
 
     with open(f'logs/{date.day}-{date.month}-{date.year}.yaml',
               'w',
