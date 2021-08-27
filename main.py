@@ -175,7 +175,7 @@ def atta():
     pladef = int(request.form['plaid'])
     if request.form['attaplaid'] == "Selectionner":
         return redirect("/map")
-        
+
     plaatta = int(request.form['attaplaid'].split("#")[1])
     player = across.checkpla(pladef)
     pflo = across.addvaisseau(session["player"]['pseudo'], plaatta, None, None)
@@ -240,12 +240,7 @@ def jeu():
         session["player"]
     except:
         return redirect("/login")
-    with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    for e in data:
-        if e != 'pinf':
-            session["selected"] = e
-            break
+
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
@@ -285,7 +280,13 @@ def checklog():
     if across.connect(mail, mdp) != False:
         session["player"]["mail"] = mail
         session["player"]["pseudo"] = across.getpsd(mail)
-        session['selected'] = "*"
+        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        for e in data:
+            print(e, session["selected"])
+            if e != 'pinf':
+                session["selected"] = e
+                break
         return redirect("/jeu")
     else:
         return redirect("/login")
