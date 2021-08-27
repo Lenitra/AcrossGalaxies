@@ -105,7 +105,7 @@ def addshield(player, plaid, hours):
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
-    if data[plaid]["shield"] <= datetime.datetime.now():
+    if data[int(plaid)]["shield"] <= datetime.datetime.now():
 
         myDate = datetime.datetime.now()
         td = datetime.timedelta(hours = hours)
