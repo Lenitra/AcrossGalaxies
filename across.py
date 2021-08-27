@@ -403,7 +403,7 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     print(addshield(ptarget, idtarget, 0), " | ", datetime.datetime.now())
     if addshield(ptarget, idtarget, 0) > datetime.datetime.now():
         sendmsg(attaker, (
-        f"Attaque depuis {aplaid}",
+        f"Attaque depuis #{aplaid}",
         f"Vous avez tenté d'attaquer la planète #{idtarget} de {ptarget} cependant il était protégé par un bouclier."
         ))
         return None
@@ -497,9 +497,9 @@ def sendmsg(player, msg):
         for ids in data["pinf"]["msgs"].keys():
             idss.append(ids)
 
-    idmsg = 0
-    while idmsg in idss:
-        idmsg = random.randint(0, 9999)
+    idmsg = (
+        f'{datetime.datetime.now().month}{datetime.datetime.now().day}{datetime.datetime.now().hour}{datetime.datetime.now().minute}{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
+    )
 
     data["pinf"]["msgs"][idmsg] = {
         "title": titre,
