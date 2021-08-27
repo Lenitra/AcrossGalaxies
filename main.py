@@ -272,9 +272,28 @@ def checkreg():
     if across.register(mail, mdp, pseudo) == 255:
         session["player"] = {"pseudo": "", "mail": ""}
         session["player"]["mail"] = mail
-        session["player"]["pseudo"] = pseudo
-        session['selected'] = "*"
+        session["player"]["pseudo"] = pseudo        
+        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        for e in data:
+            if e != 'pinf':
+                session["selected"] = e
+                break
         return redirect("/jeu")
+    if across.register(mail, mdp, pseudo) == 0:
+        session['logerror'] = "Veuillez remplir tout les champs"
+    if across.register(mail, mdp, pseudo) == 1:
+        session['logerror'] = "Mail non valide"
+    if across.register(mail, mdp, pseudo) == 2:
+        session['logerror'] = "Mail déjà utilisé"
+    if across.register(mail, mdp, pseudo) == 3:
+        session['logerror'] = "Pseudo déjà utilisé"
+    if across.register(mail, mdp, pseudo) == 4:
+        session['logerror'] = "Pseudo non conforme"
+    if across.register(mail, mdp, pseudo) == 5:
+        session['logerror'] = "Mot de passe non conforme"
+
+
     return redirect("/login")
 
 # Vérifie la connexion
@@ -289,19 +308,25 @@ def checklog():
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for e in data:
-            print(e, session["selected"])
             if e != 'pinf':
                 session["selected"] = e
                 break
+
+        session["logerror"] = ""
         return redirect("/jeu")
     else:
+        session["logerror"] = "Identifiant ou mot de passe incorect"
         return redirect("/login")
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    try:
+        session["logerror"]
+    except:
+        session["logerror"] = 0
     session["player"] = {"pseudo": "", "mail": ""}
-    return render_template("logreg.html")
+    return render_template("logreg.html", error = session["logerror"])
 
 
 @app.route("/options", methods=['GET', 'POST'])
@@ -312,7 +337,6 @@ def options():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
 

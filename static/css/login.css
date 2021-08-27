@@ -11,6 +11,7 @@ main {
   text-align: center;
   margin: 15%;
   border-radius: 25px;
+  padding-top: 25px;
 }
 
 ul {
@@ -25,4 +26,13 @@ div.col1{
 
 li {
   margin-bottom: 5%;
+}
+
+header {
+  position: absolute;
+  /* margin-top: 50%; */
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+  background-color:rgba(255, 0, 0, 0.452);
 }

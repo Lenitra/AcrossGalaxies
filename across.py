@@ -95,8 +95,8 @@ def register(mail, mdp, pseudo):
         }
         with open(f'data/players/{pseudo}.yaml', 'w', encoding='utf8') as f:
             data = yaml.dump(user, f)
-        addshield(pseudo, plaid, 48)
         addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
+        addshield(pseudo, plaid, 48)
         sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! Cordialement l'équipe de Across-Galaxies"))
         return 255
 
@@ -105,7 +105,7 @@ def addshield(player, plaid, hours):
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
-    if data[int(plaid)]["shield"] <= datetime.datetime.now():
+    if data[plaid]["shield"] <= datetime.datetime.now():
 
         myDate = datetime.datetime.now()
         td = datetime.timedelta(hours = hours)
