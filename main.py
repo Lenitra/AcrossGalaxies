@@ -241,6 +241,11 @@ def jeu():
     except:
         return redirect("/login")
 
+    shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
+    if shield < datetime.now():
+        shield = "Aucun bouclier"
+    else:
+        shield = f"{shield.day}/{shield.month} - {shield.hour}h"
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
@@ -251,6 +256,7 @@ def jeu():
         listpla=listeplanetes,
         ress=ressources,
         pname=session['selected'],
+        shield = shield,
         bat=batiments,
         spaceport=spaceport,
         hang=vaisseaux
@@ -302,6 +308,12 @@ def login():
 def options():
     return render_template("options.html")
 
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':

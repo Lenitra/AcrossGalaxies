@@ -118,7 +118,7 @@ def addshield(player, plaid, hours):
         shield = data[int(plaid)]["shield"]
     return shield
 
-def delshield(player ,plaid):
+def delshield(player, plaid):
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     shield = datetime.datetime.now()
@@ -407,6 +407,7 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
         f"Vous avez tenté d'attaquer la planète #{idtarget} de {ptarget} cependant il était protégé par un bouclier."
         ))
         return None
+    delshield(attaker, aplaid)
     data = data['Vaisseaux']
     powatta = 0
     tata = 0
@@ -492,10 +493,6 @@ def sendmsg(player, msg):
 
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    idss = []
-    if len(data["pinf"]["msgs"]) >= 1:
-        for ids in data["pinf"]["msgs"].keys():
-            idss.append(ids)
 
     idmsg = (
         f'{datetime.datetime.now().month}{datetime.datetime.now().day}{datetime.datetime.now().hour}{datetime.datetime.now().minute}{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
@@ -514,12 +511,10 @@ def sendmsg(player, msg):
 def dellmsg(player, idmsg):
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    del data["pinf"]["msgs"][int(idmsg)]
+    del data["pinf"]["msgs"][idmsg]
 
     with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
-
-
 
 # region log system
 def addlog(log):

@@ -1,16 +1,5 @@
 pinf:
-  msgs:
-    0:
-      contenu: "Vous avez attaqu\xE9 la plan\xE8te 3444 qui appartenait \xE0 Lenitraa.\
-        \ Vous lui avez suptilis\xE9 1 unit\xE9s de carbone, 1 unit\xE9es de puces\
-        \ et 2 d'hydrog\xE8ne."
-      date: 2021-08-27 16:03:24.469954
-      title: 'Attaque depuis #0'
-    4049:
-      contenu: "Vous avez tent\xE9 d'attaquer la plan\xE8te #3444 de Lenitraa cependant\
-        \ il \xE9tait prot\xE9g\xE9 par un bouclier."
-      date: 2021-08-27 16:03:48.862317
-      title: Attaque depuis 0
+  msgs: {}
   reco: 2021-08-27 16:22:59.862918
   vip: 0
 0:
@@ -31,7 +20,7 @@ pinf:
   - 13335
   - 15009
   - 18127
-  shield: 2021-08-26 21:12:03.162010
+  shield: 2021-08-28 21:12:03.162010
 859:
   bat:
     carbone: 20
@@ -50,4 +39,4 @@ pinf:
   - 4432
   - 4470
   - 4859
-  shield: 2021-08-26 21:12:03.162010
+  shield: 2021-08-27 16:57:33.324173
