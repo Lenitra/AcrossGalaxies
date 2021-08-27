@@ -75,23 +75,56 @@ def register(mail, mdp, pseudo):
     else:
         mdp = encode(mdp)
         users.append({"mail": mail, "mdp": mdp, "pseudo": pseudo})
-
         with open('data/accounts.yaml', 'w') as f:
             data = yaml.dump(users, f)
 
-        bat = {"puces": 1, "carbone": 1, "hydro": 1, "energy": 1,
+        bat = {"puces": 1, "carbone": 1, "hydro": 1,
                "rad": 1, "sp": 1}
-        user = {"pinf":{"reco": datetime.datetime.now(), "vip": 0, "msgs":{}},
-                plaid: {'bat': bat, 'ress': (250, 250, 250),
-                    'flotte': {}}}
-
+        user = {
+            "pinf": {
+                "reco": datetime.datetime.now(),
+                "vip": 0,
+                "msgs": {}
+            },
+            plaid: {
+                'bat': bat,
+                'ress': (250, 250, 250),
+                'flotte': {},
+                "shield": datetime.datetime.now()
+            }
+        }
         with open(f'data/players/{pseudo}.yaml', 'w', encoding='utf8') as f:
             data = yaml.dump(user, f)
-
+        addshield(pseudo, plaid, 48)
         addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
-
         sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! Cordialement l'équipe de Across-Galaxies"))
         return 255
+
+
+def addshield(player, plaid, hours):
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+    if data[int(plaid)]["shield"] <= datetime.datetime.now():
+
+        myDate = datetime.datetime.now()
+        td = datetime.timedelta(hours = hours)
+        shield = myDate + td
+
+        data[int(plaid)]["shield"] = shield
+        with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
+            data = yaml.dump(data, f)
+    else:
+        shield = data[int(plaid)]["shield"]
+    return shield
+
+def delshield(player ,plaid):
+    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    shield = datetime.datetime.now()
+    data[int(plaid)]["shield"] = shield
+    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(data, f)
 
 
 def getplanetslist(player):
@@ -109,7 +142,7 @@ def getplanetslist(player):
                 <input type="text" name="pla" value ="{k}" class="hide">
                 <button type="submit">
                 <h3>Planète #{k}</h3>
-                <p>C : {v[0]} | P : {v[1]} | H : {v[2]}</p>
+                <p>C : {v[0]}<br>P : {v[1]}<br>H : {v[2]}</p>
                 </button>
                 </form>
                 </li>
@@ -136,7 +169,6 @@ def getpsd(mail):
 
 # Permet l'update de "/data/planets.yaml"
 def updateallplanets():
-
     allpla = {}
     for e in range(10000):
         allpla[e] = None
@@ -148,7 +180,6 @@ def updateallplanets():
         for d in data.keys():
             if d != "pinf":
                 allpla[d] = e.split(".")[0]
-
     with open(f'data/tmp.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(allpla, f)
     os.system('cp data/tmp.yaml data/planets.yaml')
@@ -174,7 +205,7 @@ def updateressource(player):
 
     if onemore:
         data["pinf"]["reco"] = datetime.datetime.now()
-        
+
     with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
     # Nb ress/h = lvl*10
@@ -369,6 +400,13 @@ def getallplaid(player):
 def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     with open('config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
+    print(addshield(ptarget, idtarget, 0), " | ", datetime.datetime.now())
+    if addshield(ptarget, idtarget, 0) > datetime.datetime.now():
+        sendmsg(attaker, (
+        f"Attaque depuis {aplaid}",
+        f"Vous avez tenté d'attaquer la planète #{idtarget} de {ptarget} cependant il était protégé par un bouclier."
+        ))
+        return None
     data = data['Vaisseaux']
     powatta = 0
     tata = 0
@@ -404,6 +442,7 @@ def attklost(attaker, aplaid, ptarget, idtarget, flota):
 
 def attkwin(attaker, aplaid, ptarget, idtarget):
     delflotte(ptarget, idtarget)
+    addshield(ptarget, idtarget, 48)
     tmp = addplayerress(ptarget, idtarget, (0,0,0))
     print(tmp)
     tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))

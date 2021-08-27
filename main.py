@@ -113,9 +113,7 @@ def mapla():
     plaid = sel.split("|")[0]
     playerpla = across.getallplaid(session["player"]["pseudo"])
     flotte = {}
-
     liste = ""
-
     liste += '<form action="/atta" method="POST" name="atta">'
     liste += "<div class='firstgridd'>"
     liste += f'<h1 class="mapti">#{plaid} - {player}</h1>'

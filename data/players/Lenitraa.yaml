@@ -4,11 +4,31 @@ pinf:
       contenu: Cafonctionne?
       date: 2021-08-23 14:41:56.335513
       title: KEKE
+    778:
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #0. Il vous a suptilis\xE9\
+        \ 2 unit\xE9s de carbone, 2 unit\xE9es de puces et 4 d'hydrog\xE8ne."
+      date: 2021-08-26 21:25:47.340907
+      title: "D\xE9fense \xE9chou\xE9e"
     2579:
       contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #0. Vous avez repouss\xE9\
         \ l'envahiseur"
       date: 2021-08-25 10:57:51.102536
       title: "D\xE9fense r\xE9ussie"
+    3170:
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #0. Il vous a suptilis\xE9\
+        \ 4 unit\xE9s de carbone, 4 unit\xE9es de puces et 8 d'hydrog\xE8ne."
+      date: 2021-08-26 21:25:09.293805
+      title: "D\xE9fense \xE9chou\xE9e"
+    5047:
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #859. Il vous a suptilis\xE9\
+        \ 8 unit\xE9s de carbone, 9 unit\xE9es de puces et 16 d'hydrog\xE8ne."
+      date: 2021-08-26 21:22:47.383152
+      title: "D\xE9fense \xE9chou\xE9e"
+    7021:
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #0. Il vous a suptilis\xE9\
+        \ 1 unit\xE9s de carbone, 1 unit\xE9es de puces et 2 d'hydrog\xE8ne."
+      date: 2021-08-27 16:03:24.497878
+      title: "D\xE9fense \xE9chou\xE9e"
   reco: 2021-08-19 17:59:05.266702
   vip: 0
 3444:
@@ -22,9 +42,10 @@ pinf:
   flotte: {}
   lab: {}
   ress: !!python/tuple
-  - 17
-  - 18
-  - 32
+  - 2
+  - 2
+  - 2
+  shield: 2021-08-29 16:03:24.407127
 3445:
   bat:
     carbone: 1
@@ -42,3 +63,4 @@ pinf:
   - 265
   - 210
   - 210
+  shield: 2021-08-26 21:12:03.197914
