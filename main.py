@@ -341,4 +341,6 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080)
+    # website_url = 'across-galaxies.fr:80'
+    # app.config['SERVER_NAME'] = website_url
+    app.run()
