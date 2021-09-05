@@ -7,85 +7,65 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
   <link rel="stylesheet" media="screen" href="../static/css/home.css" />
-
+<meta name="propeller" content="6e6c6c9ada849f54ef8fb87396183506">
 </head>
 
 
 <body>
-  <header>
-    <img src="../static/imgs/banner.jpg" class="banner">
-  </header>
 
-  <form action="/login" method="POST" class="gotologreg">
-      <input type="image" name="red" src="https://www.novup.fr/wp-content/uploads/2016/10/play-button.png" alt="Submit" id="play">
-  </form>
-
-
-    <main>
-    <div class="prin">
-      <nav>
-        <h2 id="infos">Infos</h2>
-        <h2 id="actu">Actualités</h2>
-        <!-- <h2>Avis</h2> -->
+  <div class="tm-main-container">
+    <div class="tm-top-container">
+      <nav id="tmNav" class="tm-nav">
+        <a class="tm-navbar-menu" href="#">Jouer</a>
       </nav>
 
-      <hr>
+      <!-- Site header -->
+      <header class="tm-site-header-box tm-bg-dark">
+        <h1 class="tm-site-title">Across-Galaxies</h1>
+        <p class="mb-0 tm-site-subtitle">Jeu de gestion en ligne GRATUIT</p>
+      </header>
+    </div>
+    <!-- tm-top-container -->
 
-      <div class="infos">
-        <p>Ici s'affichera une magnifique page de présentation !</p>
-      </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Site content -->
+          <div class="tm-content">
+            <!-- Section 0 Introduction -->
 
-      <div class="news">
-        <div class="article">
-          <h3>Home-page est en cours de création</h3>
-          <p>C'est en cours de création, si vous voyez cette page c'est que vous êtes sacrément chanceux !</p>
-          <hr>
+            
+            <section class="tm-section tm-section-0">
+              <h2 class="tm-section-title mb-3 font-weight-bold">
+                Actualitées
+              </h2>
+              <div class="tm-textbox tm-bg-dark">
+                <ul>
+                  <li>Nouvelle home page</li>
+                </ul>
+
+              </div>
+            </section>
+
+
+          </div>
         </div>
       </div>
-
     </div>
 
-    <div class="liens">
-      <h2>Rejoindre la communauté </h2>
-        <br>
-      <iframe src="https://discord.com/widget?id=851550341357895710&theme=dark" id="discordwidget" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+    <!-- Barcode -->
+    <div class="tm-bottom-container">
+      <div class="tm-barcode-box">
+        <a href="https://discord.gg/2PVtNnRKWy"><img src="/static/imgs/ext/discordlogo.png" alt=""></a>
+        <a href="mailto: support@across-galaxies.fr" tag><img src="/static/imgs/ext/gmail.png" alt=""></a>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        || Copyright &copy; 2021 Across-Galaxies.fr ||
+      </footer>
     </div>
-  </main>
-
-
-<script>
-  "use strict";
-
-  
-  document.querySelector("#actu").addEventListener('click', actu);
-  document.querySelector("#infos").addEventListener('click', infos);
-  hideother()
-      document.querySelector("#infos").style.backgroundColor = "lightslategrey";
-        document.querySelector(".infos").style.display = "block";
-
-  function hideother() {
-    
-    document.querySelector("#actu").style.backgroundColor = "";
-    document.querySelector("#infos").style.backgroundColor = "";
-    document.querySelector(".infos").style.display = "none";
-    document.querySelector(".news").style.display = "none";
-    console.log("appel");
-  }
-
-  function actu(event) {
-    hideother()
-    console.log("actu");
-    document.querySelector("#actu").style.backgroundColor = "lightslategrey";
-    document.querySelector(".news").style.display = "block";
-  }
-
-  function infos(event) {
-    hideother()
-    // document.querySelector("#infos").setAttribute("background-color", "lightslategrey");
-    document.querySelector("#infos").style.backgroundColor = "lightslategrey";
-    document.querySelector(".infos").style.display = "block";
-  }
-
-</script>
+  </div>
+</body>
 
 </html>

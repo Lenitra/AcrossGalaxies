@@ -2,7 +2,7 @@
 # -*- coding: Utf-8 -*-
 
 from datetime import datetime
-from os import access
+import tempfile
 from threading import Semaphore
 from flask import Flask, render_template, request, redirect, session
 import yaml
@@ -272,7 +272,7 @@ def checkreg():
     if across.register(mail, mdp, pseudo) == 255:
         session["player"] = {"pseudo": "", "mail": ""}
         session["player"]["mail"] = mail
-        session["player"]["pseudo"] = pseudo        
+        session["player"]["pseudo"] = pseudo
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for e in data:
@@ -343,4 +343,6 @@ def page_not_found(e):
 if __name__ == '__main__':
     # website_url = 'across-galaxies.fr:80'
     # app.config['SERVER_NAME'] = website_url
+    app.config["SESSION_FILE_DIR"] = ""
     app.run()
+ 
