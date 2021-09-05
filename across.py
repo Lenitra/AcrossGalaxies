@@ -3,6 +3,7 @@ from re import M
 import yaml
 import datetime
 import os
+import platform
 
 from cryptography.fernet import Fernet
 
@@ -44,7 +45,7 @@ def register(mail, mdp, pseudo):
     updateallplanets()
     plaid = 0
     while checkpla(plaid) != False:
-        plaid = random.randint(0, 9999)
+        plaid = random.randint(1, 9999)
 
 
     with open('data/accounts.yaml', encoding='utf8') as f:
@@ -154,7 +155,7 @@ def checkpla(id):
     with open(f'data/planets.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     if data[id] != None:
-        return data[id]
+        return data[id][0]
     else:
         return False
 
@@ -167,22 +168,31 @@ def getpsd(mail):
             return user["pseudo"]
     return False
 
-# Permet l'update de "/data/planets.yaml"
+# Permet l'update des "/data/mondeX.yaml"
 def updateallplanets():
     allpla = {}
-    for e in range(10000):
+    for e in range(1, 10000):
         allpla[e] = None
     li = os.listdir("data/players")
-
     for e in li:
         with open(f'data/players/{e}', encoding='utf8') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
+        pseudo = e.split(".")[0]
         for d in data.keys():
             if d != "pinf":
-                allpla[d] = e.split(".")[0]
+                if addshield(pseudo, d, 0) > datetime.datetime.now():
+                    shield = True
+                else:
+                    shield = False
+                allpla[d] = [pseudo, shield]
+
+    monde = {}
+    for a in range(1, 10000):
+        monde[a] = allpla[a]
     with open(f'data/tmp.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(allpla, f)
-    os.system('cp data/tmp.yaml data/planets.yaml')
+        data = yaml.dump(monde, f)
+        if "Windows" != platform.system():
+            os.system('cp data/tmp.yaml data/planets.yaml')
 
 # Système de récolte des ressources
 def updateressource(player):

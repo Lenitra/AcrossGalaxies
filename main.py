@@ -36,7 +36,7 @@ def map():
         ref = 9999 - 12
 
     if ref < 12:
-        ref = 0
+        ref = 1
     else:
         ref -= 12
         print(ref)
@@ -60,18 +60,34 @@ def map():
                 </li>
                 '''
         else:
-            liste += f'''
-                <li class="mappla">
-                    <form action="mapla" method="POST" name="{id}">
-                        <input type="text" name="pla" value ="{id}|{data[int(id)]}" class="hide">
-                        <button type="submit" style="border: 0; background: transparent">
-                            <img src="/static/imgs/planetcol.png" alt="submit" />
-                            <h3>#{id}</h3>
-                            <h3 class="conqueror">{data[int(id)]}</h3>
-                        </button>
-                    </form>
-                </li>
-                '''
+            print(data[int(id)][1])
+            if data[int(id)][1] == False:
+                liste += f'''
+                    <li class="mappla">
+                        <form action="mapla" method="POST" name="{id}">
+                            <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                            <button type="submit" style="border: 0; background: transparent">
+                                <img src="/static/imgs/planetcol.png" alt="submit" />
+                                <h3>#{id}</h3>
+                                <h3 class="conqueror">{data[int(id)][0]}</h3>
+                            </button>
+                        </form>
+                    </li>
+                    '''
+            else:
+                liste += f'''
+                    <li class="mappla">
+                        <form action="mapla" method="POST" name="{id}">
+                            <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                            <button type="submit" style="border: 0; background: transparent">
+                                <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                <h3>#{id}</h3>
+                                <h3 class="conqueror">{data[int(id)][0]}</h3>
+                            </button>
+                        </form>
+                    </li>
+                    '''
+
 
 
     return render_template("map.html", plas = liste)
@@ -345,4 +361,3 @@ if __name__ == '__main__':
     # app.config['SERVER_NAME'] = website_url
     app.config["SESSION_FILE_DIR"] = ""
     app.run()
- 
