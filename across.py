@@ -230,9 +230,9 @@ def getcostup(bat, lvl):
         cost[0] += cost[0]/2
         cost[1] += cost[1]/2
         cost[2] += cost[2]/2
-    cost[0] = int(cost[0])
-    cost[1] = int(cost[1])
-    cost[2] = int(cost[2])
+        cost[0] = int(cost[0])
+        cost[1] = int(cost[1])
+        cost[2] = int(cost[2])
     return cost
 
 # Retourne un dictionnaire contenant les couts d'upgrade des batiments
@@ -247,16 +247,14 @@ def getbats(player, idpla):
         }
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
+
     tmp = getcostup("Carbone", data[int(idpla)]["bat"]["carbone"])
-    c = (data[int(idpla)]["bat"]["carbone"],
-         tmp[0],
-         tmp[1],
-         tmp[2])
+    c = (data[int(idpla)]["bat"]["carbone"],tmp[0],tmp[1],tmp[2])
 
     tmp = getcostup("Puces", data[int(idpla)]["bat"]["puces"])
     p = (data[int(idpla)]["bat"]["puces"], tmp[0], tmp[1], tmp[2])
 
-    tmp = getcostup("Hydro", data[int(idpla)]["bat"]["puces"])
+    tmp = getcostup("Hydro", data[int(idpla)]["bat"]["hydro"])
     h = (data[int(idpla)]["bat"]["hydro"], tmp[0], tmp[1], tmp[2])
 
     tmp = getcostup("Rad", data[int(idpla)]["bat"]["rad"])

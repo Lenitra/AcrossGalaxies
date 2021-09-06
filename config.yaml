@@ -1,34 +1,34 @@
 Vaisseaux:
   # carbone - Puces - Hydrogène - lvl du sp - Puissance d'attaque/def - Capacité de transport
-  Croiseur : 
+  Croiseur :
    - 75
    - 50
    - 10
    - 1
    - 25
    - 10
-  Nano-Sonde : 
+  Nano-Sonde :
    - 5
    - 50
    - 50
    - 3
    - 1
    - 0
-  Cargo : 
+  Cargo :
    - 200
    - 75
    - 150
    - 5
    - 1
    - 100
-  Victoire : 
+  Victoire :
    - 250
    - 200
    - 150
    - 8
    - 75
-   - 20 
-  Colonisateur : 
+   - 20
+  Colonisateur :
    - 1500
    - 1500
    - 2000
@@ -37,24 +37,24 @@ Vaisseaux:
    - 30
 
 Infra:
-  # carbone - Puces - Hydrogène
-  Carbone : 
+  # carbone - Puces - Hydrogène-Spatioport - Radar
+  Carbone :
    - 10
    - 5
    - 5
-  Puces : 
+  Puces :
    - 4
    - 9
    - 7
-  Hydro : 
+  Hydro :
    - 10
    - 8
    - 2
-  Sp : 
+  Sp :
    - 11
    - 9
    - 11
-  Rad : 
+  Rad :
    - 8
    - 12
    - 12
