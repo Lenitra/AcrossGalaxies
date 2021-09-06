@@ -2,8 +2,7 @@
 # -*- coding: Utf-8 -*-
 
 from datetime import datetime
-import tempfile
-from threading import Semaphore
+from os import system
 from flask import Flask, render_template, request, redirect, session
 import yaml
 import across
@@ -26,26 +25,74 @@ def selpla():
 
 @app.route("/map", methods=['POST', 'GET'])
 def map():
+    liste = ""
+
+
     try:
-        ref = int(request.form['wmap'])
+        univers = int(request.form['wunivers'])
+        print(univers)
     except:
-        liste = ""
+        liste = "<h2>Selection de l'<strong>univers</strong></h2>"
+        for id in range(1,11):
+            liste += f'''
+                <li class="mappla">
+                    <form action="" method="POST" name="{id}">
+                        <input type="text" name="wunivers" value ="{id}" class="hide">
+                        <button type="submit" style="border: 0; background: transparent">
+                            <img src="/static/imgs/univers.png" alt="submit" />
+                            <h3>{id}</h3>
+                            <h3> &nbsp; </h3>
+                        </button>
+                    </form>
+                </li>
+                '''
         return render_template("map.html", plas=liste)
 
-    if ref >= 9999:
-        ref = 9999 - 12
+    try:
+        galaxie = int(request.form['wgalaxie'])
+    except:
+        liste = "<h2>Selection de la <strong>galaxie</strong></h2>"
+        for id in range(univers*10-10+1, univers*10+1):
+            liste += f'''
+                <li class="mappla">
+                    <form action="" method="POST" name="{id}">
+                        <input type="text" name="wunivers" value ="{univers}" class="hide">
+                        <input type="text" name="wgalaxie" value ="{id}" class="hide">
+                        <button type="submit" style="border: 0; background: transparent">
+                            <img src="/static/imgs/galaxie.png" alt="submit" />
+                            <h3>{id}</h3>
+                            <h3> &nbsp; </h3>
+                        </button>
+                    </form>
+                </li>
+                '''
+        return render_template("map.html", plas=liste)
 
-    if ref < 12:
-        ref = 1
-    else:
-        ref -= 12
-        print(ref)
+    try:
+        systeme = int(request.form['wsysteme'])
+    except:
+        liste = "<h2>Selection du <strong>système</strong></h2>"
+        for id in range(galaxie * 10 - 10 + 1, galaxie * 10 + 1):
+            liste += f'''
+                <li class="mappla">
+                    <form action="" method="POST" name="{id}">
+                        <input type="text" name="wunivers" value ="{univers}" class="hide">
+                        <input type="text" name="wgalaxie" value ="{galaxie}" class="hide">
+                        <input type="text" name="wsysteme" value ="{id}" class="hide">
+                        <button type="submit" style="border: 0; background: transparent">
+                            <img src="/static/imgs/sys.png" alt="submit" />
+                            <h3>{id}</h3>
+                            <h3> &nbsp; </h3>
+                        </button>
+                    </form>
+                </li>
+                '''
+        return render_template("map.html", plas=liste)
 
-
-    liste = ""
+    liste = "<h2>Selection de la <strong>planète</strong></h2>"
     with open(f'data/planets.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    for id in range(ref,ref+25):
+    for id in range(systeme * 10 - 10 + 1, systeme * 10 + 1):
         if data[int(id)] == None:
             liste += f'''
                 <li class="mappla">
@@ -60,7 +107,6 @@ def map():
                 </li>
                 '''
         else:
-            print(data[int(id)][1])
             if data[int(id)][1] == False:
                 liste += f'''
                     <li class="mappla">
@@ -74,6 +120,7 @@ def map():
                         </form>
                     </li>
                     '''
+
             else:
                 liste += f'''
                     <li class="mappla">
