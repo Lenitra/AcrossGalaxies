@@ -18,11 +18,6 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/selpla", methods=['POST', 'GET'])
-def selpla():
-    return redirect("/jeu")
-
-
 @app.route("/map", methods=['POST', 'GET'])
 def map():
     liste = ""
@@ -302,21 +297,25 @@ def updatedata():
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
     try:
-        session["player"]
+        print("------------------")
+        print(session["player"])
+        print("------------------")
     except:
         return redirect("/login")
-    if session["selected"] == 0:
+    if session["selected"] == 0 or session["selected"] == "":
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for e in data:
             if e != 'pinf':
                 session["selected"] = e
                 break
+
     shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
     if shield < datetime.now():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
+
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
@@ -370,12 +369,18 @@ def checkreg():
 # Vérifie la connexion
 @app.route("/checklog", methods=['POST', 'GET'])
 def checklog():
+
     session["player"] = {"pseudo": "", "mail": ""}
     mail = request.form['l_mail']
     mdp = request.form['l_mdp']
-    if across.connect(mail, mdp) != False:
+    psd = across.connect(mail, mdp)
+    if psd != False:
         session["player"]["mail"] = mail
-        session["player"]["pseudo"] = across.getpsd(mail)
+        session["player"]["pseudo"] = psd
+        print("---------------")
+        print(session["player"])
+        print("---------------")
+
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for e in data:
@@ -393,10 +398,9 @@ def checklog():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     try:
-        session["logerror"]
+        print(session["logerror"])
     except:
-        session["logerror"] = 0
-    session["selected"] = ""
+        session["logerror"] = ""
     session["player"] = {"pseudo": "", "mail": ""}
     return render_template("logreg.html", error = session["logerror"])
 
@@ -415,5 +419,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     # website_url = 'across-galaxies.fr:80'
     # app.config['SERVER_NAME'] = website_url
-    # app.config["SESSION_FILE_DIR"] = ""
+    app.config["SESSION_FILE_DIR"] = ""
     app.run()

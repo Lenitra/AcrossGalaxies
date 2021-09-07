@@ -27,7 +27,9 @@ def connect(mail, mdp):
         data = yaml.load(f, Loader=yaml.FullLoader)
     for users in data:
         if users["mail"] == mail and decode(users["mdp"]) == mdp:
+
             addlog(f"{getpsd(mail)} s'est connecté")
+            
             return users["pseudo"]
     return False
 
