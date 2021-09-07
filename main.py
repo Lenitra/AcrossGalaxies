@@ -26,11 +26,13 @@ def selpla():
 @app.route("/map", methods=['POST', 'GET'])
 def map():
     liste = ""
-
+    try:
+        univers = int(request.form['plaid'])
+    except:
+        pass
 
     try:
         univers = int(request.form['wunivers'])
-        print(univers)
     except:
         liste = "<h2>Selection de l'<strong>univers</strong></h2>"
         for id in range(1,11):
@@ -303,7 +305,13 @@ def jeu():
         session["player"]
     except:
         return redirect("/login")
-
+    if session["selected"] == 0:
+        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        for e in data:
+            if e != 'pinf':
+                session["selected"] = e
+                break
     shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
     if shield < datetime.now():
         shield = "Aucun bouclier"
@@ -371,7 +379,7 @@ def checklog():
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         for e in data:
-            if e != 'pinf':
+            if e != 'pinf' and e != 0:
                 session["selected"] = e
                 break
 
@@ -388,6 +396,7 @@ def login():
         session["logerror"]
     except:
         session["logerror"] = 0
+    session["selected"] = ""
     session["player"] = {"pseudo": "", "mail": ""}
     return render_template("logreg.html", error = session["logerror"])
 
@@ -406,5 +415,5 @@ def page_not_found(e):
 if __name__ == '__main__':
     # website_url = 'across-galaxies.fr:80'
     # app.config['SERVER_NAME'] = website_url
-    app.config["SESSION_FILE_DIR"] = ""
+    # app.config["SESSION_FILE_DIR"] = ""
     app.run()

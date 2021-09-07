@@ -226,12 +226,16 @@
   "use strict";
 
   hideall()
-
+  
   let page = sessionStorage.getItem('page');
-
+  console.log(page);
+  
   if(page == null){
+        hideall();
+    document.querySelector(".builds").style.display = "";
     sessionStorage.setItem('page', 'builds');
   }
+  
   document.getElementById("pbuilds").addEventListener('click', buildp);
   document.getElementById("psp").addEventListener('click', spp);
   document.getElementById("phang").addEventListener('click', hang);

@@ -43,7 +43,7 @@ def connect(mail, mdp):
 # 255 enregistrement réussi !
 def register(mail, mdp, pseudo):
     updateallplanets()
-    plaid = 0
+    plaid = 1
     while checkpla(plaid) != False:
         plaid = random.randint(1, 9999)
 

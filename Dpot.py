@@ -4,9 +4,7 @@ from discord.ext import commands
 from discord.utils import get
 import psutil
 import os
-import pyscreenshot as ImageGrab
 import yaml
-from tcp_latency import measure_latency
 import across
 
 
@@ -22,13 +20,6 @@ client = discord.Client()
 
 op = [304868399492759553]
 
-
-def getping(ip, port):
-    try:
-        pin = int(measure_latency(host=ip, port=port)[0])
-    except:
-        return -1
-    return pin
 
 
 @bot.event

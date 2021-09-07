@@ -311,6 +311,10 @@ div.page {
   grid-auto-flow: column;
 }
 
+.imputmap {
+  width: 15vw;
+  text-align: center;
+}
 
 /* #endregion */
 
