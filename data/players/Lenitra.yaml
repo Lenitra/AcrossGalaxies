@@ -34,9 +34,9 @@ pinf:
     Colonisateur: 0
     Croiseur: 250
     Nano-Sonde: 0
-    Victoire: 10000
+    Victoire: 10001
   ress: !!python/tuple
-  - 1654
-  - 1654
-  - 1654
-  shield: 2021-09-10 01:48:55.029068
+  - 1404
+  - 1454
+  - 1504
+  shield: 2021-09-10 02:57:37.131085

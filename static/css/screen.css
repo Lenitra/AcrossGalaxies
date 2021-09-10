@@ -281,7 +281,7 @@ div.page {
   margin: 1vh;
 }
 
-.map h3, .map h1 {
+.map h3, .map h1 , .pn p {
   color: white;
   font-family: Textes;
 }

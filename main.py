@@ -453,8 +453,8 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    # website_url = 'across-galaxies.fr:80'
-    # app.config['SERVER_NAME'] = website_url
+    website_url = 'across-galaxies.fr:80'
+    app.config['SERVER_NAME'] = website_url
     app.config['SESSION_COOKIE_SECURE'] = False
     app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
     app.run()

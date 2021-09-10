@@ -65,12 +65,22 @@
     <ul class="plist">
       <li>
         <form action="/map" method="POST" name="osef">
-          <input type="number" max="10" min ="1" name="wunivers" value="" placeholder="Univers" class="imputmap"><br><br>
-          <input type="number" max="10" min ="1" name="wgalaxie" value="" placeholder="Galaxie" class="imputmap"><br><br>
-          <input type="number" max="10" min ="1" name="wsysteme" value="" placeholder="Système" class="imputmap"><br><br>
-          <!-- <input type="number" max="10000" min ="1" name="plaid" value="" placeholder="Planète" class="imputmap"><br><br> -->
+          <p>Univers</p>
+          <input type="number" max="10" min ="0" name="wunivers" value="0" placeholder="Univers" class="imputmap" onchange="selegal(this)"><br>
+          <p>Galaxie</p>
+          <input type="number" max="10" min ="0" name="wgalaxie" value="0" placeholder="Galaxie" class="imputmap"><br>
+          <p>Système</p>
+          <input type="number" max="10" min ="0" name="wsysteme" value="0" placeholder="Système" class="imputmap"><br><br>
           <button type="submit">
             <h3>Y aller</h3>
+          </button>
+        </form>
+        <br>
+        <br>
+        <br>
+        <form action="/map" method="POST" name="osef">
+          <button type="submit">
+            <h3>Explorer</h3>
           </button>
         </form>
 
@@ -84,6 +94,31 @@
 </div>
 </body>
 
+<!-- <script>
+  // Pour le menu latéral (selection du système si la galaxie est mise)
+  function selegal(element){
+
+    if (element.value != ""){
+      let galaxiesel = document.querySelectorAll(".imputmap");
+      for (let index = 0; index < galaxiesel.length; index++) {
+        console.log();
+        if (galaxiesel[index].name == "wgalaxie"){
+          galaxiesel[index].classList.remove("hide");
+        }
+      }
+    }
+    else{
+      let galaxiesel = document.querySelectorAll(".imputmap");
+      for (let index = 0; index < galaxiesel.length; index++) {
+        console.log();
+        if (galaxiesel[index].name == "wgalaxie") {
+          galaxiesel[index].classList.add("hide");
+        }
+      }
+    }
+  }
+</script> -->
+
 <script>
 // Pour afficher/cacher les inputs des vaisseaux
   function hideinput(){
@@ -92,6 +127,7 @@
       vaisseaux[index].remove()
     }
   }
+
   function showin(){
     let vname;
     let vaisseaux = document.querySelectorAll("section.vaissmap")
@@ -131,6 +167,7 @@
   
 
 </script>
+
 <script>
   // Pour afficher les vaisseaux dispo
 
