@@ -281,8 +281,15 @@ div.page {
   margin: 1vh;
 }
 
-.map h3 {
+.map h3, .map h1 {
   color: white;
+  font-family: Textes;
+}
+
+.map h2, .map h4{
+  color: white;
+  font-family: Textes;
+  margin-left: 5vw;
 }
 
 .map .conqueror {

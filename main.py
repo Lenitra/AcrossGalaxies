@@ -22,15 +22,10 @@ def home():
 def map():
     liste = ""
     try:
-        univers = int(request.form['plaid'])
-    except:
-        pass
-
-    try:
         univers = int(request.form['wunivers'])
     except:
         liste = "<h2>Selection de l'<strong>univers</strong></h2>"
-        for id in range(1,11):
+        for id in range(10):
             liste += f'''
                 <li class="mappla">
                     <form action="" method="POST" name="{id}">
@@ -49,7 +44,10 @@ def map():
         galaxie = int(request.form['wgalaxie'])
     except:
         liste = "<h2>Selection de la <strong>galaxie</strong></h2>"
-        for id in range(univers*10-10+1, univers*10+1):
+        liste += f"<h4>Univers {univers}</h4>"
+        liste += f"<h4>Planètes {univers}xxx</h4>"
+
+        for id in range(10):
             liste += f'''
                 <li class="mappla">
                     <form action="" method="POST" name="{id}">
@@ -69,7 +67,9 @@ def map():
         systeme = int(request.form['wsysteme'])
     except:
         liste = "<h2>Selection du <strong>système</strong></h2>"
-        for id in range(galaxie * 10 - 10 + 1, galaxie * 10 + 1):
+        liste += f"<h4>Univers {univers} / Galaxie {galaxie}</h4>"
+        liste += f"<h4>Planètes {univers}{galaxie}xx</h4>"
+        for id in range(10):
             liste += f'''
                 <li class="mappla">
                     <form action="" method="POST" name="{id}">
@@ -86,51 +86,101 @@ def map():
                 '''
         return render_template("map.html", plas=liste)
 
+    start = f'{univers}{galaxie}{systeme}0'
+    start = int(start)
     liste = "<h2>Selection de la <strong>planète</strong></h2>"
+    liste += f"<h4>Univers {univers} / Galaxie {galaxie} / Système {systeme}</h4>"
+    liste += f"<h4>Planètes {univers}{galaxie}{systeme}x</h4>"
+
     with open(f'data/planets.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    for id in range(systeme * 10 - 10 + 1, systeme * 10 + 1):
-        if data[int(id)] == None:
-            liste += f'''
-                <li class="mappla">
-                    <form action="" method="POST" name="{id}">
-                        <input type="text" name="pla" value ="{id}" class="hide">
-                        <button type="submit" style="border: 0; background: transparent">
-                            <img src="/static/imgs/planet.png" alt="submit" />
-                            <h3>#{id}</h3>
-                            <h3> &nbsp; </h3>
-                        </button>
-                    </form>
-                </li>
-                '''
-        else:
-            if data[int(id)][1] == False:
+    if start == 0:
+        start = 1
+        for id in range(start, start + 9):
+            if data[int(id)] == None:
                 liste += f'''
                     <li class="mappla">
-                        <form action="mapla" method="POST" name="{id}">
-                            <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                        <form action="" method="POST" name="{id}">
+                            <input type="text" name="pla" value ="{id}" class="hide">
                             <button type="submit" style="border: 0; background: transparent">
-                                <img src="/static/imgs/planetcol.png" alt="submit" />
+                                <img src="/static/imgs/planet.png" alt="submit" />
                                 <h3>#{id}</h3>
-                                <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                <h3> &nbsp; </h3>
                             </button>
                         </form>
                     </li>
                     '''
-
             else:
+                if data[int(id)][1] == False:
+                    liste += f'''
+                        <li class="mappla">
+                            <form action="mapla" method="POST" name="{id}">
+                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                                <button type="submit" style="border: 0; background: transparent">
+                                    <img src="/static/imgs/planetcol.png" alt="submit" />
+                                    <h3>#{id}</h3>
+                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                </button>
+                            </form>
+                        </li>
+                        '''
+
+                else:
+                    liste += f'''
+                        <li class="mappla">
+                            <form action="mapla" method="POST" name="{id}">
+                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                                <button type="submit" style="border: 0; background: transparent">
+                                    <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                    <h3>#{id}</h3>
+                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                </button>
+                            </form>
+                        </li>
+                        '''
+    else:
+        for id in range(start, start+10):
+            if data[int(id)] == None:
                 liste += f'''
                     <li class="mappla">
-                        <form action="mapla" method="POST" name="{id}">
-                            <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                        <form action="" method="POST" name="{id}">
+                            <input type="text" name="pla" value ="{id}" class="hide">
                             <button type="submit" style="border: 0; background: transparent">
-                                <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                <img src="/static/imgs/planet.png" alt="submit" />
                                 <h3>#{id}</h3>
-                                <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                <h3> &nbsp; </h3>
                             </button>
                         </form>
                     </li>
                     '''
+            else:
+                if data[int(id)][1] == False:
+                    liste += f'''
+                        <li class="mappla">
+                            <form action="mapla" method="POST" name="{id}">
+                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                                <button type="submit" style="border: 0; background: transparent">
+                                    <img src="/static/imgs/planetcol.png" alt="submit" />
+                                    <h3>#{id}</h3>
+                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                </button>
+                            </form>
+                        </li>
+                        '''
+
+                else:
+                    liste += f'''
+                        <li class="mappla">
+                            <form action="mapla" method="POST" name="{id}">
+                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
+                                <button type="submit" style="border: 0; background: transparent">
+                                    <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                    <h3>#{id}</h3>
+                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
+                                </button>
+                            </form>
+                        </li>
+                        '''
 
 
 
@@ -297,25 +347,14 @@ def updatedata():
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
     try:
-        print("------------------")
-        print(session["player"])
-        print("------------------")
+        playerinf = session["player"]
     except:
         return redirect("/login")
-    if session["selected"] == 0 or session["selected"] == "":
-        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-        for e in data:
-            if e != 'pinf':
-                session["selected"] = e
-                break
-
     shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
     if shield < datetime.now():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-
     vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
@@ -370,16 +409,13 @@ def checkreg():
 @app.route("/checklog", methods=['POST', 'GET'])
 def checklog():
 
-    session["player"] = {"pseudo": "", "mail": ""}
     mail = request.form['l_mail']
     mdp = request.form['l_mdp']
     psd = across.connect(mail, mdp)
     if psd != False:
+        session["player"] = {}
         session["player"]["mail"] = mail
         session["player"]["pseudo"] = psd
-        print("---------------")
-        print(session["player"])
-        print("---------------")
 
         with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
@@ -388,7 +424,7 @@ def checklog():
                 session["selected"] = e
                 break
 
-        session["logerror"] = ""
+        session.pop('logerror', None)
         return redirect("/jeu")
     else:
         session["logerror"] = "Identifiant ou mot de passe incorect"
@@ -397,12 +433,12 @@ def checklog():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    erreur = ""
     try:
-        print(session["logerror"])
+        erreur = session["logerror"]
     except:
-        session["logerror"] = ""
-    session["player"] = {"pseudo": "", "mail": ""}
-    return render_template("logreg.html", error = session["logerror"])
+        session.clear()
+    return render_template("logreg.html", error = erreur)
 
 
 @app.route("/options", methods=['GET', 'POST'])
@@ -419,5 +455,6 @@ def page_not_found(e):
 if __name__ == '__main__':
     # website_url = 'across-galaxies.fr:80'
     # app.config['SERVER_NAME'] = website_url
-    app.config["SESSION_FILE_DIR"] = ""
+    app.config['SESSION_COOKIE_SECURE'] = False
+    app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
     app.run()

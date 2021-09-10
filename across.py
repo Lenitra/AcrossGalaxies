@@ -29,7 +29,7 @@ def connect(mail, mdp):
         if users["mail"] == mail and decode(users["mdp"]) == mdp:
 
             addlog(f"{getpsd(mail)} s'est connecté")
-            
+
             return users["pseudo"]
     return False
 
@@ -105,9 +105,11 @@ def register(mail, mdp, pseudo):
 
 
 def addshield(player, plaid, hours):
+
+    shield = 0
+
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-
     if data[int(plaid)]["shield"] <= datetime.datetime.now():
 
         myDate = datetime.datetime.now()
@@ -180,14 +182,16 @@ def updateallplanets():
         with open(f'data/players/{e}', encoding='utf8') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         pseudo = e.split(".")[0]
-        for d in data.keys():
-            if d != "pinf":
-                if addshield(pseudo, d, 0) > datetime.datetime.now():
-                    shield = True
-                else:
-                    shield = False
-                allpla[d] = [pseudo, shield]
-
+        try:
+            for d in data.keys():
+                if d != "pinf":
+                    if addshield(pseudo, d, 0) > datetime.datetime.now():
+                        shield = True
+                    else:
+                        shield = False
+                    allpla[d] = [pseudo, shield]
+        except:
+            pass
     monde = {}
     for a in range(1, 10000):
         monde[a] = allpla[a]
