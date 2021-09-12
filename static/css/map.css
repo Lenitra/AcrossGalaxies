@@ -1,3 +1,46 @@
+/* #region GLOBAL */
+    html {
+      background-color: black;
+
+    }
+
+    @font-face {
+    font-family: "Titres";
+    src: url("../fonts/Aileron.otf")
+    }
+    @font-face {
+    font-family: "Textes";
+    src: url("../fonts/neuro.ttf")
+    }
+    .hide {
+      display: none;
+    }
+    body{
+      margin: 0;
+      height: 100vh;
+      width: 100vw;}
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+/* #endregion */
+
+
+
+/* #region GRILLE principale */
+
+div.page {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 80vw 20vw;
+  grid-template-rows: 100vh;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-auto-flow: column;
+
+} 
+/* #endregion */
+
 /* PARTIE 1 */
 /* #region Interface principale de gestion (pi) GRID */
   .pi {
@@ -219,5 +262,82 @@
 
 
 
+
+/* #region PARTIE 1 Map */
+
+.map .mapti{
+  text-align: center;
+}
+
+.map {
+  list-style: none;
+}
+
+.map form {
+  margin: 1vh;
+}
+
+.map form {
+  margin: 1vh;
+}
+
+.map h3, .map h1 , .pn p.mapii {
+  color: white;
+  font-family: Textes;
+}
+
+.map h2, .map h4{
+  color: white;
+  font-family: Textes;
+  margin-left: 5vw;
+}
+
+.map .conqueror {
+  display: none;
+}
+
+.map form :hover .conqueror{
+  display: block;
+}
+
+.map img {
+  width: 6vw;
+}
+
+
+.mappla {
+  float: left;
+}
+
+.map .firstgridd {
+  display: grid;
+  grid-auto-flow: column;
+}
+.map .secondgrid {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.imputmap {
+  width: 15vw;
+  text-align: center;
+}
+
+/* #endregion */
+
+
+/* #region messages/rapports */
+.clsmsg {
+  color: white;
+
+  margin:3%;
+}
+.msgsuppbutton {
+  margin:3%;
+}
+
+ul.plist>h3 {
+  color: white;
+}
 
 /* #endregion */

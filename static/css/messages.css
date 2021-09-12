@@ -1,0 +1,71 @@
+
+
+
+/* #region GRILLE principale */
+
+ 
+/* #endregion */
+
+/* PARTIE 1 */
+/* #region Interface principale de gestion (pi) GRID */
+  
+/* Partie 2 */
+/* #region Interface de navigation (pn) */
+
+.pn{
+  background-color: #011C2D;
+}
+.pn ul {
+  text-align: center;
+}
+
+.pn .princi {
+  display: block;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 1vh;
+}
+.pn .princi li{
+  display: block;
+  float: left;
+  width: 10vw;
+}
+ .pn .princi li button{
+    border: none;
+    width: 100%;
+    color: white;
+    background-color: #011C2D;;
+  }
+ .pn .princi li button:hover{
+    border: none;
+    color: white;
+    background-color: #003758;;
+  }
+
+.pn .plist li button {
+  margin-top: 1vh;
+  width: 18vw;
+}
+
+.pn button {
+  font-family: Textes;
+}
+/* #endregion */
+
+
+
+/* #region messages/rapports */
+.clsmsg {
+  color: white;
+
+  margin:3%;
+}
+.msgsuppbutton {
+  margin:3%;
+}
+
+ul.plist>h3 {
+  color: white;
+}
+
+/* #endregion */
