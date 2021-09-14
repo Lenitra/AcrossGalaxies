@@ -37,6 +37,47 @@ div.page {
   grid-auto-flow: column;
 }
 
+.pn{
+  background-color: #162032;
+}
+.pn ul {
+  text-align: center;
+}
+
+.pn .princi {
+  display: block;
+  overflow: hidden;
+  margin-top: 0;
+  margin-bottom: 1vh;
+}
+.pn .princi li{
+  display: block;
+  float: left;
+  width: 10vw;
+}
+ .pn .princi li button{
+    border: none;
+    width: 100%;
+    color: white;
+    background-color: #162032;
+    padding-bottom: 0.75vh;
+    padding-top: 0.25vh;
+  }
+ .pn .princi li button:hover{
+    border: none;
+    color: white;
+    background-color: #003758;;
+  }
+
+.pn .plist li button {
+  margin-top: 1vh;
+  width: 18vw;
+}
+
+.pn button {
+  font-family: Textes;
+}
+
 /* #region Bouttons */
 .kave-btn {
   position: relative;
@@ -135,7 +176,7 @@ div.page {
 
 
 body {
-  background: radial-gradient(ellipse at top, #1c416b 0%, #141622 100%);
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   display: flex;
   /* overflow: hidden; */
 }

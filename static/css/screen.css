@@ -173,51 +173,25 @@
   /* #endregion */
   /* #endregion */
 
-/* Partie 2 */
-/* #region Interface de navigation (pn) */
 
-.pn{
-  background-color: #011C2D;
-}
-.pn ul {
-  text-align: center;
-}
+/* #region Colonne 3 */
 
-.pn .princi {
-  display: block;
-  overflow: hidden;
-  margin-top: 0;
-  margin-bottom: 1vh;
-}
-.pn .princi li{
-  display: block;
-  float: left;
-  width: 10vw;
-}
- .pn .princi li button{
-    border: none;
-    width: 100%;
-    color: white;
-    background-color: #011C2D;;
-  }
- .pn .princi li button:hover{
-    border: none;
-    color: white;
-    background-color: #003758;;
-  }
-
-.pn .plist li button {
-  margin-top: 1vh;
-  width: 18vw;
-}
-
+/* 
 .pn button {
-  font-family: Textes;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:2px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	padding:10px 32px;
+	text-decoration:none;
 }
-/* #endregion */
-
-
-
+.pn button:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+} */
 
 
 /* #endregion */

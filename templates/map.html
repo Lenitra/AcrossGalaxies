@@ -73,16 +73,14 @@
           <input type="number" max="10" min ="0" name="wgalaxie" value="0" placeholder="Galaxie" class="imputmap"><br>
           <p class="mapii">Système</p>
           <input type="number" max="10" min ="0" name="wsysteme" value="0" placeholder="Système" class="imputmap"><br><br>
-          <button type="submit">
-            <h3>Y aller</h3>
-          </button>
+          <button class="kave-btn" id="go"><span class="kave-line"></span>S'y rendre</button>
         </form>
         <br>
         <br>
         <br>
         <form action="/map" method="POST" name="osef">
           <button type="submit">
-            <h3>Explorer</h3>
+            <h3>Retour</h3>
           </button>
         </form>
 
@@ -96,102 +94,7 @@
 </div>
 </body>
 
-<!-- <script>
-  // Pour le menu latéral (selection du système si la galaxie est mise)
-  function selegal(element){
 
-    if (element.value != ""){
-      let galaxiesel = document.querySelectorAll(".imputmap");
-      for (let index = 0; index < galaxiesel.length; index++) {
-        console.log();
-        if (galaxiesel[index].name == "wgalaxie"){
-          galaxiesel[index].classList.remove("hide");
-        }
-      }
-    }
-    else{
-      let galaxiesel = document.querySelectorAll(".imputmap");
-      for (let index = 0; index < galaxiesel.length; index++) {
-        console.log();
-        if (galaxiesel[index].name == "wgalaxie") {
-          galaxiesel[index].classList.add("hide");
-        }
-      }
-    }
-  }
-</script> -->
-
-<script>
-// Pour afficher/cacher les inputs des vaisseaux
-  function hideinput(){
-    let vaisseaux = document.querySelectorAll("section.vaissmap input")
-    for (let index = 0; index < vaisseaux.length; index++) {
-      vaisseaux[index].remove()
-    }
-  }
-
-  function showin(){
-    let vname;
-    let vaisseaux = document.querySelectorAll("section.vaissmap")
-    for (let index = 0; index < vaisseaux.length; index++) {
-      vname = vaisseaux[index].children[1].textContent.split(':')[0];
-      vname = vname.substring(0, vname.length - 1);
-      im = document.createElement("input");
-      im.setAttribute("type", "number");
-      im.setAttribute("min", "0");
-      im.setAttribute("max", vaisseaux[index].childNodes[3].textContent.split(':')[1].split(" ")[1]);
-      im.setAttribute("name", vname);
-      im.setAttribute("value", "0");
-      im.setAttribute("placeholder", "Nombre de vaisseaux à envoyer");
-      vaisseaux[index].appendChild(im)
-    }
-  }
-
-  function showress(){
-    alert("AFFICHER LES RESSOURCES");
-  }
-
-  function selectaction(element) {
-    hideinput()
-    let im; 
-    let val = element.options[element.options.selectedIndex].value;
-    console.log(val);
-    if (val == "Attaquer"){
-      hideinput()
-      showin()
-      }
-    if (val == "Docker" || val == "Transporter"){
-      hideinput()
-      showin()
-      showress()
-      }
-    }
-  
-
-</script>
-
-<script>
-  // Pour afficher les vaisseaux dispo
-
-  function hideele() {
-    let vaisseaux = document.querySelectorAll("section.vaissmap");
-    for (let index = 0; index < vaisseaux.length; index++) {
-      vaisseaux[index].classList.add("hide");
-    }
-  }
-
-  function selectpla(element){
-    hideele()
-    let val = element.options[element.options.selectedIndex].value.split('#')[1];
-    val = String(val)
-    let vaisseaux = document.querySelectorAll("section");
-    for (let index = 0; index < vaisseaux.length; index++) {
-      if (vaisseaux[index].id == val) {
-        vaisseaux[index].classList.remove("hide");;
-      }
-    }
-  }
-</script>
 </html>
 
 

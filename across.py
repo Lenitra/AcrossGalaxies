@@ -140,7 +140,6 @@ def getplanetslist(player):
     for k, v in data.items():
         if k != "pinf":
             v = v["ress"]
-
             plalist +=f'''
                 <li>
                 <form action="/updatedata" method="POST" name="{k}">

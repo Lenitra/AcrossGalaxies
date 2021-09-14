@@ -322,22 +322,12 @@ div.page {
   width: 15vw;
   text-align: center;
 }
-
+button#go {
+    width: 18vw;
+    margin-top: 2vh;
+    height: 6vh;
+    font-family: Titres;
+    font-size: 175%;
+}
 /* #endregion */
 
-
-/* #region messages/rapports */
-.clsmsg {
-  color: white;
-
-  margin:3%;
-}
-.msgsuppbutton {
-  margin:3%;
-}
-
-ul.plist>h3 {
-  color: white;
-}
-
-/* #endregion */

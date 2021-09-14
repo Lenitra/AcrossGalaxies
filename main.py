@@ -222,47 +222,34 @@ def mapla():
     player = sel.split("|")[1]
     plaid = sel.split("|")[0]
     playerpla = across.getallplaid(session["player"]["pseudo"])
-    flotte = {}
+    print(playerpla)
     liste = ""
-    liste += '<form action="/atta" method="POST" name="atta">'
-    liste += "<div class='firstgridd'>"
-    liste += f'<h1 class="mapti">#{plaid} - {player}</h1>'
-    liste += "<section>"
-    liste += "<h3>A partir de quelle planète executer une action :</h3>"
-    liste += "<br>"
-    liste += '<select name="attaplaid" onchange="selectpla(this)">'
-    liste += "<option>Selectionner</option>"
-    for e in playerpla:
-        liste += f"<option>#{e}</option>"
-    liste += "</select>"
-    liste += "</section>"
-    liste += "</div>"
 
-    liste += f'''<input type="text" class="hide" name="plaid" value="{plaid}">'''
-    liste += "<div class='secondgrid'>"
+    liste += f"""<h2>#{plaid} - {player}</h2>
+            <h3>A partir de quelle planète effectuer l'action :</h3>
+            <div class="select">
+            <select name="" id="" onchange="selectpla(this)">"""
+    # Selection de la planète
     for e in playerpla:
+        liste += f'<option value="{e}">#{e}</option>'
+    liste += "</select></div>"
+
+    # Récupération des vaisseaux de chaques planètes
+    for e in playerpla:
+        liste += f'<div class="grid3c" id="vaisseaux" plaid="{e}">'
         for k, v in across.addvaisseau(session["player"]["pseudo"], e, None, 0).items():
             if v != 0:
                 liste += f"""
-                    <section class="vaissmap hide" id="{e}">
-                        <img src='static/imgs/{k}.png'>
-                        <h3>{k} : {v}</h3>
-                    </section>
+                    <div>
+                        <img src="../static/imgs/{k}.png" alt="">
+                        <p>{k} - {v}</p>
+                        <input type="number" value="0" name="{k}" id="{k}" min="0" max="{v}">
+                    </div>
                 """
-    liste += "</div>"
-    liste += """
-            <br>
-            <select name="select" onchange="selectaction(this)">
-                <option>Action</option>
-                <option>Attaquer</option>
-                <option>Espioner</option>
-                <option>Docker</option>
-                <option>Transporter</option>
-                <option>Coloniser</option>
-            </select>"""
-    liste += '<button type="submit"><h3>Valider</h3></button>'
-    liste += "</form>"
-    return render_template("map.html", plas=liste)
+        liste += "</div>"
+
+
+    return render_template("mapact.html", plas=liste)
 
 # Page des messages
 @app.route("/messages", methods=['POST', 'GET'])

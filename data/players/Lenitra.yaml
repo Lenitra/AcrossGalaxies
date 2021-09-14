@@ -1,6 +1,6 @@
 pinf:
   msgs: {}
-  reco: 2021-09-12 15:44:52.256309
+  reco: 2021-09-14 10:25:25.905248
   vip: 0
 1:
   bat:
@@ -11,15 +11,15 @@ pinf:
     rad: 20
     sp: 20
   flotte:
-    Cargo: 0
-    Colonisateur: 0
+    Cargo: 1
+    Colonisateur: 1
     Croiseur: 250
-    Nano-Sonde: 0
+    Nano-Sonde: 1
     Victoire: 10000
   ress: !!python/tuple
-  - 2254
-  - 2254
-  - 2254
+  - 1826
+  - 1906
+  - 1331
   shield: 2022-09-05 19:48:24.549229
 2:
   bat:
@@ -36,7 +36,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10001
   ress: !!python/tuple
-  - 2004
-  - 2054
-  - 2104
-  shield: 2021-09-12 16:24:10.057067
+  - 3281
+  - 3331
+  - 3381
+  shield: 2021-09-14 11:48:44.476824
