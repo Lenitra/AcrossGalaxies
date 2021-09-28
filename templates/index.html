@@ -1,71 +1,90 @@
-<!-- Site créé par Thomas Lemartinel -->
+<!-- Site créé par Thomas Lemartinel et Erwann Coden -->
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <title>Accross Galaxies</title>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
-  <link rel="stylesheet" media="screen" href="../static/css/home.css" />
-<meta name="propeller" content="6e6c6c9ada849f54ef8fb87396183506">
+    <title>Accross Galaxies</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="../static/imgs/logo.png"/>
+    <link rel="stylesheet" href="../static/css/home.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
-
 <body>
+    
+    <h1>Across-Galaxies</h1>
 
-  <div class="tm-main-container">
-    <div class="tm-top-container">
-      <nav id="tmNav" class="tm-nav">
-        <a class="tm-navbar-menu" href="/login">Jouer</a>
-      </nav>
-
-      <!-- Site header -->
-      <header class="tm-site-header-box tm-bg-dark">
-        <h1 class="tm-site-title">Across-Galaxies</h1>
-        <p class="mb-0 tm-site-subtitle">Jeu de gestion en ligne GRATUIT</p>
-      </header>
-    </div>
-    <!-- tm-top-container -->
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <!-- Site content -->
-          <div class="tm-content">
-            <!-- Section 0 Introduction -->
-
+    <div class="separate">
+        <section class="left">
+            <article>
+                <p id="txt1">Jeu de gestion en ligne GRATUIT</p>
+            </article>
+            <article class="rs">
+                <h2>Rejoins nous sur les réseaux sociaux :</h2>
+                <div class="div_rs">
+                    <div>
+                        <p>Discord</p>
+                        <a href="https://discord.gg/2PVtNnRKWy" target="_blank"><img class="img_rs discord" src="../static/imgs/ext/discordlogo.png"></img></a>
+                    </div>
+                    <div>
+                        <p>Instagram</p>
+                        <a href="https://www.instagram.com/taumah.l/" target="_blank"><img class="img_rs insta" src="../static/imgs/ext/insta.png"></img></a>
+                    </div>
+                    <div>
+                        <p>Mail</p>
+                        <a href="mailto: support@across-galaxies.fr" target="_blank"><img class="img_rs mail" src="../static/imgs/ext/gmail.png"></img></a>
+                    </div>
+                </div>
+            </article>
             
-            <section class="tm-section tm-section-0">
-              <h2 class="tm-section-title mb-3 font-weight-bold">
-                Actualitées
-              </h2>
-              <div class="tm-textbox tm-bg-dark">
-                <ul>
-                  <li>Nouvelle home page</li>
-                </ul>
+        </section>
 
-              </div>
-            </section>
+        <section class="btn-play">
+            <button class="kave-btn" id="pbuilds"><a href="logreg.html" class="kave-line">JOUER</a></button>
+        </section>
 
+        <section class="actu">
+            <h2>Actualités</h2><hr>
+            <ul class="ul-actu">
+                <li class="news">
+                    <i class="fa fa-bullhorn fa-2x logo-actu">
+                    <span class="version">V0.1.1.1</span></i>
+                    <br>
+                    <h3>Mise à jour graphique</h3>
+                    <ul>
+                        <li>Refonte entière du graphisme de la page d'accueil</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <li class="news">
+                    <i class="fa fa-bullhorn fa-2x logo-actu">
+                    <span class="version">Gameplay</span></i>
+                    <br>
+                    <p>Ajout de la fonctionnalité...</p>
+                </li>
+                <li class="news">
+                    <i class="fa fa-bullhorn fa-2x logo-actu">
+                    <span class="version">Graphisme</span></i>
+                    <br>
+                    <p>Mise à jour graphique de la page d'accueil</p>
+                </li>
+                <li class="news">
+                    <i class="fa fa-bullhorn fa-2x logo-actu">
+                    <span class="version">Graphisme</span></i>
+                    <br>
+                    <p>Mise à jour graphique de la page d'accueil</p>
+                </li>
 
-          </div>
-        </div>
-      </div>
+              </ul>
+        </section>
     </div>
+    <div id="star_bg"></div>
 
-    <!-- Barcode -->
-    <div class="tm-bottom-container">
-      <div class="tm-barcode-box">
-        <a href="https://discord.gg/2PVtNnRKWy"><img src="/static/imgs/ext/discordlogo.png" alt=""></a>
-        <a href="mailto: support@across-galaxies.fr" tag><img src="/static/imgs/ext/gmail.png" alt=""></a>
-      </div>
-
-      <!-- Footer -->
-      <footer>
-        || Copyright &copy; 2021 Across-Galaxies.fr ||
-      </footer>
-    </div>
-  </div>
 </body>
-
+<footer>
+    <p>|| Copyright © 2021 Across-Galaxies.fr ||</p>
+</footer>
 </html>
