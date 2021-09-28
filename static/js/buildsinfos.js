@@ -39,6 +39,13 @@ let s_h = document.getElementById("infsp").textContent.split(" ")[3]+",";
 document.getElementById("sp").addEventListener('click', (evt) => createbuildinfos(`sp,Spatioport,../static/imgs/control-tower.png,Le spatioport permet de débloquer des vaisseaux et de les améliorer,` + s_lvl + s_c + s_p + s_h));
 
 
+document.getElementById("Croiseur").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Croiseur>inf").textContent));
+document.getElementById("Nano-Sonde").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Nano-Sonde>inf").textContent));
+document.getElementById("Cargo").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Cargo>inf").textContent));
+document.getElementById("Victoire").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Victoire>inf").textContent));
+document.getElementById("Colonisateur").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Colonisateur>inf").textContent));
+
+
 
 
 function clearpopupe(e){
@@ -61,6 +68,61 @@ function clearpopup(){
 
     document.getElementById("popup").classList.add("hide");
 
+}
+
+
+function createvaissinfos(bat) {
+
+        clearpopup()
+        console.log(bat);
+
+        let namevaiss = bat.split(";")[0];
+        let nb = bat.split(";")[1];
+        let price_c = bat.split(";")[2];
+        let price_p = bat.split(";")[3];
+        let price_h = bat.split(";")[4];
+        let pow = bat.split(";")[5];
+        let cargo = bat.split(";")[6];
+
+        document.getElementById("popup").classList.remove("hide");
+        document.getElementById("popup").innerHTML+=(`
+
+        <div class="buildinfos">
+            <header>
+                <img id="cancel" src="../static/imgs/cancel.png">
+                <h3>`+ namevaiss + `</h3>
+                <p>Possédés : `+ nb + `</p>
+                
+            </header>
+
+            
+            <main>
+                <img src="../static/imgs/`+ namevaiss +`.png"">
+
+                <p>Puissance : `+ pow +`</p>
+                <p>Stockage : `+ cargo +`</p>
+                <ul>
+                    <li>Fabrication : </li>
+
+                    <li><img src="../static/imgs/carbon.png" alt="Carbone :">`+ price_c + `</li>
+                    <li><img src="../static/imgs/cpu.png" alt="Puces :">`+ price_p + `</li>
+                    <li><img src="../static/imgs/atome.png" alt="Hydrogène :">`+ price_h + `</li>
+
+
+                </ul>
+                <form action="/upship" method="POST" name="upship">
+                    <input type="number" name="nb" value="" placeholder="Nombre de vaisseaux à créer">
+                    <input class="hide" type="text" name="vinf" value="` + namevaiss + `">
+                    <button type="submit" class="kave-btn" id="phang"><span class="kave-line"></span>Créer</button>
+                </form>
+
+            </main>
+
+        </div>
+
+    `);
+
+    document.querySelector("#cancel").addEventListener('click', clearpopupe)
 }
 
 

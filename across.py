@@ -301,7 +301,8 @@ def getsp(player, idpla):
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
 
     for k,v in data["Vaisseaux"].items():
-        if v[3] <= lvl and addvaisseau(player, idpla, k, 0)[k]:
+        tmp = addvaisseau(player, idpla, k, 0)[k]
+        if v[3] <= lvl:
             liste += f'''
                 <style>
                     #{k} {{
@@ -310,13 +311,10 @@ def getsp(player, idpla):
                         background-size: 20%;
                      }}
                 </style>
-
                 <section id="{k}" class="batbuild">
-
-                    <h4>Spatioport</h4>
-                    <p>Possédés : {v}</p>
-                    <inf class="hide" id="infsp">{v[0]} {v[1]} {v[2]} {v[3]} {v[4]} {v[5]}</inf>
-
+                    <h4>{k}</h4>
+                    <p>Possédés : {tmp}</p>
+                    <inf class="hide">{k};{tmp};{v[0]};{v[1]};{v[2]};{v[3]};{v[5]}</inf>
                 </section>
 
                 '''
