@@ -9,7 +9,7 @@
 }
 
 html{
-  background: center/40% no-repeat url("../imgs/logo.png"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  background: center/70% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
   overflow:hidden;
   height: 100%;
   color: white;
