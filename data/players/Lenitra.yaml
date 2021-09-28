@@ -1,15 +1,15 @@
 pinf:
   msgs: {}
-  reco: 2021-09-14 10:25:25.905248
+  reco: 2021-09-28 22:28:49.979522
   vip: 0
 1:
   bat:
-    carbone: 20
+    carbone: 24
     energy: 20
-    hydro: 20
-    puces: 20
-    rad: 20
-    sp: 20
+    hydro: 22
+    puces: 21
+    rad: 100
+    sp: 21
   flotte:
     Cargo: 1
     Colonisateur: 1
@@ -17,9 +17,9 @@ pinf:
     Nano-Sonde: 1
     Victoire: 10000
   ress: !!python/tuple
-  - 1826
-  - 1906
-  - 1331
+  - 134947
+  - 192341
+  - 218199
   shield: 2022-09-05 19:48:24.549229
 2:
   bat:
@@ -36,7 +36,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10001
   ress: !!python/tuple
-  - 3281
-  - 3331
-  - 3381
-  shield: 2021-09-14 11:48:44.476824
+  - 7011
+  - 7061
+  - 7111
+  shield: 2021-09-28 23:11:58.144653

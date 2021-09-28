@@ -107,7 +107,7 @@ async def help(ctx):
         f"**Les commandes Admin** :```"
         f"\n - {prefix}msgingame <titre>;<contenu>"
         f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
-        f"\n - {prefix}log [<day>-<month>-<year>]"
+        f"\n - {prefix}logs [<day>-<month>-<year>]"
         f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
         f"\n - {prefix}purge <nombre>"
         f"\n     # Permet d'effacer un nombre de message définis."

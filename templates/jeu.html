@@ -8,205 +8,126 @@
   <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
   <link rel="stylesheet" media="screen" href="../static/css/screen.css" />
   <link rel="stylesheet" media="screen" href="../static/css/global.css" />
+  <script src="../static/js/elementscommuns.js"></script>
 </head>
 
 
 <body>
-<div class="page-bg"></div>
-<div class="animation-wrapper">
-  <div class="particle particle-1"></div>
-  <div class="particle particle-2"></div>
-  <div class="particle particle-3"></div>
-  <div class="particle particle-4"></div>
-</div>
-<div class="page page-wrapper">
+
     <div class="pi">
 
+      <!-- Infos des planètes + Boutons de navigation -->
       <div class="pr">
-
-        <ul class="ress">
-
-          <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-          <li><img src="../static/imgs/shield.png" alt="Bouclier :"><strong>{{ shield }}</strong></li>
-          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{ ress[0] }}</li>
-          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{ ress[1] }} </li>
-          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{ ress[2] }}</li>
-        </ul>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <ul class="navpla">
+          <li><img src="../static/imgs/logo.png" alt="" class="logonavpla"></li>
           <li><button class="kave-btn" id="pbuilds"><span class="kave-line"></span>Infrastructure</button></li>
           <li><button class="kave-btn" id="psp"><span class="kave-line"></span>Spacioport</button></li>
-          <li><button class="kave-btn" id="phang"><span class="kave-line"></span>Hangars</button></li>
         </ul>
-        <!-- <img src="/static/imgs/logo.png" alt="" class="logo"> -->
-
       </div>
 
 
+      <main id="popup" class="hide">
       
+      </main>
 
 
       <main class="builds">
-        <section id="carbone">
-          <abbr title="Augmente la production de carbone (10/h/lvl)">
+      
+        <header>
+          <ul class="plastats">
+            <div>
+              <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
+              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li>
+            </div>
+
+            <div>
+              <li><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</li>
+              <li>{{ bat["carbone"][0]*10 }}/h</li>
+            </div>
+
+            <div>
+              <li><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }} </li>
+              <li>{{ bat["puces"][0]*10 }}/h</li>
+            </div>
+
+            <div>
+              <li><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</li>
+              <li>{{ bat["hydro"][0]*10 }}/h</li>
+            </div>
+          </ul>
+        </header>
+
+        <section id="carbone" class="batbuild">
           <h4> Mine lunaire</h4> 
-          <p>Niv : {{bat["carbone"][0]}}</p>
-          </abbr>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["carbone"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["carbone"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["carbone"][3]}}</li>
-          
-            <li>
-              <form action="/upbuild" method="POST" name="carbone">
-                <input type="text" name="bat" value="carbone" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-            
-          </ul>
+          <p>Niv. {{bat["carbone"][0]}}</p>
+          <inf class="hide" id="infcarbon">{{bat["carbone"][0]}} {{bat["carbone"][1]}} {{bat["carbone"][2]}} {{bat["carbone"][3]}}</inf>
         </section>
 
 
-        <section id="puces">
-          <abbr title="Augmente la production de puces (10/h/lvl)">
+        <section id="puces" class="batbuild">
           <h4>Raffinerie de puces</h4>
-          <p>Niv : {{bat["puces"][0]}}</p>
-          </abbr>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["puces"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["puces"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["puces"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="puces">
-                <input type="text" name="bat" value="puces" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-            
-          </ul>
+          <p>Niv. {{bat["puces"][0]}}</p>
+          <inf class="hide" id="infpuces">{{bat["puces"][0]}} {{bat["puces"][1]}} {{bat["puces"][2]}} {{bat["puces"][3]}}</inf>
+
         </section>
 
 
-        <section  id="hydro">
-          <abbr title="Augmente la production d'hydrogène (10/h/lvl)">
+        <section  id="hydro" class="batbuild">
           <h4>Centrale d'hydrogène</h4>
           <p>Niv : {{bat["hydro"][0]}}</p>
-          </abbr>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["hydro"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["hydro"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["hydro"][3]}}</li>
-
-            <li>
-              <form action="/upbuild" method="POST" name="hydro">
-                <input type="text" name="bat" value="hydro" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-
-          </ul>
+          <inf class="hide" id="infhydro">{{bat["hydro"][0]}} {{bat["hydro"][1]}} {{bat["hydro"][2]}} {{bat["hydro"][3]}}</inf>
         </section>
 
-        <section id="rad">
-          <abbr title="Permet de se protéger contre l'espionage">
+
+        <section id="rad" class="batbuild">
           <h4>Radar</h4>
           <p>Niv : {{bat["rad"][0]}}</p>
-          </abbr>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["rad"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["rad"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["rad"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="rad">
-                <input type="text" name="bat" value="rad" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-          </ul>
+          <inf class="hide" id="infrad">{{bat["rad"][0]}} {{bat["rad"][1]}} {{bat["rad"][2]}} {{bat["rad"][3]}}</inf>
         </section>
 
-        <section id="sp">
-          <abbr title="Permet de débloquer des vaisseaux et d'augmenter leurs stats">
+
+        <section id="sp" class="batbuild">
           <h4>Spatioport</h4>
           <p>Niv : {{bat["sp"][0]}}</p>
-          </abbr>
-          <ul>
-            <li>Amélioration</li>
-            <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {{bat["sp"][1]}}</li>
-            <li><img src="../static/imgs/cpu.png" alt="Puces :"> {{bat["sp"][2]}}</li>
-            <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {{bat["sp"][3]}}</li>
-            <li>
-              <form action="/upbuild" method="POST" name="sp">
-                <input type="text" name="bat" value="sp" class="hide">
-                <button type="submit">
-                  Améliorer
-                </button>
-              </form>
-            </li>
-          </ul>
+          <inf class="hide" id="infsp">{{bat["sp"][0]}} {{bat["sp"][1]}} {{bat["sp"][2]}} {{bat["sp"][3]}}</inf>
         </section>
+
       </main>  
 
+
+
       <main class="sp">
+        <header>
+          <ul class="plastats">
+            <div>
+              <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
+              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li>
+            </div>
+          
+            <div>
+              <li><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</li>
+              <li>{{ bat["carbone"][0]*10 }}/h</li>
+            </div>
+          
+            <div>
+              <li><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }} </li>
+              <li>{{ bat["puces"][0]*10 }}/h</li>
+            </div>
+          
+            <div>
+              <li><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</li>
+              <li>{{ bat["hydro"][0]*10 }}/h</li>
+            </div>
+          </ul>
+        </header>
         {{ spaceport | safe }}
       </main>
-      
-      <main class="hang">
-        {{ hang | safe }}
-      </main>
-
 
     </div>
 
     <div class="pn">
-      <ul class="princi">  
-
-        <li>
-          <form action="/jeu" method="POST" name="osef">
-            <button type="submit">
-              Colonie
-            </button>
-          </form>
-        </li>
-
-        <li><form action="/map" method="POST" name="osef">
-          <button type="submit">
-            Map
-          </button>
-        </form></li>
-      <li>
-        <form action="/messages" method="POST" name="osef">
-          <button type="submit">
-            Messages
-          </button>
-        </form>
-      </li>
-        <li>
-          <form action="/options" method="POST" name="osef">
-            <button type="submit">
-              Options
-            </button>
-          </form>
-        </li>
-
-      </ul>
+      <script>Menu();</script>
+      
       <ul class="plist">
         <li>
           <form action="/giveress" method="POST" name="actu">
@@ -221,7 +142,6 @@
 
       </ul>
     </div>
-  </div>
 
   <script>
   "use strict";
@@ -229,23 +149,21 @@
   hideall()
   
   let page = sessionStorage.getItem('page');
-  console.log(page);
   
   if(page == null){
-        hideall();
+    hideall();
     document.querySelector(".builds").style.display = "";
     sessionStorage.setItem('page', 'builds');
+    updatepage();
   }
   
   document.getElementById("pbuilds").addEventListener('click', buildp);
   document.getElementById("psp").addEventListener('click', spp);
-  document.getElementById("phang").addEventListener('click', hang);
-  updatepage()
+  updatepage();
 
   function hideall() {
     document.querySelector(".sp").style.display = "none";
     document.querySelector(".builds").style.display = "none";
-    document.querySelector(".hang").style.display = "none";
   }
 
   function buildp(event) {
@@ -259,12 +177,12 @@
     document.querySelector(".sp").style.display = "";
     sessionStorage.setItem('page', 'sp');
   }
-  function hang(event) {
-    hideall();
-    document.querySelector(".hang").style.display = "";
-    sessionStorage.setItem('page', 'hang');
-  }
+
   function updatepage(){
+    if (page == null) {
+      page = sessionStorage.getItem('page');
+      sessionStorage.setItem('page', 'builds');
+    }
     hideall();
     document.querySelector("."+page).style.display = "";
   }
@@ -272,6 +190,6 @@
 
   </script>
 
-
+<script src="../static/js/buildsinfos.js"></script>
 </body>
 </html>

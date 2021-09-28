@@ -1,3 +1,4 @@
+from main import atta
 import random
 from re import M
 import yaml
@@ -286,9 +287,9 @@ def upbat(player, batim, couts, plaid):
 
 # Récupère le html des vaisseaux dispo en fonction du lvl du sp
 def getsp(player, idpla):
+    liste = ""
     if idpla == "*":
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
-    liste = ""
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     lvl = data[int(idpla)]["bat"]["sp"]
@@ -297,37 +298,28 @@ def getsp(player, idpla):
         data = yaml.load(f, Loader=yaml.FullLoader)
 
     if lvl < 1:
-        liste = "<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>"
+        return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
 
     for k,v in data["Vaisseaux"].items():
-        if v[3] <= lvl:
+        if v[3] <= lvl and addvaisseau(player, idpla, k, 0)[k]:
             liste += f'''
-        <style>
-            #{k} {{
-                background-image: url("../static/imgs/{k}.png");
-                background-repeat: no-repeat;
-                background-size: 20%;
-             }}
-        </style>
-        <section id="{k}">
-        <h4>{k}</h4>
-        <ul>
-          <li>Construction</li>
-          <li><img src="../static/imgs/carbon.png" alt="Carbone :"> {v[0]}</li>
-          <li><img src="../static/imgs/cpu.png" alt="Puces :"> {v[1]}</li>
-          <li><img src="../static/imgs/atome.png" alt="Hydrogène :"> {v[2]}</li>
-          <li>
-            <form action="/upship" method="POST" name="vinf">
-              <input type="text" name="vinf" value="{k}" class="hide">
-              <input type="number" name="nb" value="1" min="1">
-              <button type="submit">
-                Construire
-              </button>
-            </form>
-          </li>
-        </ul>
-      </section>
-    '''
+                <style>
+                    #{k} {{
+                        background-image: url("../static/imgs/{k}.png");
+                        background-repeat: no-repeat;
+                        background-size: 20%;
+                     }}
+                </style>
+
+                <section id="{k}" class="batbuild">
+
+                    <h4>Spatioport</h4>
+                    <p>Possédés : {v}</p>
+                    <inf class="hide" id="infsp">{v[0]} {v[1]} {v[2]} {v[3]} {v[4]} {v[5]}</inf>
+
+                </section>
+
+                '''
     return liste
 
 # Ajoute un vaisseau et retourne la liste de vaisseaux construits
@@ -545,3 +537,38 @@ def addlog(log):
               'w',
               encoding='utf8') as f:
         data = yaml.dump(data, f)
+
+
+
+def espionmanager(playeratta, plaat, playerdef, pladef):
+    if playeratta == playerdef:
+        return
+
+
+    with open(f'data/players/{playeratta}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    attk = data[int(plaat)]["bat"]["sp"]
+
+    with open(f'data/players/{playerdef}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    deff = data[int(pladef)]["bat"]["rad"]
+
+    if attk > deff:
+        with open(f'data/players/{playerdef}.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+
+        infos = data[int(pladef)]
+
+        sendmsg(playeratta, (
+            f"Espionage depuis #{plaat}",
+            f"Vous avez espionné la planète {pladef} qui appartenait à {playerdef}. {infos}"
+        ))
+
+
+        # for plaid, dete in data.items():
+        #     if plaid != "pinf":
+        #         msg.add_field(name=f"\x00", value=f"__-----__", inline=False)
+        #         msg.add_field(name=f"Planète #{plaid}", value=f"\x00", inline=False)
+        #         msg.add_field(name=f"Ressources", value=f"{dete['ress']}")
+        #         msg.add_field(name=f"Batiments", value=f"{dete['bat']}")
+        #         msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")

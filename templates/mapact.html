@@ -88,7 +88,7 @@
             <!-- Bouttons d'actions -->
             <ul class="action">
                 <li>
-                    <form action="">
+                    <form action="/atta" id="Attaquer" method="POST">
                         <input type="text" class="hide" id="platta"  name="platta" value=""> 
                         <input type="text" class="hide" id="platarg" name="platarg" value=""> 
                         <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0"> 
@@ -100,11 +100,11 @@
                         <input type="text" class="hide" id="Puces" name="Puces" value="0"> 
                         <input type="text" class="hide" id="Hydro" name="Hydro" value="0"> 
                         <input type="text" class="hide" id="action" name="action" value="Attaquer"> 
-                        <button class="kave-btn"><span class="kave-line"></span>Attaquer</button>
+                        <button class="kave-btnd" type="submit" disabled><span class="kave-line"></span>Attaquer</button>
                     </form>
                 </li>
                 <li>
-                    <form action="/atta">
+                    <form action="/atta" id="Espionner" method="POST">
                         <input type="text" class="hide" id="platta"  name="platta" value=""> 
                         <input type="text" class="hide" id="platarg" name="platarg" value=""> 
                         <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0"> 
@@ -116,13 +116,13 @@
                         <input type="text" class="hide" id="Puces" name="Puces" value="0"> 
                         <input type="text" class="hide" id="Hydro" name="Hydro" value="0"> 
                         <input type="text" class="hide" id="action" name="action" value="Espioner"> 
-                        <button class="kave-btn"><span class="kave-line"></span>Espioner</button>
+                        <button class="kave-btnd" type="submit" disabled><span class="kave-line"></span>Espionner</button>
                     </form>
                 </li>
 
-                <li><button class="kave-btn"><span class="kave-line"></span>Coloniser</button></li>
+                <!-- <li><button class="kave-btn"><span class="kave-line"></span>Coloniser</button></li>
                 <li><button class="kave-btn"><span class="kave-line"></span>Transporter</button></li>
-                <li><button class="kave-btn"><span class="kave-line"></span>Docker</button></li>
+                <li><button class="kave-btn"><span class="kave-line"></span>Docker</button></li> -->
                 
                 <li id="marg"></li>
                 
@@ -140,6 +140,69 @@
 
     </div>
 
+<!-- Savoir si une action est feseable sinon changer le boutton  -->
+<script>
+
+    function checkbtns(){
+        checkatta()
+        checkespio()
+    }
+
+    function checkespio(){
+        let btn = document.querySelector("#Espioner");
+        if(btn[2].value!=0 || btn[3].value==0 || btn[4].value!=0 || btn[5].value!=0 || btn[6].value!=0 ){
+            btn[11].classList.remove("kave-btn");
+            btn[11].classList.add("kave-btnd");
+            btn[11].setAttribute("disabled", "true");
+            return 0;
+        }
+        // Ressources
+        if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0){
+            btn[11].classList.remove("kave-btn");
+            btn[11].classList.add("kave-btnd");
+            btn[11].setAttribute("disabled", "true");
+            return 0;   
+        }
+        // Quand l'attaque est dispo 
+        else {
+            btn[11].classList.remove("kave-btnd");
+            btn[11].classList.add("kave-btn");
+            btn[11].removeAttribute("disabled");
+
+        }
+        // BLOQUER L'EFFET DU BOUTTON
+
+    }
+
+    function checkatta(){
+        let btn = document.querySelector("#Attaquer");
+        if(btn[2].value==0 && btn[3].value==0 && btn[4].value==0 && btn[5].value==0 && btn[6].value==0 ){
+            btn[11].classList.remove("kave-btn");
+            btn[11].classList.add("kave-btnd");
+            btn[11].setAttribute("disabled", "true");
+            return 0;
+        }
+        if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0){
+            btn[11].classList.remove("kave-btn");
+            btn[11].classList.add("kave-btnd");
+            btn[11].setAttribute("disabled", "true");
+            return 0;   
+        }
+        // Quand l'attaque est dispo 
+        else {
+            btn[11].classList.remove("kave-btnd");
+            btn[11].classList.add("kave-btn");
+            btn[11].removeAttribute("disabled");
+
+        }
+        // BLOQUER L'EFFET DU BOUTTON
+
+    }
+
+
+</script>
+
+
 <!-- Mise à jour des forms pour les bouttons -->
 <script>
     let tmp = document.querySelectorAll("#platarg")
@@ -147,8 +210,6 @@
         tmp[index].value = document.querySelector("h2").textContent.split("#")[1].split(" ")[0];
         
     }
-
-    // 
 
     // Récupérer les inputs de l'utilisateur
     let inputcrois = [];
@@ -164,9 +225,9 @@
     for (let i = 0; i < inputcrois.length; i++) {
         inputcrois[i].addEventListener('change', (event) => {
             let a = document.querySelectorAll('#Croiseur');
-            console.log(event.path[2].attributes["plaid"].value);
             for (let index = 0; index < a.length; index++) {
                 a[index].value = event.target.value;
+                checkbtns()
             }
         })
     };
@@ -184,9 +245,9 @@
     for (let i = 0; i < inputcrois.length; i++) {
         inputcrois[i].addEventListener('change', (event) => {
             let a = document.querySelectorAll('#Cargo');
-            console.log(event.path[2].attributes["plaid"].value);
             for (let index = 0; index < a.length; index++) {
                 a[index].value = event.target.value;
+                checkbtns()
             }
         })
     };
@@ -203,9 +264,9 @@
     for (let i = 0; i < inputcrois.length; i++) {
         inputcrois[i].addEventListener('change', (event) => {
             let a = document.querySelectorAll('#Nano-Sonde');
-            console.log(event.path[2].attributes["plaid"].value);
             for (let index = 0; index < a.length; index++) {
                 a[index].value = event.target.value;
+                checkbtns()
             }
         })
     };
@@ -222,9 +283,9 @@
     for (let i = 0; i < inputcrois.length; i++) {
         inputcrois[i].addEventListener('change', (event) => {
             let a = document.querySelectorAll('#Victoire');
-            console.log(event.path[2].attributes["plaid"].value);
             for (let index = 0; index < a.length; index++) {
                 a[index].value = event.target.value;
+                checkbtns()
             }
         })
     };
@@ -241,12 +302,14 @@
     for (let i = 0; i < inputcrois.length; i++) {
         inputcrois[i].addEventListener('change', (event) => {
             let a = document.querySelectorAll('#Colonisateur');
-            console.log(event.path[2].attributes["plaid"].value);
             for (let index = 0; index < a.length; index++) {
                 a[index].value = event.target.value;
+                checkbtns() 
+
             }
         })
     };
+
 </script>
 
 
@@ -275,6 +338,7 @@
         for (let index = 0; index < tores.length; index++) {
             tores[index].value = 0;
         }
+        checkbtns()
     }
 
     function hidevaiss(){
@@ -289,6 +353,7 @@
     function selectpla(element) {
         hidevaiss()
         val0()
+        checkbtns()
         let val = element.options[element.options.selectedIndex].value;
         let vaisseaux = document.querySelectorAll("#vaisseaux");
         for (let index = 0; index < vaisseaux.length; index++) {
@@ -302,7 +367,6 @@
             } 
         }
     }
-
     hidevaiss()
     let element = document.querySelector("div.select select")
     let val = element.options[element.options.selectedIndex].value;
@@ -317,6 +381,7 @@
         }
     }
 
+    checkbtns()
 </script>
 </body>
 </html>

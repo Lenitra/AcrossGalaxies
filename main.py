@@ -4,6 +4,7 @@
 from datetime import datetime
 from os import system
 from flask import Flask, render_template, request, redirect, session
+from werkzeug.wrappers.response import ResponseStream
 import yaml
 import across
 
@@ -206,7 +207,7 @@ def upbuild():
 # Intermédiaire pour la construction de vaisseaux
 @app.route("/upship", methods=['POST', 'GET'])
 def upship():
-    vinf = request.form['vinf']
+    vinf = request.form['vinf'] # nom du vaisseau
     nb = request.form['nb']
     cost = across.getvaisscost(vinf, nb)
     ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
@@ -222,7 +223,6 @@ def mapla():
     player = sel.split("|")[1]
     plaid = sel.split("|")[0]
     playerpla = across.getallplaid(session["player"]["pseudo"])
-    print(playerpla)
     liste = ""
 
     liste += f"""<h2>#{plaid} - {player}</h2>
@@ -268,61 +268,55 @@ def delmsg():
 @app.route("/atta", methods=['POST', 'GET'])
 def atta():
     # region Récupération des éléments
-    action = request.form['select']
-    pladef = int(request.form['plaid'])
-    if request.form['attaplaid'] == "Selectionner":
-        return redirect("/map")
 
-    plaatta = int(request.form['attaplaid'].split("#")[1])
-    player = across.checkpla(pladef)
-    pflo = across.addvaisseau(session["player"]['pseudo'], plaatta, None, None)
+    action = request.form['action']
+    plaat = int(request.form['platta'])
+    pladef = int(request.form['platarg'])
+
+    croiseur = int(request.form['Croiseur'])
+    nanosonde = int(request.form['Nano-Sonde'])
+    cargo = int(request.form['Cargo'])
+    victoire = int(request.form['Victoire'])
+    colonisateur = int(request.form['Colonisateur'])
+
+    carbone = int(request.form['Carbone'])
+    puces = int(request.form['Puces'])
+    hydro = int(request.form['Hydro'])
+
+    playeratta = across.checkpla(plaat)
+    playerdef = across.checkpla(pladef)
+
+    flotdef = across.addvaisseau(playerdef, pladef, None, None)
+    flotatta = {
+        "Croiseur": croiseur,
+        "Nano-Sonde": nanosonde,
+        "Victoire": victoire,
+        "Colonisateur": colonisateur,
+        'Cargo': cargo
+    }
+
+    ress = (carbone, puces, hydro)
+
+
     # endregion
+
+    # region Check si le joueur n'as pas envoyé plus de vaisseaux qu'il n'a
+    tmp = across.addvaisseau(session["player"]['pseudo'], plaat, None, None)
+    for k,v in flotatta.items():
+        if flotatta[k] > tmp[k]:
+            flotatta[k] = tmp[k]
+    # endregion
+
+
+
     if action == 'Attaquer':
-        if player == session["player"]["pseudo"]:
+        if playeratta == playerdef:
             return redirect("/map")
-        try:
-            Croiseur = int(request.form['Croiseur'])
-            if Croiseur > pflo["Croiseur"]:
-                Croiseur = pflo["Croiseur"]
-        except:
-            Croiseur = 0
-        try:
-            Nano_Sonde = int(request.form['Nano-Sonde'])
-            if Nano_Sonde > pflo["Nano-Sonde"]:
-                Nano_Sonde = pflo["Nano-Sonde"]
-        except:
-            Nano_Sonde = 0
-        try:
-            Cargo = int(request.form['Cargo'])
-            if Nano_Sonde > pflo["Nano-Sonde"]:
-                Nano_Sonde = pflo["Nano-Sonde"]
-        except:
-            Cargo = 0
-        try:
-            Victoire = int(request.form['Victoire'])
-            if Victoire > pflo["Victoire"]:
-                Victoire = pflo["Victoire"]
-        except:
-            Victoire = 0
-        try:
-            Colonisateur = int(request.form['Colonisateur'])
-            if Colonisateur > pflo["Colonisateur"]:
-                Colonisateur = pflo["Colonisateur"]
-        except:
-            Colonisateur = 0
-        flotatta = {
-            "Croiseur": Croiseur,
-            "Nano-Sonde": Nano_Sonde,
-            "Victoire": Victoire,
-            "Colonisateur": Colonisateur,
-            'Cargo': Cargo
-        }
-        deff = across.addvaisseau(player, pladef, None, None)
-        resultat = across.attackmanager(session["player"]["pseudo"], plaatta , player,
-                             pladef, flotatta, deff)
-    if action == "Espioner":
-        pass
-    return redirect("/map")
+        resultat = across.attackmanager(playeratta, plaat,
+                                        playerdef,pladef , flotatta, flotdef)
+    if action == "Espionner":
+        across.espionmanager(playeratta, plaat, playerdef, pladef)
+    return redirect("/messages")
 
 # Intermédiaire pour update les ressources
 @app.route("/updatedata", methods=['POST', 'GET'])
@@ -337,12 +331,13 @@ def jeu():
         playerinf = session["player"]
     except:
         return redirect("/login")
+
     shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
     if shield < datetime.now():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-    vaisseaux = across.gethang(session["player"]["pseudo"], session['selected'])
+    
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
     ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
@@ -354,8 +349,7 @@ def jeu():
         pname=session['selected'],
         shield = shield,
         bat=batiments,
-        spaceport=spaceport,
-        hang=vaisseaux
+        spaceport=spaceport
         )
 
 
