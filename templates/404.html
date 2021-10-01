@@ -111,6 +111,7 @@ h1{
       body.appendChild(star);
       setInterval(runStar, 10);
       star.style.top = top + "px";
+
       function runStar() {
         if (right >= screen.width) {
           star.remove();
@@ -118,6 +119,7 @@ h1{
         right += 3;
         star.style.right = right + "px";
       }
+      
     }
   })</script>
 

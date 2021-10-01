@@ -5,8 +5,10 @@ import yaml
 import datetime
 import os
 import platform
-
+import smtplib
 from cryptography.fernet import Fernet
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 secret_key = b'gZTtOPorjsy8tdTFeLWXKWqG9EcX1Ifd1oiaFDXgFFg='
 
@@ -570,3 +572,34 @@ def espionmanager(playeratta, plaat, playerdef, pladef):
         #         msg.add_field(name=f"Ressources", value=f"{dete['ress']}")
         #         msg.add_field(name=f"Batiments", value=f"{dete['bat']}")
         #         msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")
+
+
+def sendmail(email):
+    s = smtplib.SMTP("smtp.gmail.com", 587)
+    s.starttls()
+    s.login("across.galaxies.web@gmail.com", "@crossGalaxie5")
+    message = "Test"
+    s.sendmail("across.galaxies.web@gmail.com", email, message)
+    s.quit()
+
+
+def resetmdp(email):
+    s = smtplib.SMTP("smtp.gmail.com", 587)
+    s.starttls()
+    s.login("across.galaxies.web@gmail.com", "@crossGalaxie5")
+    message = MIMEMultipart("alternative")
+
+    message["Subject"] = "Changement de mot de passe"
+    message["From"] = "across.galaxies.web@gmail.com"
+    message["To"] = email
+
+    html = """
+        <html><body>
+        <h1>Changement de mot de passe</h1>
+        <p>Vous êtres débile, vous avez oublié votre mot de passe ?</p>
+        <p>On est sympa, on vous laisse une seconde chance !</p>
+        </body></html>
+        """
+    message.attach(MIMEText(html, "html"))
+    s.sendmail("across.galaxies.web@gmail.com", email, message.as_string())
+    s.quit()
