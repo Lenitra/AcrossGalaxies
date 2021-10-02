@@ -9,16 +9,17 @@
 }
 
 html{
-  background: center/70% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  background: center/90% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
   overflow:hidden;
   height: 100%;
   color: white;
+  margin: 0;
 }
 
 h1{
   font-family: "Titres";
   color: white;
-  font-size: 90px;
+  font-size: 6vw;
   margin-top: 0% ;
   text-align: center;
   background-color: rgba(98, 101, 103, 0.4);
@@ -78,10 +79,11 @@ h1{
 	border: 4px solid black;
   border-top: 0;
   overflow: hidden;
+
 }
 
 .actu h2{
-	font-size: 50px;
+	font-size: 4vw;
 	border-radius: 10px 10px 0px 0px;
   background-color: #00000062;
   text-align: center;
@@ -184,7 +186,7 @@ footer{
 }
 
 .kave-btn {
-  position: relative;
+  position: absolute;
   background: none;
   border: solid 1px rgba(0, 214, 252, 0.3);
   color: rgba(0, 214, 252, 0.5);
@@ -241,7 +243,7 @@ footer{
 }
 
 .kave-line:hover{
-  color: red;
+  color: #01568b;
 }
 
 .kave-line:before {
@@ -269,51 +271,123 @@ footer{
 }
 
 @media (max-width:1300px){
-  html{
-    background: center/50% no-repeat url("../imgs/logo.png"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
-  }
-  h1{
-      font-size: 60px;
-      width: 70vw;
-  }
-  .btn-play {
-    top: 35%;
-  }
+
   .actu{
     margin: 2% 5px;
   }
-  .ul-actu {
-    height: 73vh;
+  .actu {
+    height: 75vh;
   }
-  .actu h2{
-    font-size: 40px;
-  }
+
 }
 
 @media (max-width:900px){
-  html{
-    background: center/60% no-repeat url("../imgs/logo.png"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
-  }
-  h1{
-      font-size: 60px;
-      width: 80vw;
-  }
-  .btn-play {
-    top: 35%;
-  }
   .actu{
     margin: 2% 5px;
   }
-  .ul-actu {
-    height: 77vh;
+  .actu {
+    height: 80vh;
   }
-  .actu h2{
-    font-size: 30px;
-  }
+
   .version{
     font-size: 25px;
   }
   .news li{
     font-size: 15px;
+  }
+}
+
+/* For phones */
+@media only screen and (max-device-width : 480px) {
+  html{
+    background: top/200% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  }
+  h1{
+    font-size: 10vw;
+    width: 90vw;
+  }
+  /* Reseaux sociaux */
+  .rs{
+    position: fixed;
+    bottom: 5%;
+  }
+  .rs h2{
+    font-size: 6vw;
+  }
+  .separate{
+    display: block;
+  }
+  #txt1{
+    font-size: 6vw;
+    font-weight: 300;
+    margin-top: 5%;
+    margin-bottom: 0;
+  }
+  .div_rs{
+    display: grid;
+    text-align: center;
+    grid-gap: 1vw;
+  }
+  .div_rs p{
+    color: #00d6fc;
+    text-decoration: none;
+    font-size: 4vw;
+  }
+  .img_rs{
+    max-width: 6vh;
+  }
+  /* Actualites */
+  .actu{
+    background-color: rgba(98, 101, 103, 0.8);
+    margin: 12vh 1vw;
+    height: 50vh;
+  }
+  .ul-actu {
+    height: 100%;
+  }
+  .actu h2{
+    font-size: 8vw;
+  }
+  /*Bouton jouer*/
+  .kave-btn {
+    background: none;
+    border: none;
+    color: transparent;
+    letter-spacing: 3px;
+    height: 10%;
+  }
+  .kave-btn:before, .kave-btn:after,.kave-line:before, .kave-line:after{
+    display: none;
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :800px){
+  .actu {
+    height: 45vh;
+  }
+  footer{
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :600px){
+  .actu{
+    background-color: rgba(98, 101, 103, 0.8);
+    margin: 16vh 1vw;
+    height: 40vh;
+
+  }
+  .ul-actu {
+    font-size: 4vw;
+  }
+  footer{
+    font-size: 12px;
+  }
+  .kave-btn {
+    background: none;
+    border: none;
+    color: transparent;
+    letter-spacing: 3px;
+    height: 5%;
   }
 }
