@@ -269,7 +269,6 @@ footer{
 }
 
 @media (max-width:1300px){
-
   .actu{
     margin: 2% 5px;
   }
@@ -313,34 +312,28 @@ footer{
     margin-bottom: 0;
     width: 200%;
   }
-
   .separate{
     grid-template-columns: 1fr 1fr;
     margin:auto;
     height: 100%;
     grid-gap: 3vw;
   }
-
   .left, .btn-play {
     grid-column: 1;
   }
-
   .actu{
     grid-column: 2;
     background-color: rgba(98, 101, 103, 0.7);
     margin: 0;
     height: 70vh;
-  }
-  
+  }  
   .actu h2{
     font-size: 6vw;
   }
-
   .ul-actu {
     height: 70vh;
     font-size: 2.5vw;
   }
-
   .rs{
     position: fixed;
     bottom: 5%;
@@ -357,7 +350,6 @@ footer{
   .img_rs{
     max-width: 5vh;
   }
-
   .kave-line{
     font-size: 10vw;
   }
@@ -375,7 +367,6 @@ footer{
   .separate{
     display: block;
   }
-  /* Reseaux sociaux */
   .rs{
     position: fixed;
     bottom: 5%;
@@ -398,7 +389,6 @@ footer{
   .img_rs{
     max-width: 6vh;
   }
-  /* Actualites */
   .actu{
     background-color: rgba(98, 101, 103, 0.8);
     margin: 12vh 1vw;
@@ -410,7 +400,6 @@ footer{
   .actu h2{
     font-size: 8vw;
   }
-  /*Bouton jouer*/
   .kave-btn {
     background: none;
     border: none;
@@ -424,7 +413,6 @@ footer{
   .btn-play{
     top: 30%;
   }
-
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :800px){
@@ -441,7 +429,6 @@ footer{
     background-color: rgba(98, 101, 103, 0.8);
     margin: 16vh 1vw;
     height: 40vh;
-
   }
   .ul-actu {
     font-size: 4vw;

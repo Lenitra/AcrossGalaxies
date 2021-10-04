@@ -32,6 +32,7 @@ h1{
   grid-template-columns: 35% 30% 35%;
 }
 
+/* Cadre co et insc */
 .cadre{
 	background-color: rgba(98, 101, 103, 0.6);
 	border-radius: 10px;
@@ -87,7 +88,6 @@ input[type=text], input[type=password], input[type=email] {
   margin: auto;
 }
 
-
 button {
   background-color: #000000;
   color: #fff;
@@ -135,8 +135,8 @@ button {
 #captcha_txt{
   margin-left: 5%;
 }
-/* Message d'erreur*/
 
+/* Message d'erreur*/
 #error_cont {
   visibility: show;
   min-width: 250px;
@@ -156,26 +156,6 @@ button {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
 }
 
 @media (max-width:900px){
