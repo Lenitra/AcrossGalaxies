@@ -172,6 +172,17 @@ button {
   }
 }
 
+@media only screen and (max-device-width : 1024px) and (min-device-width : 479px){
+  html{
+    background: top/150% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    overflow: auto; 
+  }
+  .separate{
+    display: grid;
+    grid-template-columns: 50% 0 50%;
+  } 
+}
+
 @media only screen and (max-device-width : 480px) {
   html{
     height: auto;
@@ -187,21 +198,3 @@ button {
     font-size: 8vw;
   }
 }
-@media only screen and (max-device-width : 480px) and (orientation:landscape) {
-  html{
-    height: 100%  ;
-  }
-}
-
-@media only screen and (max-device-width : 1024px) and (min-device-width : 479px){
-  html{
-    background: top/150% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
-    overflow: auto; 
-  }
-  .separate{
-    display: grid;
-    grid-template-columns: 50% 0 50%;
-  } 
-}
-
-
