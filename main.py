@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
+from confi import *
 from datetime import datetime
-from os import system
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.wrappers.response import ResponseStream
 import yaml
@@ -337,7 +337,7 @@ def jeu():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-    
+
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
     ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
@@ -426,6 +426,33 @@ def login():
 def options():
     return render_template("options.html")
 
+
+
+# region MDP PERDU
+
+# Accès via la page de login, inscription du mail en envois du token à la confirmation
+@app.route("/mdpperdu", methods=['GET', 'POST'])
+def mdpperdu():
+    return render_template("mdpperdu.html")
+
+# Accès après/via le mail, inscription du token et du mail sur la page pour rediriger vers la page de changement de mdp 
+@app.route("/token", methods=['GET', 'POST'])
+def token():
+    tcode = 0
+    mail = 0
+    with open('data/mdplosts.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for k,v in data.items():
+        if k == mail and v == tcode:
+            return redirect("/newmdp")
+    return render_template("token.html")
+
+# Changement de mdp 
+@app.route("/newmdp", methods=['GET', 'POST'])
+def newmdp():
+    return render_template("newmdp.html")
+
+# endregion
 
 
 @app.errorhandler(404)

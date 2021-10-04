@@ -1,3 +1,3 @@
 import across
 
-across.resetmdp("21905036@etu.unicaen.fr")
+across.resetmdp("lenitramc@gmail.com")

@@ -1,6 +1,8 @@
-from main import atta
+from email.mime import text
+import string
+
+from confi import *
 import random
-from re import M
 import yaml
 import datetime
 import os
@@ -10,7 +12,7 @@ from cryptography.fernet import Fernet
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-secret_key = b'gZTtOPorjsy8tdTFeLWXKWqG9EcX1Ifd1oiaFDXgFFg='
+
 
 
 
@@ -574,32 +576,66 @@ def espionmanager(playeratta, plaat, playerdef, pladef):
         #         msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")
 
 
-def sendmail(email):
+def sendmail(email, sujet, html):
     s = smtplib.SMTP("smtp.gmail.com", 587)
     s.starttls()
-    s.login("across.galaxies.web@gmail.com", "@crossGalaxie5")
-    message = "Test"
-    s.sendmail("across.galaxies.web@gmail.com", email, message)
-    s.quit()
-
-
-def resetmdp(email):
-    s = smtplib.SMTP("smtp.gmail.com", 587)
-    s.starttls()
-    s.login("across.galaxies.web@gmail.com", "@crossGalaxie5")
+    s.login(mail_email, mail_mdp)
     message = MIMEMultipart("alternative")
 
-    message["Subject"] = "Changement de mot de passe"
+    message["Subject"] = sujet
     message["From"] = "across.galaxies.web@gmail.com"
     message["To"] = email
 
-    html = """
-        <html><body>
-        <h1>Changement de mot de passe</h1>
-        <p>Vous êtres débile, vous avez oublié votre mot de passe ?</p>
-        <p>On est sympa, on vous laisse une seconde chance !</p>
-        </body></html>
-        """
     message.attach(MIMEText(html, "html"))
     s.sendmail("across.galaxies.web@gmail.com", email, message.as_string())
     s.quit()
+
+
+
+def resetmdp(email):
+    exist = False
+    with open('data/accounts.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for e in data:
+        if e["mail"] == email:
+            exist = True
+
+    if not exist:
+        print("Compte innexistant")
+        return 0
+
+
+    letters = string.ascii_lowercase
+    token = ''.join(random.choice(letters) for _ in range(10))
+
+    sujet = "Changement de mot de passe"
+
+    textContent = f"""
+        <html><body>
+        <style>
+            h1 {{
+                color: red;
+                text-align: center;
+            }}
+        </style>
+        <h1>Changement de mot de passe</h1>
+        <p>Vous êtres débile, vous avez oublié votre mot de passe ?</p>
+        <p>On est sympa, on vous laisse une seconde chance !</p>
+        <p>Allez sur ce lien : <a href=http://across-galaxies.com/token>http://across-galaxies.com/token</a>, et rentrer le code ci-dessous.</p>
+        <h2>{token}</h2>
+        <small>Ce code deviendra invalide à partir de minuit. Si vous n'avez demandé aucun changement de mot de passe, veuillez ignorer ce mail.</small>
+        </body></html>
+        """
+
+    with open('data/mdplosts.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+    data[email] = token
+
+
+    with open('data/mdplosts.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(data, f)
+
+
+    print("mail envoyé et token sauvegarder/actualisé")
+    sendmail(email, sujet, textContent)
