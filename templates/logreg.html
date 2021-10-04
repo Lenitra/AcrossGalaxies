@@ -21,6 +21,28 @@
     </div>
     <h1>Across-Galaxies</h1>
 
+    <div id="forget_cadre" class="cadre_forg">
+        <section class="cadre forg">
+            <h2>Mot de passe oublié</h2>
+            <span onclick="document.getElementById('forget_cadre').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <form method="post">
+                <article class="container">
+                    <h3 id="mdp_title">Vous avez oublié vos identifiants ?</h3>
+                    <p id="mdp_txt">Veuillez indiquer votre email pour modifier votre mot de passe</p>
+                    
+                    <div class="log_cont">
+                        <label for="forgmail"></label>
+                        <i class="fa fa-envelope icon"></i>
+                        <input class="input-field" type="email" placeholder="Adresse mail" name="forgmail" required>
+                    </div>
+                </article>
+                <article>
+                    <button class="button" type="submit">Envoyer</button>
+                </article>
+            </form>
+        </section>
+        </form>
+    </div>
     <div class="separate">
         <section>
             <article class="cadre">
@@ -28,7 +50,6 @@
                 <form class="login_form" method="post">        
                     <div class="container">
                         <div class="log_cont">
-                            <label for="loguser"></label>
                             <i class="fa fa-envelope icon"></i>
                             <input class="input-field" type="email" placeholder="Adresse mail" name="loguser" required>
                         </div>
@@ -38,12 +59,10 @@
                             <input class="input-field" type="password" placeholder="Mot de passe" name="logmdp" required>
                         </div>
                         
-                            <button type="submit" onclick="myFunction()">Se connecter</button>
-                        <div>
-                            <a class="forgmdp" href="#">Mot de passe oublié</a>
-                        </div>
+                            <button class="button" type="submit" onclick="myFunction()">Se connecter</button>
                     </div> 
                 </form>
+                    <button class="forgmdp" onclick="document.getElementById('forget_cadre').style.display='block'" style="width:auto;">Mot de passe oublié</button>
             </article>
         </section>
         <section>
@@ -83,20 +102,13 @@
                             <label for="captcha" id="captcha_txt">Lettres dans l'image :</label>
                             <input type="text" id="captcha" placeholder="Captcha" name="captcha" required>
                         </div>
-                        <button type="submit">S'enregistrer</button>
+                        <button class="button" type="submit">S'enregistrer</button>
                     </div>
                 </form>
             </article>
         </section>
     </div>
 
-    <script>
-        function error() {
-          var x = document.getElementById("snackbar");
-          x.className = "show";
-          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
-    </script>
 </body>
 
 </html>
