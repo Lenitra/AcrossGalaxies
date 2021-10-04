@@ -25,17 +25,17 @@
         <section>
             <article class="cadre">
                 <h2>Connexion</h2>
-                <form class="login_form" method="post">        
+                <form class="login_form" method="post" action="/checklog">        
                     <div class="container">
                         <div class="log_cont">
                             <label for="loguser"></label>
                             <i class="fa fa-envelope icon"></i>
-                            <input class="input-field" type="email" placeholder="Adresse mail" name="loguser" required>
+                            <input class="input-field" type="email" placeholder="Adresse mail" name="l_mail" required>
                         </div>
                         <div class="log_cont">
                             <label for="logmdp"></label>
                             <i class="fa fa-key icon"></i>
-                            <input class="input-field" type="password" placeholder="Mot de passe" name="logmdp" required>
+                            <input class="input-field" type="password" placeholder="Mot de passe" name="l_mdp" required>
                         </div>
                         
                             <button type="submit" onclick="myFunction()">Se connecter</button>
