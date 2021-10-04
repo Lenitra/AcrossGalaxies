@@ -171,7 +171,7 @@ footer{
   display: inline-flex;
   justify-content: center;
   position: relative;
-  top: 30%;
+  top: 20vh;
 }
 
 .kave-line{
@@ -182,7 +182,6 @@ footer{
   font-size: 70px;
   font-weight: bold;
   transition: 0.5s;
-  width: 100%;
 }
 
 .kave-btn {
@@ -191,7 +190,6 @@ footer{
   border: solid 1px rgba(0, 214, 252, 0.3);
   color: rgba(0, 214, 252, 0.5);
   letter-spacing: 3px;
-  height: 15%;
 }
 
 .kave-btn:before {
@@ -271,14 +269,15 @@ footer{
 }
 
 @media (max-width:1300px){
-
   .actu{
     margin: 2% 5px;
   }
   .actu {
     height: 75vh;
   }
-
+  .ul-actu {
+    height: 65vh;
+  }
 }
 
 @media (max-width:900px){
@@ -288,12 +287,71 @@ footer{
   .actu {
     height: 80vh;
   }
-
+  .ul-actu {
+    height: 72vh;
+  }
   .version{
     font-size: 25px;
   }
   .news li{
     font-size: 15px;
+  }
+}
+
+@media only screen and (max-device-width : 1024px) and (min-device-width : 479px){
+  html{
+    background: top/120% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  }
+  h1{
+    font-size: 10vw;
+    width: 90vw;
+  }
+  #txt1{
+    font-size: 6vw;
+    margin-top: 5%;
+    margin-bottom: 0;
+    width: 200%;
+  }
+  .separate{
+    grid-template-columns: 1fr 1fr;
+    margin:auto;
+    height: 100%;
+    grid-gap: 3vw;
+  }
+  .left, .btn-play {
+    grid-column: 1;
+  }
+  .actu{
+    grid-column: 2;
+    background-color: rgba(98, 101, 103, 0.7);
+    margin: 0;
+    height: 70vh;
+  }  
+  .actu h2{
+    font-size: 6vw;
+  }
+  .ul-actu {
+    height: 70vh;
+    font-size: 2.5vw;
+  }
+  .rs{
+    position: fixed;
+    bottom: 5%;
+  }
+  .rs h2{
+    font-size: 3vw;
+  }
+  .div_rs{
+    grid-gap: 1vw;
+  }
+  .div_rs p{
+    font-size: 4vw;
+  }
+  .img_rs{
+    max-width: 5vh;
+  }
+  .kave-line{
+    font-size: 10vw;
   }
 }
 
@@ -306,16 +364,15 @@ footer{
     font-size: 10vw;
     width: 90vw;
   }
-  /* Reseaux sociaux */
+  .separate{
+    display: block;
+  }
   .rs{
     position: fixed;
     bottom: 5%;
   }
   .rs h2{
     font-size: 6vw;
-  }
-  .separate{
-    display: block;
   }
   #txt1{
     font-size: 6vw;
@@ -324,19 +381,14 @@ footer{
     margin-bottom: 0;
   }
   .div_rs{
-    display: grid;
-    text-align: center;
     grid-gap: 1vw;
   }
   .div_rs p{
-    color: #00d6fc;
-    text-decoration: none;
     font-size: 4vw;
   }
   .img_rs{
     max-width: 6vh;
   }
-  /* Actualites */
   .actu{
     background-color: rgba(98, 101, 103, 0.8);
     margin: 12vh 1vw;
@@ -348,7 +400,6 @@ footer{
   .actu h2{
     font-size: 8vw;
   }
-  /*Bouton jouer*/
   .kave-btn {
     background: none;
     border: none;
@@ -358,6 +409,9 @@ footer{
   }
   .kave-btn:before, .kave-btn:after,.kave-line:before, .kave-line:after{
     display: none;
+  }
+  .btn-play{
+    top: 30%;
   }
 }
 
@@ -375,7 +429,6 @@ footer{
     background-color: rgba(98, 101, 103, 0.8);
     margin: 16vh 1vw;
     height: 40vh;
-
   }
   .ul-actu {
     font-size: 4vw;

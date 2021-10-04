@@ -32,13 +32,14 @@ h1{
   grid-template-columns: 35% 30% 35%;
 }
 
+/* Cadre co et insc */
 .cadre{
 	background-color: rgba(98, 101, 103, 0.6);
 	border-radius: 10px;
 	margin: 5% 20px;
 	border: 4px solid black;
   border-top: 0;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .cadre h2{
@@ -87,7 +88,6 @@ input[type=text], input[type=password], input[type=email] {
   margin: auto;
 }
 
-
 button {
   background-color: #000000;
   color: #fff;
@@ -135,8 +135,8 @@ button {
 #captcha_txt{
   margin-left: 5%;
 }
-/* Message d'erreur*/
 
+/* Message d'erreur*/
 #error_cont {
   visibility: show;
   min-width: 250px;
@@ -145,7 +145,7 @@ button {
   color: #fff;
   text-align: center;
   border-radius: 2px;
-  padding: 16px;
+  padding: 16px 0;
   position: fixed;
   z-index: 1;
   left: 50%;
@@ -158,41 +158,43 @@ button {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-
 @media (max-width:900px){
+  html{
+    background: top/200% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    overflow: auto;
+  }
   .separate{
     display: grid;
     grid-template-columns: 50% 0 50%;
-  }
-  html{
-    background: center/150% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
-    overflow: auto;
   }
   #error_cont {
     background-color: rgba(255, 0, 0, 0.9);
   }
 }
 
-@media (max-width:767px){
+@media only screen and (max-device-width : 1024px) and (min-device-width : 479px){
+  html{
+    background: top/150% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    overflow: auto; 
+  }
+  .separate{
+    display: grid;
+    grid-template-columns: 50% 0 50%;
+  } 
+}
 
-
+@media only screen and (max-device-width : 480px) {
+  html{
+    height: auto;
+  }
+  h1{
+    font-size: 10vw;
+    width: 90vw;
+  }
+  .separate{
+    display: block;
+  }
+  .cadre h2{
+    font-size: 8vw;
+  }
 }
