@@ -354,7 +354,7 @@ footer{
 /* For phones */
 @media only screen and (max-device-width : 480px) {
   html{
-    background: top/220% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    background: top/200% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
     overflow: auto;
     height: auto;
   }
@@ -371,6 +371,9 @@ footer{
     font-weight: 300;
     margin-top: 5%;
     margin-bottom: 0;
+  }
+  .kave-line{
+    font-size: 9vh;
   }
   .actu{
     background-color: rgba(98, 101, 103, 0.8);
