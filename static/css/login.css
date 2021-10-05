@@ -107,7 +107,7 @@ input[type=text], input[type=password], input[type=email] {
   background-color: transparent;
   border: none;
   padding: 1vw;
-  font-size: 1vw;
+  font-size: 2vh;
   cursor: pointer;
 }
 
