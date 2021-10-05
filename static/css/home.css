@@ -179,7 +179,7 @@ footer{
   text-decoration: none;
   font-family: "Titres";
   color: rgba(0, 214, 252, 0.5);
-  font-size: 70px;
+  font-size: 6vw;
   font-weight: bold;
   transition: 0.5s;
 }
@@ -308,18 +308,20 @@ footer{
   }
   #txt1{
     font-size: 6vw;
-    margin-top: 5%;
-    margin-bottom: 0;
+    margin: 5% 0 0 0;
     width: 200%;
   }
   .separate{
     grid-template-columns: 1fr 1fr;
-    margin:auto;
+    margin: auto;
     height: 100%;
     grid-gap: 3vw;
   }
-  .left, .btn-play {
+  footer, .btn-play {
     grid-column: 1;
+  }
+  .kave-line{
+    font-size: 13vw;
   }
   .actu{
     grid-column: 2;
@@ -331,12 +333,11 @@ footer{
     font-size: 6vw;
   }
   .ul-actu {
-    height: 70vh;
+    height: 62vh;
     font-size: 2.5vw;
   }
   .rs{
-    position: fixed;
-    bottom: 5%;
+    position: unset;
   }
   .rs h2{
     font-size: 3vw;
@@ -344,35 +345,26 @@ footer{
   .div_rs{
     grid-gap: 1vw;
   }
-  .div_rs p{
-    font-size: 4vw;
-  }
-  .img_rs{
-    max-width: 5vh;
-  }
-  .kave-line{
-    font-size: 10vw;
+  footer{
+    position: fixed;
+    bottom: 0;
   }
 }
 
 /* For phones */
 @media only screen and (max-device-width : 480px) {
   html{
-    background: top/200% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    background: top/220% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    overflow: auto;
+    height: auto;
   }
   h1{
-    font-size: 10vw;
-    width: 90vw;
+    font-size: 11vw;
+    width: 100%;
   }
   .separate{
-    display: block;
-  }
-  .rs{
-    position: fixed;
-    bottom: 5%;
-  }
-  .rs h2{
-    font-size: 6vw;
+    grid-template-columns: 1fr;
+    grid-gap: 1vh;
   }
   #txt1{
     font-size: 6vw;
@@ -380,67 +372,31 @@ footer{
     margin-top: 5%;
     margin-bottom: 0;
   }
-  .div_rs{
-    grid-gap: 1vw;
-  }
-  .div_rs p{
-    font-size: 4vw;
-  }
-  .img_rs{
-    max-width: 6vh;
-  }
   .actu{
     background-color: rgba(98, 101, 103, 0.8);
-    margin: 12vh 1vw;
-    height: 50vh;
+    margin: 10vh 1vw 0;
+    height: 60vh;
   }
   .ul-actu {
-    height: 100%;
+    height: 52vh;
   }
   .actu h2{
-    font-size: 8vw;
-  }
-  .kave-btn {
-    background: none;
-    border: none;
-    color: transparent;
-    letter-spacing: 3px;
-    height: 10%;
-  }
-  .kave-btn:before, .kave-btn:after,.kave-line:before, .kave-line:after{
-    display: none;
+    font-size: 9vw;
   }
   .btn-play{
-    top: 30%;
+    top:unset;
+    margin: 6vh 0 10vh;
   }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :800px){
-  .actu {
-    height: 45vh;
+  .rs, footer{
+    position:unset;
   }
-  footer{
-    font-size: 14px;
+  .rs h2{
+    font-size: 5.5vw;
   }
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :600px){
-  .actu{
-    background-color: rgba(98, 101, 103, 0.8);
-    margin: 16vh 1vw;
-    height: 40vh;
-  }
-  .ul-actu {
-    font-size: 4vw;
-  }
-  footer{
-    font-size: 12px;
-  }
-  .kave-btn {
-    background: none;
-    border: none;
-    color: transparent;
-    letter-spacing: 3px;
-    height: 5%;
+  .btn-play{
+    margin: 6vh 0 15vh;
   }
 }
