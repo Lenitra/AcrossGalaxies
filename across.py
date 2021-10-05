@@ -593,49 +593,99 @@ def sendmail(email, sujet, html):
 
 
 def resetmdp(email):
-    exist = False
+    password = False
     with open('data/accounts.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     for e in data:
         if e["mail"] == email:
-            exist = True
+            password = decode(e["mdp"])
 
-    if not exist:
+    if not password:
         print("Compte innexistant")
         return 0
 
 
-    letters = string.ascii_lowercase
-    token = ''.join(random.choice(letters) for _ in range(10))
 
     sujet = "Changement de mot de passe"
 
     textContent = f"""
-        <html><body>
-        <style>
-            h1 {{
-                color: red;
-                text-align: center;
-            }}
-        </style>
-        <h1>Changement de mot de passe</h1>
-        <p>Vous êtres débile, vous avez oublié votre mot de passe ?</p>
-        <p>On est sympa, on vous laisse une seconde chance !</p>
-        <p>Allez sur ce lien : <a href=http://across-galaxies.com/token>http://across-galaxies.com/token</a>, et rentrer le code ci-dessous.</p>
-        <h2>{token}</h2>
-        <small>Ce code deviendra invalide à partir de minuit. Si vous n'avez demandé aucun changement de mot de passe, veuillez ignorer ce mail.</small>
-        </body></html>
-        """
+    <html>
 
-    with open('data/mdplosts.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+    <head>
+    <style>
+        @font-face {{
+            font-family: "Titres";
+            src: url("../static/fonts/Aileron.otf")
+        }}
 
-    data[email] = token
+        @font-face {{
+            font-family: "Textes";
+            src: url("../static/fonts/neuro.ttf")
+        }}
+        body{{
+            background-color: gray;
+            color: white;
+        }}
+        *{{
+            color: white;
+        }}
+        .central{{
+            width: 50%;
+            min-width: 50%;
+            background: linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+            border: 1px solid black ;
+            margin: auto;
+            height: 100%;
+        }}
+        h1{{
+            font-family: "Textes";
+            color: white;
+            font-size: 2vw;
+            text-align: center;
+            background-color: rgba(98, 101, 103, 0.4);
+            border-radius: 16% 3% ;
+            margin: 1% auto;
+        }}
+        #attention{{
+            color: red;
+            font-weight: bold;
+        }}
+        h3{{
+            text-align: center;
+            background-color: #01568b;
+            border: 1px solid black;
+            width: auto;
+            margin: 5vh 10vw;
+            border-radius: 15%;
+            font-size: 2vw;
+            font-family: "Textes";
+        }}
+        p{{
+            margin: 1vw ;
+            padding-top: 2vh;
+            text-align: center;
+        }}
+        #norm{{
+            text-align: left;
+        }}
+    </style>
+    </head>
 
+    <body>
 
-    with open('data/mdplosts.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+    <section class="central">
+        <article>
+                <h1>Oubli du mot de passe</h1>
+                <p>Vous avez votre mot de passe de votre compte Across-Galaxies.</p>
+                <p>Comme on est hyper sympa on vous laisse une seconde chance.</p>
+                <p><i>{password}</i></p>
+                <hr>
+                <p id="norm"><span id="attention">ATTENTION</span> : Pour des raisons de sécurité nous vous invitons à re-changer votre mot de passe en jeu dans l'onglet "options". Si vous n'avez demandé aucun changement de mot de passe, veuillez ignorer ce mail.</p>
+        </article>
+    </section>
+    
+    </body></html>
+    """
 
-
-    print("mail envoyé et token sauvegarder/actualisé")
     sendmail(email, sujet, textContent)
+    print("Mail envoyé")

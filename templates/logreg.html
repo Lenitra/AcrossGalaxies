@@ -25,10 +25,10 @@
         <section class="cadre forg">
             <h2>Mot de passe oublié</h2>
             <span onclick="document.getElementById('forget_cadre').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <form method="post">
+            <form method="post" action="/forgmail">
                 <article class="container">
                     <h3 id="mdp_title">Vous avez oublié vos identifiants ?</h3>
-                    <p id="mdp_txt">Veuillez indiquer votre email pour modifier votre mot de passe</p>
+                    <p id="mdp_txt">Veuillez indiquer votre email pour récupérer votre mot de passe</p>
                     
                     <div class="log_cont">
                         <label for="forgmail"></label>
@@ -43,6 +43,7 @@
         </section>
         </form>
     </div>
+
     <div class="separate">
         <section>
             <article class="cadre">
@@ -65,36 +66,36 @@
                     <button class="forgmdp" onclick="document.getElementById('forget_cadre').style.display='block'" style="width:auto;">Mot de passe oublié</button>
             </article>
         </section>
-        <section>
-            <div id="error_cont">{{error}}</div>
-        </section>
+        <section>{{error| safe}}</section>
+        
+
         <section>
             <article class="cadre cadre_rg">
                 <h2>Inscription</h2>
-                <form class="login_form" method="post">        
+                <form class="login_form" method="post" action="checkreg">        
                     <div class="container">
                         <div class="log_cont log_cont_rg">
                             <label for="inscpseudo"></label>
                             <i class="fa fa-user icon"></i>
-                            <input type="text" placeholder="Pseudo" name="inscpseudo" required>
+                            <input type="text" placeholder="Pseudo" name="r_pseudo" required>
                         </div>
 
                         <div class="log_cont log_cont_rg">
                             <label for="inscuser"></label>
                             <i class="fa fa-envelope icon"></i>
-                            <input type="email" placeholder="Adresse mail" name="inscuser" required>
+                            <input type="email" placeholder="Adresse mail" name="r_mail" required>
                         </div>
 
                         <div class="log_cont log_cont_rg mdp">
                             <label for="inscmdp"></label>
                             <i class="fa fa-key icon"></i>
-                            <input type="password" placeholder="Mot de passe" name="inscmdp" required>
+                            <input type="password" placeholder="Mot de passe" name="r_mdp" required>
                         </div>
 
                         <div class="log_cont log_cont_rg">
                             <label for="conf_inscmdp"></label>
                             <i class="fa fa-expeditedssl icon"></i>  
-                            <input type="password" placeholder="Confirmation du mot de passe" name="conf_inscmdp" required>
+                            <input type="password" placeholder="Confirmation du mot de passe" name="r_mdp_c" required>
                         </div>
 
                         <div class="log_cont captcha">

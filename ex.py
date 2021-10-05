@@ -1,3 +1,3 @@
 import across
 
-across.resetmdp("lenitramc@gmail.com")
+across.resetmdp("across.galaxies.web@gmail.com")

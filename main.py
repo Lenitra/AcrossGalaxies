@@ -359,7 +359,15 @@ def checkreg():
     mail = request.form['r_mail']
     pseudo = request.form['r_pseudo']
     mdp = request.form['r_mdp']
-    if across.register(mail, mdp, pseudo) == 255:
+    mdp2 = request.form['r_mdp_c']
+
+    if mdp != mdp2:
+        session['logerror'] = "Confirmation de mot de passe incorrecte"
+        return redirect("/login")
+
+    regresult = across.register(mail, mdp, pseudo)
+
+    if regresult == 255:
         session["player"] = {"pseudo": "", "mail": ""}
         session["player"]["mail"] = mail
         session["player"]["pseudo"] = pseudo
@@ -370,17 +378,17 @@ def checkreg():
                 session["selected"] = e
                 break
         return redirect("/jeu")
-    if across.register(mail, mdp, pseudo) == 0:
+    if regresult == 0:
         session['logerror'] = "Veuillez remplir tout les champs"
-    if across.register(mail, mdp, pseudo) == 1:
+    if regresult == 1:
         session['logerror'] = "Mail non valide"
-    if across.register(mail, mdp, pseudo) == 2:
+    if regresult == 2:
         session['logerror'] = "Mail déjà utilisé"
-    if across.register(mail, mdp, pseudo) == 3:
+    if regresult == 3:
         session['logerror'] = "Pseudo déjà utilisé"
-    if across.register(mail, mdp, pseudo) == 4:
+    if regresult == 4:
         session['logerror'] = "Pseudo non conforme"
-    if across.register(mail, mdp, pseudo) == 5:
+    if regresult == 5:
         session['logerror'] = "Mot de passe non conforme"
 
 
@@ -414,45 +422,24 @@ def checklog():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    erreur = ""
     try:
-        erreur = session["logerror"]
+        error = session["logerror"]
+        erreur = f"""<div id="error_cont"><p>{error}</p></div>"""
     except:
-        session.clear()
+        erreur = ""
     return render_template("logreg.html", error = erreur)
+
+
+@app.route("/forgmail", methods=['GET', 'POST'])
+def forgmail():
+    across.resetmdp(request.form['forgmail'])
+    return redirect("/login")
 
 
 @app.route("/options", methods=['GET', 'POST'])
 def options():
     return render_template("options.html")
 
-
-
-# region MDP PERDU
-
-# Accès via la page de login, inscription du mail en envois du token à la confirmation
-@app.route("/mdpperdu", methods=['GET', 'POST'])
-def mdpperdu():
-    return render_template("mdpperdu.html")
-
-# Accès après/via le mail, inscription du token et du mail sur la page pour rediriger vers la page de changement de mdp 
-@app.route("/token", methods=['GET', 'POST'])
-def token():
-    tcode = 0
-    mail = 0
-    with open('data/mdplosts.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    for k,v in data.items():
-        if k == mail and v == tcode:
-            return redirect("/newmdp")
-    return render_template("token.html")
-
-# Changement de mdp 
-@app.route("/newmdp", methods=['GET', 'POST'])
-def newmdp():
-    return render_template("newmdp.html")
-
-# endregion
 
 
 @app.errorhandler(404)

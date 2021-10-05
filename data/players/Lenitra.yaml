@@ -1,6 +1,6 @@
 pinf:
   msgs: {}
-  reco: 2021-10-04 22:34:41.825761
+  reco: 2021-10-05 10:47:23.119483
   vip: 0
 1:
   bat:
@@ -17,9 +17,9 @@ pinf:
     Nano-Sonde: 1
     Victoire: 10000
   ress: !!python/tuple
-  - 7660
-  - 108324
-  - 204390
+  - 8405
+  - 108976
+  - 205073
   shield: 2022-09-05 19:48:24.549229
 2:
   bat:
@@ -34,9 +34,9 @@ pinf:
     Colonisateur: 0
     Croiseur: 253
     Nano-Sonde: 0
-    Victoire: 10001
+    Victoire: 10002
   ress: !!python/tuple
-  - 10150
-  - 10275
-  - 10445
-  shield: 2021-10-04 22:34:41.852988
+  - 10521
+  - 10696
+  - 10916
+  shield: 2021-10-05 11:04:38.375881
