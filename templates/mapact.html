@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
     <link rel="stylesheet" media="screen" href="../static/css/mapact.css" />
     <link rel="stylesheet" media="screen" href="../static/css/global.css" />
+    <script src="../static/js/elementscommuns.js"></script>
 
 </head>
 
@@ -51,81 +52,52 @@
         </div>
 
         <div class="pn">
-            <!-- Menu de navigation en haut a droite -->
-            <ul class="princi">
-                <li>
-                    <form action="/jeu" method="POST" name="osef">
-                        <button type="submit">
-                            Colonie
-                        </button>
-                    </form>
-                </li>
-
-                <li>
-                    <form action="/map" method="POST" name="osef">
-                        <button type="submit">
-                            Map
-                        </button>
-                    </form>
-                </li>
-
-                <li>
-                    <form action="/messages" method="POST" name="osef">
-                        <button type="submit">
-                            Messages
-                        </button>
-                    </form>
-                </li>
-                <li>
-                    <form action="/options" method="POST" name="osef">
-                        <button type="submit">
-                            Options
-                        </button>
-                    </form>
-                </li>
-            </ul>
+            <script>Menu()</script>
+            
 
             <!-- Bouttons d'actions -->
             <ul class="action">
                 <li>
                     <form action="/atta" id="Attaquer" method="POST">
-                        <input type="text" class="hide" id="platta"  name="platta" value=""> 
-                        <input type="text" class="hide" id="platarg" name="platarg" value=""> 
-                        <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0"> 
-                        <input type="text" class="hide" id="Nano-Sonde" name="Nano-Sonde" value="0"> 
-                        <input type="text" class="hide" id="Cargo" name="Cargo" value="0"> 
-                        <input type="text" class="hide" id="Victoire" name="Victoire" value="0"> 
-                        <input type="text" class="hide" id="Colonisateur" name="Colonisateur" value="0"> 
-                        <input type="text" class="hide" id="Carbone" name="Carbone" value="0"> 
-                        <input type="text" class="hide" id="Puces" name="Puces" value="0"> 
-                        <input type="text" class="hide" id="Hydro" name="Hydro" value="0"> 
-                        <input type="text" class="hide" id="action" name="action" value="Attaquer"> 
-                        <button class="kave-btnd" type="submit" disabled><span class="kave-line"></span>Attaquer</button>
+                        <input type="text" class="hide" id="platta" name="platta" value="">
+                        <input type="text" class="hide" id="platarg" name="platarg" value="">
+                        <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0">
+                        <input type="text" class="hide" id="Nano-Sonde" name="Nano-Sonde" value="0">
+                        <input type="text" class="hide" id="Cargo" name="Cargo" value="0">
+                        <input type="text" class="hide" id="Victoire" name="Victoire" value="0">
+                        <input type="text" class="hide" id="Colonisateur" name="Colonisateur" value="0">
+                        <input type="text" class="hide" id="Carbone" name="Carbone" value="0">
+                        <input type="text" class="hide" id="Puces" name="Puces" value="0">
+                        <input type="text" class="hide" id="Hydro" name="Hydro" value="0">
+                        <input type="text" class="hide" id="action" name="action" value="Attaquer">
+                        <button class="kave-btnd" type="submit" disabled><span
+                                class="kave-line"></span>Attaquer</button>
                     </form>
                 </li>
                 <li>
                     <form action="/atta" id="Espionner" method="POST">
-                        <input type="text" class="hide" id="platta"  name="platta" value=""> 
-                        <input type="text" class="hide" id="platarg" name="platarg" value=""> 
-                        <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0"> 
-                        <input type="text" class="hide" id="Nano-Sonde" name="Nano-Sonde" value="0"> 
-                        <input type="text" class="hide" id="Cargo" name="Cargo" value="0"> 
-                        <input type="text" class="hide" id="Victoire" name="Victoire" value="0"> 
-                        <input type="text" class="hide" id="Colonisateur" name="Colonisateur" value="0"> 
-                        <input type="text" class="hide" id="Carbone" name="Carbone" value="0"> 
-                        <input type="text" class="hide" id="Puces" name="Puces" value="0"> 
-                        <input type="text" class="hide" id="Hydro" name="Hydro" value="0"> 
-                        <input type="text" class="hide" id="action" name="action" value="Espioner"> 
-                        <button class="kave-btnd" type="submit" disabled><span class="kave-line"></span>Espionner</button>
+                        <input type="text" class="hide" id="platta" name="platta" value="">
+                        <input type="text" class="hide" id="platarg" name="platarg" value="">
+                        <input type="text" class="hide" id="Croiseur" name="Croiseur" value="0">
+                        <input type="text" class="hide" id="Nano-Sonde" name="Nano-Sonde" value="0">
+                        <input type="text" class="hide" id="Cargo" name="Cargo" value="0">
+                        <input type="text" class="hide" id="Victoire" name="Victoire" value="0">
+                        <input type="text" class="hide" id="Colonisateur" name="Colonisateur" value="0">
+                        <input type="text" class="hide" id="Carbone" name="Carbone" value="0">
+                        <input type="text" class="hide" id="Puces" name="Puces" value="0">
+                        <input type="text" class="hide" id="Hydro" name="Hydro" value="0">
+                        <input type="text" class="hide" id="action" name="action" value="Espioner">
+                        <button class="kave-btnd" type="submit" disabled><span
+                                class="kave-line"></span>Espionner</button>
                     </form>
                 </li>
 
                 <!-- <li><button class="kave-btn"><span class="kave-line"></span>Coloniser</button></li>
                 <li><button class="kave-btn"><span class="kave-line"></span>Transporter</button></li>
                 <li><button class="kave-btn"><span class="kave-line"></span>Docker</button></li> -->
-                
+
                 <li id="marg"></li>
-                
+
                 <li>
                     <form action="/map" method="POST" name="osef">
                         <button type="submit">
@@ -133,255 +105,13 @@
                         </button>
                     </form>
                 </li>
-                
+
             </ul>
         </div>
 
 
     </div>
-
-<!-- Savoir si une action est feseable sinon changer le boutton  -->
-<script>
-
-    function checkbtns(){
-        checkatta()
-        checkespio()
-    }
-
-    function checkespio(){
-        let btn = document.querySelector("#Espioner");
-        if(btn[2].value!=0 || btn[3].value==0 || btn[4].value!=0 || btn[5].value!=0 || btn[6].value!=0 ){
-            btn[11].classList.remove("kave-btn");
-            btn[11].classList.add("kave-btnd");
-            btn[11].setAttribute("disabled", "true");
-            return 0;
-        }
-        // Ressources
-        if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0){
-            btn[11].classList.remove("kave-btn");
-            btn[11].classList.add("kave-btnd");
-            btn[11].setAttribute("disabled", "true");
-            return 0;   
-        }
-        // Quand l'attaque est dispo 
-        else {
-            btn[11].classList.remove("kave-btnd");
-            btn[11].classList.add("kave-btn");
-            btn[11].removeAttribute("disabled");
-
-        }
-        // BLOQUER L'EFFET DU BOUTTON
-
-    }
-
-    function checkatta(){
-        let btn = document.querySelector("#Attaquer");
-        if(btn[2].value==0 && btn[3].value==0 && btn[4].value==0 && btn[5].value==0 && btn[6].value==0 ){
-            btn[11].classList.remove("kave-btn");
-            btn[11].classList.add("kave-btnd");
-            btn[11].setAttribute("disabled", "true");
-            return 0;
-        }
-        if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0){
-            btn[11].classList.remove("kave-btn");
-            btn[11].classList.add("kave-btnd");
-            btn[11].setAttribute("disabled", "true");
-            return 0;   
-        }
-        // Quand l'attaque est dispo 
-        else {
-            btn[11].classList.remove("kave-btnd");
-            btn[11].classList.add("kave-btn");
-            btn[11].removeAttribute("disabled");
-
-        }
-        // BLOQUER L'EFFET DU BOUTTON
-
-    }
-
-
-</script>
-
-
-<!-- Mise à jour des forms pour les bouttons -->
-<script>
-    let tmp = document.querySelectorAll("#platarg")
-    for (let index = 0; index < tmp.length; index++) {
-        tmp[index].value = document.querySelector("h2").textContent.split("#")[1].split(" ")[0];
-        
-    }
-
-    // Récupérer les inputs de l'utilisateur
-    let inputcrois = [];
-    let crois = document.querySelectorAll('#Croiseur');
-    for (let index = 0; index < crois.length; index++) {
-        if (crois[index].classList.contains("hide")){   
-        }
-        else{
-            inputcrois.push(crois[index])
-        }
-    }
-    // Update les inputs pour les forms finals
-    for (let i = 0; i < inputcrois.length; i++) {
-        inputcrois[i].addEventListener('change', (event) => {
-            let a = document.querySelectorAll('#Croiseur');
-            for (let index = 0; index < a.length; index++) {
-                a[index].value = event.target.value;
-                checkbtns()
-            }
-        })
-    };
-    
-    inputcrois = [];
-    crois = document.querySelectorAll('#Cargo');
-    for (let index = 0; index < crois.length; index++) {
-        if (crois[index].classList.contains("hide")){   
-        }
-        else{
-            inputcrois.push(crois[index])
-        }
-    }
-    // Update les inputs pour les forms finals
-    for (let i = 0; i < inputcrois.length; i++) {
-        inputcrois[i].addEventListener('change', (event) => {
-            let a = document.querySelectorAll('#Cargo');
-            for (let index = 0; index < a.length; index++) {
-                a[index].value = event.target.value;
-                checkbtns()
-            }
-        })
-    };
-    inputcrois = [];
-    crois = document.querySelectorAll('#Nano-Sonde');
-    for (let index = 0; index < crois.length; index++) {
-        if (crois[index].classList.contains("hide")){   
-        }
-        else{
-            inputcrois.push(crois[index])
-        }
-    }
-    // Update les inputs pour les forms finals
-    for (let i = 0; i < inputcrois.length; i++) {
-        inputcrois[i].addEventListener('change', (event) => {
-            let a = document.querySelectorAll('#Nano-Sonde');
-            for (let index = 0; index < a.length; index++) {
-                a[index].value = event.target.value;
-                checkbtns()
-            }
-        })
-    };
-    inputcrois = [];
-    crois = document.querySelectorAll('#Victoire');
-    for (let index = 0; index < crois.length; index++) {
-        if (crois[index].classList.contains("hide")){   
-        }
-        else{
-            inputcrois.push(crois[index])
-        }
-    }
-    // Update les inputs pour les forms finals
-    for (let i = 0; i < inputcrois.length; i++) {
-        inputcrois[i].addEventListener('change', (event) => {
-            let a = document.querySelectorAll('#Victoire');
-            for (let index = 0; index < a.length; index++) {
-                a[index].value = event.target.value;
-                checkbtns()
-            }
-        })
-    };
-    inputcrois = [];
-    crois = document.querySelectorAll('#Colonisateur');
-    for (let index = 0; index < crois.length; index++) {
-        if (crois[index].classList.contains("hide")){   
-        }
-        else{
-            inputcrois.push(crois[index])
-        }
-    }
-    // Update les inputs pour les forms finals
-    for (let i = 0; i < inputcrois.length; i++) {
-        inputcrois[i].addEventListener('change', (event) => {
-            let a = document.querySelectorAll('#Colonisateur');
-            for (let index = 0; index < a.length; index++) {
-                a[index].value = event.target.value;
-                checkbtns() 
-
-            }
-        })
-    };
-
-</script>
-
-
-<!-- Selection de la planète et affichage des vaisseaux/ressources en fonction de la plaid selectionné -->
-<script>
-    "use strict";
-    // Clear les imputs lors d'un changement de planète d'action
-    function val0() {
-        let tores = [];
-        for (let index = 0; index < document.querySelectorAll('#Croiseur').length; index++) {
-            tores.push(document.querySelectorAll('#Croiseur')[index]);
-        }
-        for (let index = 0; index < document.querySelectorAll('#Cargo').length; index++) {
-            tores.push(document.querySelectorAll('#Cargo')[index]);
-        }
-        for (let index = 0; index < document.querySelectorAll('#Colonisateur').length; index++) {
-            tores.push(document.querySelectorAll('#Colonisateur')[index]);
-        }
-        for (let index = 0; index < document.querySelectorAll('#Nano-Sonde').length; index++) {
-            tores.push(document.querySelectorAll('#Nano-Sonde')[index]);
-        }
-        for (let index = 0; index < document.querySelectorAll('#Victoire').length; index++) {
-            tores.push(document.querySelectorAll('#Victoire')[index]);
-        }
-
-        for (let index = 0; index < tores.length; index++) {
-            tores[index].value = 0;
-        }
-        checkbtns()
-    }
-
-    function hidevaiss(){
-        let plavais = document.querySelectorAll("#vaisseaux");
-        for (let index = 0; index < plavais.length; index++) {
-            const e = plavais[index];
-            e.classList.add("hide");
-        }
-    }
-
-
-    function selectpla(element) {
-        hidevaiss()
-        val0()
-        checkbtns()
-        let val = element.options[element.options.selectedIndex].value;
-        let vaisseaux = document.querySelectorAll("#vaisseaux");
-        for (let index = 0; index < vaisseaux.length; index++) {
-            if (vaisseaux[index].attributes["plaid"].value == val) {
-                vaisseaux[index].classList.remove("hide");
-                let plaa = document.querySelectorAll("#platta");
-                for (let j = 0; j < plaa.length; j++) {
-                    plaa[j].value = val;
-                    
-                }
-            } 
-        }
-    }
-    hidevaiss()
-    let element = document.querySelector("div.select select")
-    let val = element.options[element.options.selectedIndex].value;
-    let vaisseaux = document.querySelectorAll("#vaisseaux");
-    for (let index = 0; index < vaisseaux.length; index++) {
-        if (vaisseaux[index].attributes["plaid"].value == val) {
-            vaisseaux[index].classList.remove("hide");
-            let plaa = document.querySelectorAll("#platta");
-            for (let j = 0; j < plaa.length; j++) {
-                plaa[j].value = val;
-            }
-        }
-    }
-
-    checkbtns()
-</script>
+<script src="../static/js/actionsplas.js"></script>
 </body>
+
 </html>
