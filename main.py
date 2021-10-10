@@ -21,6 +21,12 @@ def home():
 
 @app.route("/map", methods=['POST', 'GET'])
 def map():
+
+    try:
+        playerinf = session["player"]["pseudo"]
+    except:
+        return redirect("/login")
+    notifmsg = across.checkmsgs(session["player"]["pseudo"])
     liste = ""
     try:
         univers = int(request.form['wunivers'])
@@ -39,7 +45,7 @@ def map():
                     </form>
                 </li>
                 '''
-        return render_template("map.html", plas=liste)
+        return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
     try:
         galaxie = int(request.form['wgalaxie'])
@@ -62,7 +68,7 @@ def map():
                     </form>
                 </li>
                 '''
-        return render_template("map.html", plas=liste)
+        return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
     try:
         systeme = int(request.form['wsysteme'])
@@ -85,7 +91,7 @@ def map():
                     </form>
                 </li>
                 '''
-        return render_template("map.html", plas=liste)
+        return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
     start = f'{univers}{galaxie}{systeme}0'
     start = int(start)
@@ -184,8 +190,7 @@ def map():
                         '''
 
 
-
-    return render_template("map.html", plas = liste)
+    return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
 
 @app.route("/giveress", methods=['POST', 'GET'])
@@ -219,6 +224,12 @@ def upship():
 
 @app.route("/mapla", methods=['POST', 'GET'])
 def mapla():
+    notifmsg = across.checkmsgs(session["player"]["pseudo"])
+
+    try:
+        playerinf = session["player"]["pseudo"]
+    except:
+        return redirect("/login")
     sel = request.form['pla']
     player = sel.split("|")[1]
     plaid = sel.split("|")[0]
@@ -249,13 +260,18 @@ def mapla():
         liste += "</div>"
 
 
-    return render_template("mapact.html", plas=liste)
+    return render_template("mapact.html", plas=liste, notifmsg=notifmsg)
 
 # Page des messages
 @app.route("/messages", methods=['POST', 'GET'])
 def messages():
+    try:
+        playerinf = session["player"]["pseudo"]
+    except:
+        return redirect("/login")
+    notifmsg = across.checkmsgs(session["player"]["pseudo"])
     msgs = across.getmsg(session["player"]["pseudo"])
-    return render_template("messages.html", msgs = msgs)
+    return render_template("messages.html", msgs = msgs, notifmsg=notifmsg)
 
 # Intermédiaire pour supprimer un message
 @app.route("/delmsg", methods=['POST', 'GET'])
@@ -327,8 +343,9 @@ def updatedata():
 # Page principale du jeu (colonie)
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
+    print(session)
     try:
-        playerinf = session["player"]
+        playerinf = session["player"]["pseudo"]
     except:
         return redirect("/login")
 
@@ -337,20 +354,21 @@ def jeu():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-    # power = across.getp
+    power = across.getpower(across.addvaisseau(session["player"]["pseudo"], session['selected'], None,0))
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
     ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
     listeplanetes = across.getplanetslist(session["player"]["pseudo"])
-    return render_template(
-        "jeu.html",
-        listpla=listeplanetes,
-        ress=ressources,
-        pname=session['selected'],
-        shield = shield,
-        bat=batiments,
-        spaceport=spaceport
-        )
+    notifmsg = across.checkmsgs(session["player"]["pseudo"])
+    return render_template("jeu.html",
+                           listpla=listeplanetes,
+                           ress=ressources,
+                           pname=session['selected'],
+                           shield=shield,
+                           bat=batiments,
+                           spaceport=spaceport,
+                           power=power,
+                           notifmsg = notifmsg)
 
 
 # Vérifie la connexion
@@ -431,6 +449,7 @@ def checklog():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    session["player"] = {}
     try:
         error = session["logerror"]
         erreur = f"""<div id="error_cont"><p>{error}</p></div>"""
@@ -449,9 +468,31 @@ def forgmail():
     return redirect("/login")
 
 
+@app.route("/changemdp", methods=['GET', 'POST'])
+def changemdp():
+
+    old = request.form['old']
+    new = request.form['new']
+    conf = request.form['new']
+    if conf != new or not across.connect(session["player"]["mail"], old):
+        return redirect("/options")
+
+    across.changepass(session["player"]["mail"], new)
+
+    return redirect("/options")
+
+
 @app.route("/options", methods=['GET', 'POST'])
 def options():
-    return render_template("options.html")
+
+    try:
+        playerinf = session["player"]["pseudo"]
+    except:
+        return redirect("/login")
+
+    notifmsg = across.checkmsgs(session["player"]["pseudo"])
+
+    return render_template("options.html", notifmsg=notifmsg)
 
 
 

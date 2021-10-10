@@ -404,6 +404,15 @@ def getallplaid(player):
             plaids.append(k)
     return plaids
 
+def getpower(flotte):
+    power = 0
+    with open('config.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data = data["Vaisseaux"]
+    for k, v in flotte.items():
+        power += data[k][4] * v
+    return power
+
 # region Gestion d'attaques
 def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     with open('config.yaml', encoding='utf8') as f:
@@ -418,11 +427,9 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     delshield(attaker, aplaid)
     data = data['Vaisseaux']
     powatta = 0
-    tata = 0
     powdeff = 10
     for k, v in flota.items():
         powatta += data[k][4] * v
-        tata += data[k][5] * v
     for k, v in flotd.items():
         powdeff += data[k][4] * v
     if powatta == 0:
@@ -702,3 +709,44 @@ def updatecapt(text):
     image.write(capt_text, "static/imgs/CAPTCHA.png")
     with open(f'data/capt.yaml', 'w', encoding='utf8') as f:
         text = yaml.dump(text, f)
+
+
+def changepass(mail, np):
+
+    mdp = encode(np)
+    pseudo = getpsd(mail)
+    nd = []
+
+
+    with open('data/accounts.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for users in data:
+        tmp = {}
+        ok = False
+        for k,v in users.items():
+            tmp[k]=v
+            if k == "mail" and v == mail:
+                ok = True
+        if ok:
+            tmp["mdp"] = encode(np)
+        nd.append(tmp)
+
+
+
+
+
+    with open('data/accounts.yaml', 'w') as f:
+        data = yaml.dump(nd, f)
+
+    addlog(f"{pseudo} à changé son mot de passe")
+    sendmsg(pseudo, (
+        "Changement de mot de passe",
+        "Votre mot de passe à bien été changé."
+    ))
+    return 255
+
+
+def checkmsgs(psd):
+    if getmsg(psd) == '<h3>Aucun message</h3>':
+        return 0
+    return 1

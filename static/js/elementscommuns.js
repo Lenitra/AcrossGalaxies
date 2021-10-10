@@ -21,7 +21,7 @@
 
             <li>
                 <form action="/messages" method="POST" name="osef">
-                    <button type="submit">Messages</button>
+                    <button type="submit" id="btnmsg">Messages</button>
                 </form>
             </li>
             
@@ -40,16 +40,11 @@
 
 
 
-// Pages colonie
-    // Plaid Shield CPH 
-
-
-
-    // Stats de la planète au dessus des batiments/vaisseaux
-function plastats() {
-    document.write(`
-
-
-        
-        `);
+function notifmsg() {
+    let tmphide = document.getElementById("hasmsg");
+    if (tmphide.textContent == "1") {
+        let btn = document.getElementById("btnmsg");
+        console.log(btn);
+        btn.style.backgroundColor = "#01568b";
     }
+}

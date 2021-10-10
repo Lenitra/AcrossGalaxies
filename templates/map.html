@@ -9,18 +9,11 @@
   <link rel="stylesheet" media="screen" href="../static/css/map.css" />
   <link rel="stylesheet" media="screen" href="../static/css/global.css" />
   <script src="../static/js/elementscommuns.js"></script>
-
 </head>
-
-
+    
+    
 <body>
-<div class="page-bg"></div>
-    <div class="animation-wrapper">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
-    </div>
+  <div class="hide" id="hasmsg">{{notifmsg}}</div>
   <div class="page page-wrapper">
 
   <div class="map ">
@@ -61,6 +54,9 @@
 
 
 </div>
+  <script>
+    notifmsg();
+  </script>
 </body>
 
 

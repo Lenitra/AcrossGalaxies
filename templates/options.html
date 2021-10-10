@@ -6,61 +6,44 @@
   <title>Accross Galaxies</title>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
-  <link rel="stylesheet" media="screen" href="../static/css/screen.css" />
   <link rel="stylesheet" media="screen" href="../static/css/global.css" />
-</head>
+  <link rel="stylesheet" media="screen" href="../static/css/options.css" />
+  <script src="../static/js/elementscommuns.js"></script>
+  </head>
+  
+  
+  <body>
+    <div class="hide" id="hasmsg">{{notifmsg}}</div>
 
-
-<body>
-<div class="page-bg"></div>
-    <div class="animation-wrapper">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
-    </div>
   <div class="page page-wrapper">
+  <div>
 
-  <div class="msgs">
-    <h3>OPTIONS</h3>
+    
+    <form action="changemdp" method="post">
+      <h3>Changer son mot de passe</h3>
+      <p>Ancien mot de passe</p>
+      <input type="password" name="old" required>
+      <p>Nouveau mot de passe</p>
+      <input type="password" name="new" required>
+        <p>Confirmation</p>
+        <input type="password" name="conf" required>
+        <br>
+        <br>
+        <button type="submit">Valider</button>
+        <!-- <br> -->
+        <!-- <small>Une fois que vous aurez validé, vous recevrez un mail de confirmation</small> -->
+      </form>
+      <br>
+      <br>
+      <br>
+      <br>
+      <a href="/login"><button>Se déconecter</button></a>
+
   </div>
 
-  <div class="pn">
-    <ul class="princi">
 
-      <li>
-        <form action="/jeu" method="POST" name="osef">
-          <button type="submit">
-            Colonie
-          </button>
-        </form>
-      </li>
-
-      <li>
-        <form action="/map" method="POST" name="osef">
-          <button type="submit">
-            Map
-          </button>
-        </form>
-      </li>
-
-      <li>
-        <form action="/messages" method="POST" name="osef">
-          <button type="submit">
-            Messages
-          </button>
-        </form>
-      </li>
-
-      <li>
-        <form action="/options" method="POST" name="osef">
-          <button type="submit">
-            Options
-          </button>
-        </form>
-      </li>
-
-    </ul>
+<div class="pn">
+  <script>Menu();</script>
     <br>
     <br>
     <br>
@@ -70,7 +53,9 @@
 
 
 </div>
-
+  <script>
+    notifmsg();
+  </script>
 </body>
 
 </html>

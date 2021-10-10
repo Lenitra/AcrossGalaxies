@@ -1,6 +1,6 @@
 pinf:
   msgs: {}
-  reco: 2021-10-10 11:08:37.857870
+  reco: 2021-10-10 14:06:47.265921
   vip: 0
 1:
   bat:
@@ -13,14 +13,14 @@ pinf:
   flotte:
     Cargo: 0
     Colonisateur: 0
-    Croiseur: 246
+    Croiseur: 1
     Nano-Sonde: 0
-    Victoire: 10001
+    Victoire: 1
   ress: !!python/tuple
-  - 8267
-  - 12248
-  - 12640
-  shield: 2021-10-10 11:11:59.015156
+  - 8930
+  - 12911
+  - 13303
+  shield: 2021-10-10 15:01:55.673009
 2:
   bat:
     carbone: 20
@@ -36,10 +36,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
-  shield: 2021-10-10 11:08:35.442046
+  - 5905
+  - 5905
+  - 5905
+  shield: 2021-10-10 14:21:52.628977
 3:
   bat:
     carbone: 20
@@ -55,10 +55,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
-  shield: 2021-10-10 09:06:18.036419
+  - 5905
+  - 5905
+  - 5905
+  shield: 2021-10-10 14:21:57.396837
 4:
   bat:
     carbone: 20
@@ -74,9 +74,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.072423
 5:
   bat:
@@ -93,9 +93,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.102602
 6:
   bat:
@@ -112,9 +112,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.142234
 7:
   bat:
@@ -131,9 +131,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.177978
 8:
   bat:
@@ -150,9 +150,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.223313
 9:
   bat:
@@ -169,7 +169,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 5905
+  - 5905
+  - 5905
   shield: 2021-10-10 09:06:18.268362

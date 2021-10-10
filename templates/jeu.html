@@ -13,7 +13,7 @@
 
 
 <body>
-
+    <div class="hide" id="hasmsg">{{notifmsg}}</div>
     <div class="pi">
 
       <!-- Infos des planètes + Boutons de navigation -->
@@ -38,6 +38,7 @@
             <div>
               <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
               <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li>
+              <li><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power }}</strong></li>
             </div>
 
             <div>
@@ -101,7 +102,7 @@
           <ul class="plastats">
             <div>
               <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li>
+              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li><li><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power }}</strong></li>
             </div>
           
             <div>
@@ -143,6 +144,9 @@
       </ul>
     </div>
 
+  <script>
+    notifmsg();
+  </script>
   <script>
   "use strict";
 

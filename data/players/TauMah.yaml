@@ -1,5 +1,10 @@
 pinf:
   msgs:
+    '101014637798057':
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
+        \ 70 unit\xE9s de carbone, 70 unit\xE9es de puces et 70 d'hydrog\xE8ne."
+      date: 2021-10-10 14:06:37.798057
+      title: "D\xE9fense \xE9chou\xE9e"
     '10611855223168':
       contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
         \ 140 unit\xE9s de carbone, 140 unit\xE9es de puces et 140 d'hydrog\xE8ne."
@@ -16,7 +21,7 @@ pinf:
     sp: 1
   flotte: {}
   ress: !!python/tuple
-  - 140
-  - 140
-  - 140
-  shield: 2021-10-08 11:08:55.178322
+  - 70
+  - 70
+  - 70
+  shield: 2021-10-12 14:06:37.650333

@@ -8,17 +8,13 @@
   <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
   <link rel="stylesheet" media="screen" href="../static/css/messages.css" />
   <link rel="stylesheet" media="screen" href="../static/css/global.css" />
-</head>
+  <script src="../static/js/elementscommuns.js"></script>
+  </head>
+  
+  
+  <body>
+    <div class="hide" id="hasmsg">{{notifmsg}}</div>
 
-
-<body>
-<div class="page-bg"></div>
-    <div class="animation-wrapper">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
-    </div>
   <div class="page page-wrapper">
 
   <div class="msgs">
@@ -26,41 +22,7 @@
   </div>
 
   <div class="pn">
-    <ul class="princi">
-
-      <li>
-        <form action="/jeu" method="POST" name="osef">
-          <button type="submit">
-            Colonie
-          </button>
-        </form>
-      </li>
-
-      <li>
-        <form action="/map" method="POST" name="osef">
-          <button type="submit">
-            Map
-          </button>
-        </form>
-      </li>
-      
-      <li>
-        <form action="/messages" method="POST" name="osef">
-          <button type="submit">
-            Messages
-          </button>
-        </form>
-      </li>
-
-      <li>
-        <form action="/options" method="POST" name="osef">
-          <button type="submit">
-            Options
-          </button>
-        </form>
-      </li>
-
-    </ul>
+    <script>Menu();</script>
     <br>
     <br>
     <br>
@@ -71,7 +33,9 @@
 
 
 </div>
-
+  <script>
+    notifmsg();
+  </script>
 <script>
   "use strict";
 
