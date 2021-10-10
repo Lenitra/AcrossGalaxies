@@ -15,6 +15,10 @@ html{
   src: url("../fonts/neuro.ttf")
 }
 
+#hide {
+  display: none;
+}
+
 h1{
   font-family: "Titres";
   color: white;

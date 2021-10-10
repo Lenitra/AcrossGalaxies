@@ -11,6 +11,7 @@ import smtplib
 from cryptography.fernet import Fernet
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from captcha.image import ImageCaptcha
 
 
 
@@ -689,3 +690,7 @@ def resetmdp(email):
 
     sendmail(email, sujet, textContent)
     print("Mail envoyé")
+
+
+def updatecapt():
+    pass

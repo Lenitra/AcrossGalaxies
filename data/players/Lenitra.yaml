@@ -1,32 +1,26 @@
 pinf:
-  msgs:
-    '10611855215189':
-      contenu: "Vous avez attaqu\xE9 la plan\xE8te 3 qui appartenait \xE0 TauMah.\
-        \ Vous lui avez suptilis\xE9 140 unit\xE9s de carbone, 140 unit\xE9es de puces\
-        \ et 140 d'hydrog\xE8ne."
-      date: 2021-10-06 11:08:55.215189
-      title: 'Attaque depuis #1'
-  reco: 2021-10-05 11:09:12.745444
+  msgs: {}
+  reco: 2021-10-10 11:08:37.857870
   vip: 0
 1:
   bat:
-    carbone: 24
+    carbone: 20
     energy: 20
-    hydro: 22
-    puces: 21
-    rad: 100
-    sp: 21
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
   flotte:
-    Cargo: 1
-    Colonisateur: 1
-    Croiseur: 2001
-    Nano-Sonde: 1
-    Victoire: 10000
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 246
+    Nano-Sonde: 0
+    Victoire: 10001
   ress: !!python/tuple
-  - 8632
-  - 109192
-  - 205293
-  shield: 2021-10-06 15:55:15.560260
+  - 8267
+  - 12248
+  - 12640
+  shield: 2021-10-10 11:11:59.015156
 2:
   bat:
     carbone: 20
@@ -38,11 +32,144 @@ pinf:
   flotte:
     Cargo: 0
     Colonisateur: 0
-    Croiseur: 253
+    Croiseur: 248
     Nano-Sonde: 0
-    Victoire: 10002
+    Victoire: 10000
   ress: !!python/tuple
-  - 10593
-  - 10768
-  - 10988
-  shield: 2021-10-05 11:11:38.804210
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 11:08:35.442046
+3:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.036419
+4:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.072423
+5:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.102602
+6:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.142234
+7:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.177978
+8:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.223313
+9:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-10 09:06:18.268362

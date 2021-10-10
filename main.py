@@ -337,7 +337,7 @@ def jeu():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-
+    # power = across.getp
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["player"]["pseudo"], session["selected"])
     ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
@@ -360,6 +360,15 @@ def checkreg():
     pseudo = request.form['r_pseudo']
     mdp = request.form['r_mdp']
     mdp2 = request.form['r_mdp_c']
+    capcha = request.form['captcha']
+    truecapt = request.form['truecapt']
+
+
+
+    if capcha != truecapt:
+        session['logerror'] = "Captcha invalide"
+        return redirect("/login")
+
 
     if mdp != mdp2:
         session['logerror'] = "Confirmation de mot de passe incorrecte"
@@ -427,7 +436,11 @@ def login():
         erreur = f"""<div id="error_cont"><p>{error}</p></div>"""
     except:
         erreur = ""
-    return render_template("logreg.html", error = erreur)
+
+    with open('data/capt.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    captcha = data
+    return render_template("logreg.html", error = erreur, captcha = captcha)
 
 
 @app.route("/forgmail", methods=['GET', 'POST'])
@@ -448,8 +461,8 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    website_url = 'across-galaxies.fr:80'
-    app.config['SERVER_NAME'] = website_url
+    # website_url = 'across-galaxies.fr:80'
+    # app.config['SERVER_NAME'] = website_url
     app.config['SESSION_COOKIE_SECURE'] = False
     app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
     app.run()
