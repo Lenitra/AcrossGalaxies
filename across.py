@@ -692,5 +692,13 @@ def resetmdp(email):
     print("Mail envoyé")
 
 
-def updatecapt():
-    pass
+def updatecapt(text):
+
+    image = ImageCaptcha(width=280, height=90)
+
+    capt_text = text
+    image.generate(capt_text)
+
+    image.write(capt_text, "static/imgs/CAPTCHA.png")
+    with open(f'data/capt.yaml', 'w', encoding='utf8') as f:
+        text = yaml.dump(text, f)
