@@ -1,6 +1,12 @@
 pinf:
-  msgs: {}
-  reco: 2021-10-10 14:06:47.265921
+  msgs:
+    '1010135237635939':
+      contenu: "L'attaque vers la plan\xE8te 14 qui appartient \xE0 erwann a \xE9\
+        chou\xE9e. Les vaisseaux qui ont \xE9t\xE9 envoy\xE9s sont d\xE9sormais d\xE9\
+        truits."
+      date: 2021-10-10 13:52:37.635944
+      title: Attaque depuis 1
+  reco: 2021-10-10 12:51:35.699142
   vip: 0
 1:
   bat:
@@ -13,14 +19,14 @@ pinf:
   flotte:
     Cargo: 0
     Colonisateur: 0
-    Croiseur: 1
+    Croiseur: 245
     Nano-Sonde: 0
-    Victoire: 1
+    Victoire: 10001
   ress: !!python/tuple
-  - 8930
-  - 12911
-  - 13303
-  shield: 2021-10-10 15:01:55.673009
+  - 8267
+  - 12248
+  - 12640
+  shield: 2021-10-11 12:35:17.183953
 2:
   bat:
     carbone: 20
@@ -36,10 +42,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 14:21:52.628977
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.215798
 3:
   bat:
     carbone: 20
@@ -55,10 +61,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 14:21:57.396837
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.253597
 4:
   bat:
     carbone: 20
@@ -74,10 +80,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.072423
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.297033
 5:
   bat:
     carbone: 20
@@ -93,10 +99,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.102602
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.338522
 6:
   bat:
     carbone: 20
@@ -112,10 +118,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.142234
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.381968
 7:
   bat:
     carbone: 20
@@ -131,10 +137,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.177978
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.429484
 8:
   bat:
     carbone: 20
@@ -150,10 +156,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.223313
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.465931
 9:
   bat:
     carbone: 20
@@ -169,7 +175,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5905
-  - 5905
-  - 5905
-  shield: 2021-10-10 09:06:18.268362
+  - 5312
+  - 5312
+  - 5312
+  shield: 2021-10-11 12:35:17.501657
