@@ -49,6 +49,9 @@
     margin-bottom: 6vh;
     font-family: Textes;
   }
+  abbr {
+    text-decoration: none;
+  }
 
   /* #endregion */
   /* #endregion */

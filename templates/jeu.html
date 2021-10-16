@@ -36,24 +36,37 @@
         <header>
           <ul class="plastats">
             <div>
-              <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li>
-              <li><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power }}</strong></li>
+          
+              <li>
+                <abbr title="Identifiant de planète"><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{
+                    pname}}</strong></abbr>
+              </li>
+          
+              <li>
+                <abbr title="Date de fin du bouclier"><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield
+                    }}</strong></abbr>
+              </li>
+          
+              <li>
+                <abbr title="Puissance militaire"><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power
+                    }}</strong></abbr>
+              </li>
+          
             </div>
-
+          
             <div>
-              <li><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</li>
-              <li>{{ bat["carbone"][0]*10 }}/h</li>
+              <li><abbr title="Carbone"><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</abbr></li>
+              <li><abbr title="Production de carbone">{{ bat["carbone"][0]*10 }}/h</abbr></li>
             </div>
-
+          
             <div>
-              <li><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }} </li>
-              <li>{{ bat["puces"][0]*10 }}/h</li>
+              <li><abbr title="Puces"><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }}</abbr></li>
+              <li><abbr title="Production de puces">{{ bat["puces"][0]*10 }}/h</abbr></li>
             </div>
-
+          
             <div>
-              <li><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</li>
-              <li>{{ bat["hydro"][0]*10 }}/h</li>
+              <li><abbr title="Hydrogène"><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</abbr></li>
+              <li><abbr title="Production d'hydrogène">{{ bat["hydro"][0]*10 }}/h</abbr></li>
             </div>
           </ul>
         </header>
@@ -101,23 +114,34 @@
         <header>
           <ul class="plastats">
             <div>
-              <li><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname }}</strong></li>
-              <li><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></li><li><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power }}</strong></li>
+
+              <li>
+                <abbr title="Identifiant de planète"><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname}}</strong></abbr>
+              </li>
+
+              <li>
+                <abbr title="Date de fin du bouclier"><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></abbr>
+              </li>
+              
+              <li>
+                <abbr title="Puissance militaire"><img src="../static/imgs/spaceship.png" alt="Puissance : "><strong>{{ power }}</strong></abbr>
+              </li>
+
+            </div>
+          
+            <div> 
+              <li><abbr title="Carbone"><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</abbr></li>
+              <li><abbr title="Production de carbone">{{ bat["carbone"][0]*10 }}/h</abbr></li>
             </div>
           
             <div>
-              <li><img src="../static/imgs/carbon.png" alt="Carbone : "> {{ ress[0] }}</li>
-              <li>{{ bat["carbone"][0]*10 }}/h</li>
+              <li><abbr title="Puces"><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }}</abbr></li>
+              <li><abbr title="Production de puces">{{ bat["puces"][0]*10 }}/h</abbr></li>
             </div>
           
             <div>
-              <li><img src="../static/imgs/cpu.png" alt="Puces : "> {{ ress[1] }} </li>
-              <li>{{ bat["puces"][0]*10 }}/h</li>
-            </div>
-          
-            <div>
-              <li><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</li>
-              <li>{{ bat["hydro"][0]*10 }}/h</li>
+              <li><abbr title="Hydrogène"><img src="../static/imgs/atome.png" alt="Hydrogène : "> {{ ress[2] }}</abbr></li>
+              <li><abbr title="Production d'hydrogène">{{ bat["hydro"][0]*10 }}/h</abbr></li>
             </div>
           </ul>
         </header>

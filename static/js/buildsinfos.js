@@ -111,7 +111,7 @@ function createvaissinfos(bat) {
 
                 </ul>
                 <form action="/upship" method="POST" name="upship">
-                    <input type="number" name="nb" value="" placeholder="Nombre de vaisseaux à créer">
+                    <input type="number" name="nb" min="0" value="1" required placeholder="Nombre de vaisseaux à créer">
                     <input class="hide" type="text" name="vinf" value="` + namevaiss + `">
                     <button type="submit" class="kave-btn" id="phang"><span class="kave-line"></span>Créer</button>
                 </form>

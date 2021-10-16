@@ -319,7 +319,7 @@ def getsp(player, idpla):
                 <section id="{k}" class="batbuild">
                     <h4>{k}</h4>
                     <p>Possédés : {tmp}</p>
-                    <inf class="hide">{k};{tmp};{v[0]};{v[1]};{v[2]};{v[3]};{v[5]}</inf>
+                    <inf class="hide">{k};{tmp};{v[0]};{v[1]};{v[2]};{v[3]};{v[4]};{v[5]}</inf>
                 </section>
 
                 '''

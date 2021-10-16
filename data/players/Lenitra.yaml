@@ -1,12 +1,6 @@
 pinf:
-  msgs:
-    '1010135237635939':
-      contenu: "L'attaque vers la plan\xE8te 14 qui appartient \xE0 erwann a \xE9\
-        chou\xE9e. Les vaisseaux qui ont \xE9t\xE9 envoy\xE9s sont d\xE9sormais d\xE9\
-        truits."
-      date: 2021-10-10 13:52:37.635944
-      title: Attaque depuis 1
-  reco: 2021-10-10 12:51:35.699142
+  msgs: {}
+  reco: 2021-10-16 10:45:55.388884
   vip: 0
 1:
   bat:
@@ -23,10 +17,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10001
   ress: !!python/tuple
-  - 8267
-  - 12248
-  - 12640
-  shield: 2021-10-11 12:35:17.183953
+  - 9467
+  - 13448
+  - 13840
+  shield: 2021-10-16 10:57:44.503688
 2:
   bat:
     carbone: 20
@@ -36,16 +30,16 @@ pinf:
     rad: 20
     sp: 20
   flotte:
-    Cargo: 0
+    Cargo: 3
     Colonisateur: 0
     Croiseur: 248
-    Nano-Sonde: 0
+    Nano-Sonde: 1
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
-  shield: 2021-10-11 12:35:17.215798
+  - 5907
+  - 6237
+  - 6012
+  shield: 2021-10-16 10:45:55.427745
 3:
   bat:
     carbone: 20
@@ -61,9 +55,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.253597
 4:
   bat:
@@ -80,9 +74,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.297033
 5:
   bat:
@@ -99,9 +93,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.338522
 6:
   bat:
@@ -118,9 +112,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.381968
 7:
   bat:
@@ -137,9 +131,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.429484
 8:
   bat:
@@ -156,9 +150,9 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.465931
 9:
   bat:
@@ -175,7 +169,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5312
-  - 5312
-  - 5312
+  - 6512
+  - 6512
+  - 6512
   shield: 2021-10-11 12:35:17.501657
