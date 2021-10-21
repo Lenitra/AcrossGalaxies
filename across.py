@@ -16,7 +16,6 @@ from captcha.image import ImageCaptcha
 
 
 
-
 def encode(message: str):
     key = secret_key
     message = bytes(message, "utf-8")
@@ -204,13 +203,15 @@ def updateallplanets():
         data = yaml.dump(monde, f)
         if "Windows" != platform.system():
             os.system('cp data/tmp.yaml data/planets.yaml')
+        else:
+            os.system('copy data/tmp.yaml data')
 
 # Système de récolte des ressources
 def updateressource(player):
     onemore = False
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    delta = datetime.datetime.now() - data["pinf"]["reco"]
+        delta = datetime.datetime.now() - data["pinf"]["reco"]
     delta = delta.total_seconds()
     delta = (delta/60)/60
     if delta > 3:
@@ -564,24 +565,12 @@ def espionmanager(playeratta, plaat, playerdef, pladef):
     deff = data[int(pladef)]["bat"]["rad"]
 
     if attk > deff:
-        with open(f'data/players/{playerdef}.yaml', encoding='utf8') as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-
         infos = data[int(pladef)]
 
         sendmsg(playeratta, (
             f"Espionage depuis #{plaat}",
             f"Vous avez espionné la planète {pladef} qui appartenait à {playerdef}. {infos}"
         ))
-
-
-        # for plaid, dete in data.items():
-        #     if plaid != "pinf":
-        #         msg.add_field(name=f"\x00", value=f"__-----__", inline=False)
-        #         msg.add_field(name=f"Planète #{plaid}", value=f"\x00", inline=False)
-        #         msg.add_field(name=f"Ressources", value=f"{dete['ress']}")
-        #         msg.add_field(name=f"Batiments", value=f"{dete['bat']}")
-        #         msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")
 
 
 def sendmail(email, sujet, html):

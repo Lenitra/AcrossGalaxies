@@ -33,7 +33,7 @@
     Z0FBQUFBQmhKLXBvMFc5OTVQaDNuRzBLaGx5VUUtME9kSjlFdmQzWTNXNlBydklwY2IwNGtBejYt
     OTlFRnpKY01JMnBFREsxVUExbHRtODYyc1VXY2oxazRISVpvTkNvZXc9PQ==
   pseudo: "B\xE9bech"
-- mail: 'Antoine.vauclin@outlook.com '
+- mail: Antoine.vauclin@outlook.com
   mdp: !!binary |
     Z0FBQUFBQmhLNFhJT1BScXdEcHpITjlWTUJUMTZvSkJYUXBZRkNiQ0R5empfU1l5dmJaNDl0QjVD
     TXNGQWYzbUJyVjVOeVFNNVp1bl85OTc3WjViMzVBMGdsZHZEb0tLUVE9PQ==
@@ -50,11 +50,9 @@
   pseudo: Lenitra
 - mail: erwann2002.ec@gmail.com
   mdp: !!binary |
-    Z0FBQUFBQmhYZU9IM3czQlpJUGw4NnFzbmU4LV8wM29SZmxkaGs3cU9aWW1KbEpGbGQ5OVJOMUJB
-    VWNCOE9NOS1wMFBkRmRRR1FmY2V3STBGMnFQdF90aWd3YWo3NmhSQ0E9PQ==
+    Z0FBQUFBQmhYZU9IM3czQlpJUGw4NnFzbmU4LV8wM29SZmxkaGs3cU9aWW1KbEpGbGQ5OVJOMUJBVWNCOE9NOS1wMFBkRmRRR1FmY2V3STBGMnFQdF90aWd3YWo3NmhSQ0E9PQ==
   pseudo: erwann
 - mail: yvannerick@gmail.com
   mdp: !!binary |
-    Z0FBQUFBQmhZdjIyVjc4THh6V09VYnpMTF9lMXNKT21RMktNM2hPQXFUV3dHS2V1aG1lQXBxQ2ZH
-    SmxJcU5LS01jZnlqMzdKT2VNUG5Qa3dsdDdnQjNtR29RUUlTLWNQY3c9PQ==
-  pseudo: 'Tebayai'
+    Z0FBQUFBQmhZdjIyVjc4THh6V09VYnpMTF9lMXNKT21RMktNM2hPQXFUV3dHS2V1aG1lQXBxQ2ZHSmxJcU5LS01jZnlqMzdKT2VNUG5Qa3dsdDdnQjNtR29RUUlTLWNQY3c9PQ==
+  pseudo: Tebayai

@@ -24,7 +24,7 @@ op = [304868399492759553]
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status, activity=discord.Game(f"Développé par ToMa#0504"))
+    await bot.change_presence(status=discord.Status, activity=discord.Game(f"Across-Galaxies.fr"))
     print("-------------------------------")
     print("-------- BOT SYSTEM -----------")
     print("-------------------------------")

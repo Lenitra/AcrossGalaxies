@@ -1,6 +1,6 @@
 pinf:
   msgs: {}
-  reco: 2021-10-16 10:45:55.388884
+  reco: 2021-10-20 18:52:41.211337
   vip: 0
 1:
   bat:
@@ -17,10 +17,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10001
   ress: !!python/tuple
-  - 9467
-  - 13448
-  - 13840
-  shield: 2021-10-16 10:57:44.503688
+  - 10043
+  - 14483
+  - 15466
+  shield: 2021-10-21 19:24:15.241337
 2:
   bat:
     carbone: 20
@@ -30,16 +30,16 @@ pinf:
     rad: 20
     sp: 20
   flotte:
-    Cargo: 3
+    Cargo: 0
     Colonisateur: 0
     Croiseur: 248
-    Nano-Sonde: 1
+    Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 5907
-  - 6237
-  - 6012
-  shield: 2021-10-16 10:45:55.427745
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.282871
 3:
   bat:
     carbone: 20
@@ -55,10 +55,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.253597
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.319192
 4:
   bat:
     carbone: 20
@@ -74,10 +74,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.297033
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.351434
 5:
   bat:
     carbone: 20
@@ -93,10 +93,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.338522
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.390501
 6:
   bat:
     carbone: 20
@@ -112,10 +112,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.381968
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.425383
 7:
   bat:
     carbone: 20
@@ -131,10 +131,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.429484
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.457705
 8:
   bat:
     carbone: 20
@@ -150,10 +150,10 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.465931
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.502943
 9:
   bat:
     carbone: 20
@@ -169,7 +169,27 @@ pinf:
     Nano-Sonde: 0
     Victoire: 10000
   ress: !!python/tuple
-  - 6512
-  - 6512
-  - 6512
-  shield: 2021-10-11 12:35:17.501657
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.539678
+
+9999:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 6514
+  - 6514
+  - 6514
+  shield: 2021-10-21 19:24:15.539678

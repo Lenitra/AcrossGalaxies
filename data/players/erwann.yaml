@@ -11,15 +11,15 @@ pinf:
         \ ! Cordialement l'\xE9quipe de Across-Galaxies"
       date: 2021-10-06 17:57:27.044274
       title: Bienvenue !
-  reco: 2021-10-11 11:53:48.600657
+  reco: 2021-10-21 16:53:09.003170
   vip: 0
 12:
   bat:
-    carbone: 10
-    hydro: 10
-    puces: 10
+    carbone: 15
+    hydro: 12
+    puces: 13
     rad: 10
-    sp: 9
+    sp: 10
   flotte:
     Cargo: 0
     Colonisateur: 0
@@ -27,53 +27,53 @@ pinf:
     Nano-Sonde: 1
     Victoire: 0
   ress: !!python/tuple
-  - 224
-  - 143
-  - 613
-  shield: 2021-10-11 12:35:17.045426
+  - 405
+  - 2013
+  - 3136
+  shield: 2021-10-21 19:24:15.110614
 15:
   bat:
-    carbone: 11
-    hydro: 10
-    puces: 11
+    carbone: 15
+    hydro: 12
+    puces: 14
     rad: 7
-    sp: 5
+    sp: 7
   flotte:
     Cargo: 0
     Colonisateur: 0
-    Croiseur: 1
+    Croiseur: 0
     Nano-Sonde: 0
     Victoire: 0
   ress: !!python/tuple
-  - 213
-  - 351
-  - 1018
-  shield: 2021-10-11 12:35:17.063659
+  - 554
+  - 1208
+  - 2215
+  shield: 2021-10-21 19:24:15.135890
 13:
   bat:
-    carbone: 10
-    hydro: 10
-    puces: 10
-    rad: 5
-    sp: 5
+    carbone: 15
+    hydro: 12
+    puces: 12
+    rad: 10
+    sp: 8
   flotte:
     Cargo: 0
     Colonisateur: 0
-    Croiseur: 1
+    Croiseur: 0
     Nano-Sonde: 0
     Victoire: 0
   ress: !!python/tuple
-  - 820
-  - 980
-  - 1575
-  shield: 2021-10-11 12:35:17.081995
+  - 635
+  - 1961
+  - 2857
+  shield: 2021-10-21 19:24:15.155397
 14:
   bat:
-    carbone: 10
-    hydro: 10
-    puces: 10
-    rad: 5
-    sp: 5
+    carbone: 15
+    hydro: 12
+    puces: 13
+    rad: 9
+    sp: 9
   flotte:
     Cargo: 0
     Colonisateur: 0
@@ -81,7 +81,7 @@ pinf:
     Nano-Sonde: 0
     Victoire: 0
   ress: !!python/tuple
-  - 657
-  - 907
-  - 1435
-  shield: 2021-10-11 12:35:17.099079
+  - 519
+  - 2286
+  - 3270
+  shield: 2021-10-21 19:24:15.175182

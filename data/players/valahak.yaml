@@ -1,25 +1,6 @@
 pinf:
-  msgs:
-    '10617927390394':
-      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Vous avez repouss\xE9\
-        \ l'envahiseur"
-      date: 2021-10-06 17:09:27.390396
-      title: "D\xE9fense r\xE9ussie"
-    '10617952822163':
-      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #2. Vous avez repouss\xE9\
-        \ l'envahiseur"
-      date: 2021-10-06 17:09:52.822165
-      title: "D\xE9fense r\xE9ussie"
-    '10773925543110':
-      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Vous avez repouss\xE9\
-        \ l'envahiseur"
-      date: 2021-10-07 07:39:25.543112
-      title: "D\xE9fense r\xE9ussie"
-    '929145026253396':
-      contenu: "Message test envoy\xE9 depuis le discord ! "
-      date: 2021-09-29 14:50:26.253398
-      title: 'BONJOUR ! '
-  reco: 2021-10-09 20:32:09.203521
+  msgs: {}
+  reco: 2021-10-21 18:19:14.856460
   vip: 0
 1234:
   bat:
@@ -32,11 +13,11 @@ pinf:
   flotte:
     Cargo: 0
     Colonisateur: 1
-    Croiseur: 250
+    Croiseur: 450
     Nano-Sonde: 9
     Victoire: 10
   ress: !!python/tuple
-  - 14950
-  - 20129
-  - 17372
-  shield: 2021-10-11 12:35:21.450363
+  - 1414
+  - 11153
+  - 16177
+  shield: 2021-10-21 19:24:15.198536

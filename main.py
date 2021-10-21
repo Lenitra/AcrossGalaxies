@@ -331,6 +331,7 @@ def atta():
         resultat = across.attackmanager(playeratta, plaat,
                                         playerdef,pladef , flotatta, flotdef)
     if action == "Espionner":
+        print("espionnage !!!!")
         across.espionmanager(playeratta, plaat, playerdef, pladef)
     return redirect("/messages")
 

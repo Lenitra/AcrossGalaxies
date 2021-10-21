@@ -5,7 +5,8 @@ hidevaiss()
 // GESTION DES BOUTONS 
 
 function checkbtns() {
-    checkatta()
+    checkatta();
+    checkesp();
 }
 
 function checkatta() {
@@ -17,6 +18,29 @@ function checkatta() {
         return 0;
     }
     if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0) {
+        btn[11].classList.remove("kave-btn");
+        btn[11].classList.add("kave-btnd");
+        btn[11].setAttribute("disabled", "true");
+        return 0;
+    }
+    // Quand l'attaque est dispo 
+    else {
+        btn[11].classList.remove("kave-btnd");
+        btn[11].classList.add("kave-btn");
+        btn[11].removeAttribute("disabled");
+    }
+}
+
+
+function checkesp() {
+    let btn = document.querySelector("#Espionner");
+    // if (btn[2].value == 0 && btn[3].value == 0 && btn[4].value == 0 && btn[5].value == 0 && btn[6].value == 0) {
+    //     btn[11].classList.remove("kave-btn");
+    //     btn[11].classList.add("kave-btnd");
+    //     btn[11].setAttribute("disabled", "true");
+    //     return 0;
+    // }
+    if (btn[3].value == 0 || btn[9].value != 0 || btn[8].value != 0 || btn[7].value != 0 || btn[2].value != 0 || btn[4].value != 0 || btn[5].value != 0 || btn[6].value != 0) {
         btn[11].classList.remove("kave-btn");
         btn[11].classList.add("kave-btnd");
         btn[11].setAttribute("disabled", "true");
@@ -58,7 +82,7 @@ function val0() {
     checkbtns()
 }
 
-
+// Cacher les vaisseaux des planètes non selectionnées
 function hidevaiss(){
     let plavais = document.querySelectorAll("#vaisseaux");
     console.log(plavais);
@@ -68,7 +92,7 @@ function hidevaiss(){
     }
 }
 
-
+// Gestion de l'affichage des vaisseaux et des ressources de la planète séléctionné (genre c'est le main)
 function selectpla(element) {
     hidevaiss()
     val0()
@@ -96,109 +120,121 @@ for (let index = 0; index < tmp.length; index++) {
 
 }
 
-// // Récupérer les inputs de l'utilisateur
-let inputcrois = [];
-let crois = document.querySelectorAll('#Croiseur');
-for (let index = 0; index < crois.length; index++) {
-    if (crois[index].classList.contains("hide")) {
-    }
-    else {
-        inputcrois.push(crois[index])
-    }
-}
-// // Update les inputs pour les forms finals
-for (let i = 0; i < inputcrois.length; i++) {
-    inputcrois[i].addEventListener('change', (event) => {
-        let a = document.querySelectorAll('#Croiseur');
-        console.log(event.path[2].attributes["plaid"].value);
-        for (let index = 0; index < a.length; index++) {
-            a[index].value = event.target.value;
-            checkbtns()
+        // // Récupérer le nombre de CROISEURS
+        let inputcrois = [];
+        let crois = document.querySelectorAll('#Croiseur');
+        for (let index = 0; index < crois.length; index++) {
+            if (crois[index].classList.contains("hide")) {
+            }
+            else {
+                inputcrois.push(crois[index])
+            }
         }
-    })
-};
+        // // Update les inputs pour les forms finals
+        for (let i = 0; i < inputcrois.length; i++) {
+            inputcrois[i].addEventListener('change', (event) => {
+                let a = document.querySelectorAll('#Croiseur');
+                console.log(event.path[2].attributes["plaid"].value);
+                for (let index = 0; index < a.length; index++) {
+                    a[index].value = event.target.value;
+                    checkbtns()
+                }
+            })
+        };
 
-inputcrois = [];
-crois = document.querySelectorAll('#Cargo');
-for (let index = 0; index < crois.length; index++) {
-    if (crois[index].classList.contains("hide")) {
-    }
-    else {
-        inputcrois.push(crois[index])
-    }
-}
-// // Update les inputs pour les forms finals
-for (let i = 0; i < inputcrois.length; i++) {
-    inputcrois[i].addEventListener('change', (event) => {
-        let a = document.querySelectorAll('#Cargo');
-        console.log(event.path[2].attributes["plaid"].value);
-        for (let index = 0; index < a.length; index++) {
-            a[index].value = event.target.value;
-            checkbtns()
-        }
-    })
-};
-inputcrois = [];
-crois = document.querySelectorAll('#Nano-Sonde');
-for (let index = 0; index < crois.length; index++) {
-    if (crois[index].classList.contains("hide")) {
-    }
-    else {
-        inputcrois.push(crois[index])
-    }
-}
-// // Update les inputs pour les forms finals
-for (let i = 0; i < inputcrois.length; i++) {
-    inputcrois[i].addEventListener('change', (event) => {
-        let a = document.querySelectorAll('#Nano-Sonde');
-        console.log(event.path[2].attributes["plaid"].value);
-        for (let index = 0; index < a.length; index++) {
-            a[index].value = event.target.value;
-            checkbtns()
-        }
-    })
-};
-inputcrois = [];
-crois = document.querySelectorAll('#Victoire');
-for (let index = 0; index < crois.length; index++) {
-    if (crois[index].classList.contains("hide")) {
-    }
-    else {
-        inputcrois.push(crois[index])
-    }
-}
-// // Update les inputs pour les forms finals
-for (let i = 0; i < inputcrois.length; i++) {
-    inputcrois[i].addEventListener('change', (event) => {
-        let a = document.querySelectorAll('#Colonisateur');
-        console.log(event.path[2].attributes["plaid"].value);
-        for (let index = 0; index < a.length; index++) {
-            a[index].value = event.target.value;
-            checkbtns()
-        }
-    })
-};
-inputcrois = [];
-crois = document.querySelectorAll('#Colonisateur');
-for (let index = 0; index < crois.length; index++) {
-    if (crois[index].classList.contains("hide")) {
-    }
-    else {
-        inputcrois.push(crois[index])
-    }
-}
-// // Update les inputs pour les forms finals
-for (let i = 0; i < inputcrois.length; i++) {
-    inputcrois[i].addEventListener('change', (event) => {
-        let a = document.querySelectorAll('#Colonisateur');
-        console.log(event.path[2].attributes["plaid"].value);
-        for (let index = 0; index < a.length; index++) {
-            a[index].value = event.target.value;
-            checkbtns()
 
+        // // Récupérer le nombre de CARGO
+        inputcrois = [];
+        crois = document.querySelectorAll('#Cargo');
+        for (let index = 0; index < crois.length; index++) {
+            if (crois[index].classList.contains("hide")) {
+            }
+            else {
+                inputcrois.push(crois[index])
+            }
         }
-    })
-};
+        for (let i = 0; i < inputcrois.length; i++) {
+            inputcrois[i].addEventListener('change', (event) => {
+                let a = document.querySelectorAll('#Cargo');
+                console.log(event.path[2].attributes["plaid"].value);
+                for (let index = 0; index < a.length; index++) {
+                    a[index].value = event.target.value;
+                    checkbtns()
+                }
+            })
+        };
+
+
+
+        // // Récupérer le nombre de NANO-SONDES
+        inputcrois = [];
+        crois = document.querySelectorAll('#Nano-Sonde');
+        for (let index = 0; index < crois.length; index++) {
+            if (crois[index].classList.contains("hide")) {
+            }
+            else {
+                inputcrois.push(crois[index])
+            }
+        }
+        // // Update les inputs pour les forms finals
+        for (let i = 0; i < inputcrois.length; i++) {
+            inputcrois[i].addEventListener('change', (event) => {
+                let a = document.querySelectorAll('#Nano-Sonde');
+                console.log(event.path[2].attributes["plaid"].value);
+                for (let index = 0; index < a.length; index++) {
+                    a[index].value = event.target.value;
+                    checkbtns()
+                }
+            })
+        };
+
+
+
+        // // Récupérer le nombre de VICTOIRES
+        inputcrois = [];
+        crois = document.querySelectorAll('#Victoire');
+        for (let index = 0; index < crois.length; index++) {
+            if (crois[index].classList.contains("hide")) {
+            }
+            else {
+                inputcrois.push(crois[index])
+            }
+        }
+        // // Update les inputs pour les forms finals
+        for (let i = 0; i < inputcrois.length; i++) {
+            inputcrois[i].addEventListener('change', (event) => {
+                let a = document.querySelectorAll('#Victoire');
+                console.log(event.path[2].attributes["plaid"].value);
+                for (let index = 0; index < a.length; index++) {
+                    a[index].value = event.target.value;
+                    checkbtns()
+                }
+            })
+        };
+
+
+
+        inputcrois = [];
+        crois = document.querySelectorAll('#Colonisateur');
+        for (let index = 0; index < crois.length; index++) {
+            if (crois[index].classList.contains("hide")) {
+            }
+            else {
+                inputcrois.push(crois[index])
+            }
+        }
+        // // Update les inputs pour les forms finals
+        for (let i = 0; i < inputcrois.length; i++) {
+            inputcrois[i].addEventListener('change', (event) => {
+                let a = document.querySelectorAll('#Colonisateur');
+                console.log(event.path[2].attributes["plaid"].value);
+                for (let index = 0; index < a.length; index++) {
+                    a[index].value = event.target.value;
+                    checkbtns()
+
+                }
+            })
+        };
 
 hidevaiss()
 let element = document.querySelector("div.select select")
