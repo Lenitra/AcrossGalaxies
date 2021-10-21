@@ -3,10 +3,11 @@ from dns.rdatatype import A
 import mysql.connector
 import os
 import yaml
+from confi import *
 
-db = mysql.connector.connect(host="51.178.41.82",
-                             user="AGWEB",
-                             passwd="541!Leitmotiv")
+db = mysql.connector.connect(host=sql_host,
+                             user=sql_user,
+                             passwd=sql_password)
 
 cursor = db.cursor()
 now = datetime.now()
