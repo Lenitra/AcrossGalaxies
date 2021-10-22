@@ -284,7 +284,7 @@ def delmsg():
 @app.route("/atta", methods=['POST', 'GET'])
 def atta():
     # region Récupération des éléments
-
+    
     action = request.form['action']
     plaat = int(request.form['platta'])
     pladef = int(request.form['platarg'])

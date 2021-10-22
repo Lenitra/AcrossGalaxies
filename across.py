@@ -12,6 +12,7 @@ from cryptography.fernet import Fernet
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from captcha.image import ImageCaptcha
+import reqsql
 
 
 
@@ -28,14 +29,12 @@ def decode(token: bytes):
 
 
 def connect(mail, mdp):
-    with open('data/accounts.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    for users in data:
-        if users["mail"] == mail and decode(users["mdp"]) == mdp:
-
-            addlog(f"{getpsd(mail)} s'est connecté")
-
-            return users["pseudo"]
+    mailver = reqsql.readsql(f"SELECT Mail FROM Accounts WHERE Mail='{mail}';")
+    if mailver == []:
+        return False
+    if decode(bytes(reqsql.readsql(f"SELECT Mdp FROM Accounts WHERE Mail='{mail}';").split("'")[1], "utf-8")) == mdp:
+        return reqsql.readsql(
+            f"SELECT Psd FROM Accounts WHERE Mail='{mail}';")
     return False
 
 
@@ -51,61 +50,49 @@ def connect(mail, mdp):
 def register(mail, mdp, pseudo):
     updateallplanets()
     plaid = 1
-    while checkpla(plaid) != False:
+    while reqsql.readsql(
+            f"SELECT Psd FROM Planets WHERE Plaid='{plaid}';") != None:
         plaid = random.randint(1, 9999)
 
 
-    with open('data/accounts.yaml', encoding='utf8') as f:
-        users = yaml.load(f, Loader=yaml.FullLoader)
+    # with open('data/accounts.yaml', encoding='utf8') as f:
+    #     users = yaml.load(f, Loader=yaml.FullLoader)
 
     if mail == "" or mdp == "" or pseudo == "":
         return 0
 
-    if "@" in mail:
-        if "." in mail.split("@")[1]:
-            pass
-        else:
-            return 2
+    if "." in mail.split("@")[1]:
+        pass
     else:
         return 2
 
-    for e in users:
-        if e["mail"] == mail:
-            return 2
+    if reqsql.readsql(f"SELECT Mail FROM Accounts WHERE Mail='{mail}';") != None:
+        return 2
 
-    for e in users:
-        if e["pseudo"] == pseudo:
-            return 3
+    if reqsql.readsql(
+            f"SELECT Psd FROM Accounts WHERE Psd='{pseudo}';") != None:
+        return 3
 
     if len(mdp) <= 5:
         return 5
 
     else:
         mdp = encode(mdp)
-        users.append({"mail": mail, "mdp": mdp, "pseudo": pseudo})
-        with open('data/accounts.yaml', 'w') as f:
-            data = yaml.dump(users, f)
+        # Accounts : Permet la connexion avec Psd | Mail | Mdp
+        reqsql.reqsql(f'INSERT INTO Accounts VALUES ("{pseudo}", "{mail}", "{mdp}");')
+        # Planets : liste de toutes les planètes avec TOUTES les données internes à chaques planètes
+        
+        reqsql.reqsql(
+            f'''UPDATE Planets SET Psd = "{pseudo}", Shield = "{datetime.datetime.now()}" ,Ress1 = 250, Ress2 = 250, Ress3 = 250, carbone = 1, puces = 1, hydro = 1, sp = 1, rad = 1, Croiseur = 0, Nanosonde = 0, Cargo = 0, Victoire = 0, Colonisateur = 0 WHERE Plaid = 9999;'''
+        )
 
-        bat = {"puces": 1, "carbone": 1, "hydro": 1,
-               "rad": 1, "sp": 1}
-        user = {
-            "pinf": {
-                "reco": datetime.datetime.now(),
-                "vip": 0,
-                "msgs": {}
-            },
-            plaid: {
-                'bat': bat,
-                'ress': (250, 250, 250),
-                'flotte': {},
-                "shield": datetime.datetime.now()
-            }
-        }
-        with open(f'data/players/{pseudo}.yaml', 'w', encoding='utf8') as f:
-            data = yaml.dump(user, f)
-        addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
-        addshield(pseudo, plaid, 48)
-        sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! Cordialement l'équipe de Across-Galaxies"))
+        reqsql.reqsql(
+            f'''INSERT INTO PInf VALUES ("{pseudo}", "{datetime.datetime.now()}", "{datetime.datetime.now()}", 0);''')
+
+
+        # addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
+        # addshield(pseudo, plaid, 48)
+        # sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! Cordialement l'équipe de Across-Galaxies"))
         return 255
 
 
