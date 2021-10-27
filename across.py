@@ -88,23 +88,7 @@ def register(mail, mdp, pseudo):
         reqsql.reqsql(
             f'''INSERT INTO PInf VALUES ("{pseudo}", "{datetime.datetime.now()}", "{datetime.datetime.now()}", 0);''')
 
-        idmsg = (
-            f'{datetime.datetime.now().month}/{datetime.datetime.now().day}{datetime.datetime.now().hour} {datetime.datetime.now().minute}:{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
-        )
-
-        date = f"{datetime.datetime.now().month}/{datetime.datetime.now().day} {datetime.datetime.now().hour}:{datetime.datetime.now().minute}"
-
-        user = {
-            idmsg: {
-                "title": "Bienvenue !",
-                "msg":"<p>Bienvenue sur le jeu Across Galaxies ! \nSi vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! \nCordialement l'équipe de Across-Galaxies.</p>",
-                "author": "Système",
-                "date": date
-            }
-        }
-
-        with open(f'data/msgs/{pseudo}.yaml', 'w', encoding='utf8') as f:
-            data = yaml.dump(user, f)
+        sendmsg(pseudo, "Bienvenue !", "<p>Bienvenue sur le jeu Across Galaxies ! \nSi vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! \nCordialement l'équipe de Across-Galaxies.</p>", "Système")
 
         # addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
         # addshield(pseudo, plaid, 48)
@@ -321,7 +305,11 @@ def getsp(player, idpla):
 def addvaisseau(plaid, vaiss, nb):
     if vaiss != None and nb != None:
         # ajouter un vaisseau
-        pass
+        nnb = nb + reqsql.readsql(
+            f"SELECT {vaiss} FROM Planets WHERE Plaid={plaid}")[0]
+        reqsql.reqsql(
+            f"UPDATE Planets SET {vaiss}={nnb} WHERE Plaid = {plaid};"
+        )
 
     vaisseaux = reqsql.readsql(f"SELECT Croiseur, NanoSonde, Cargo, Victoire, Colonisateur  FROM Planets WHERE Plaid={plaid};")
     re = {"Croiseur": vaisseaux[0],
@@ -387,13 +375,13 @@ def getplainfos(player, plaid):
 
 # Réucupère toutes les id des planètes d'un joueur
 def getallplaid(player):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    plaids = []
-    for k in data:
-        if k != "pinf":
-            plaids.append(k)
-    return plaids
+
+    allpla = []
+    plaid = reqsql.retbrut(f"SELECT Plaid FROM Planets WHERE Psd = '{player}';")
+    for e in plaid:
+        allpla.append(e[0])
+    return allpla
+
 
 def getpower(flotte):
     power = 0
@@ -408,14 +396,16 @@ def getpower(flotte):
 def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     with open('config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    print(addshield(ptarget, idtarget, 0), " | ", datetime.datetime.now())
-    if addshield(ptarget, idtarget, 0) > datetime.datetime.now():
-        sendmsg(attaker, (
-        f"Attaque depuis #{aplaid}",
-        f"Vous avez tenté d'attaquer la planète #{idtarget} de {ptarget} cependant il était protégé par un bouclier."
-        ))
+    print(addshield(idtarget, 0), " | ", datetime.datetime.now())
+    if addshield(idtarget, 0) > datetime.datetime.now():
+        sendmsg(
+            attaker,
+            f"Attaque depuis #{aplaid}",
+            f"Vous avez tenté d'attaquer la planète #{idtarget} de {ptarget} cependant il était protégé par un bouclier.",
+            "Système"
+        )
         return None
-    delshield(attaker, aplaid)
+    delshield(aplaid)
     data = data['Vaisseaux']
     powatta = 0
     powdeff = 10
@@ -435,62 +425,68 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
 
 def attklost(attaker, aplaid, ptarget, idtarget, flota):
     for k, v in flota.items():
-        addvaisseau(attaker, aplaid, k, -v)
+        addvaisseau(aplaid, k, -v)
 
     addlog(f"{ptarget}: #{idtarget} s'est défendu contre {attaker}: #{aplaid}")
-    sendmsg(attaker, (
+    sendmsg(attaker,
         f"Attaque depuis {aplaid}",
-        f"L'attaque vers la planète {idtarget} qui appartient à {ptarget} a échouée. Les vaisseaux qui ont été envoyés sont désormais détruits."
-    ))
+        f"L'attaque vers la planète {idtarget} qui appartient à {ptarget} a échouée. Les vaisseaux qui ont été envoyés sont désormais détruits.",
+        "Système"
+    )
 
-    sendmsg(ptarget, (f"Défense réussie",
-                      f"{attaker} vous a attaqué depuis la planète #{aplaid}. Vous avez repoussé l'envahiseur"))
+    sendmsg(ptarget, 
+        f"Défense réussie",
+        f"{attaker} vous a attaqué depuis la planète #{aplaid}. Vous avez repoussé l'envahiseur",
+        "Système")
 
 
 def attkwin(attaker, aplaid, ptarget, idtarget):
-    delflotte(ptarget, idtarget)
-    addshield(ptarget, idtarget, 48)
-    tmp = addplayerress(ptarget, idtarget, (0,0,0))
+    delflotte(idtarget)
+    addshield(idtarget, 48)
+    tmp = addplayerress(idtarget, (0,0,0))
     print(tmp)
     tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))
-    addplayerress(ptarget, idtarget, (-tmp[0],-tmp[1],-tmp[2]))
-    addplayerress(attaker, aplaid, (tmp[0],tmp[1],tmp[2]))
-    sendmsg(attaker, (
+    addplayerress(idtarget, (-tmp[0],-tmp[1],-tmp[2]))
+    addplayerress(aplaid, (tmp[0],tmp[1],tmp[2]))
+    sendmsg(attaker,
         f"Attaque depuis #{aplaid}",
-        f"Vous avez attaqué la planète {idtarget} qui appartenait à {ptarget}. Vous lui avez suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène."
-    ))
+        f"Vous avez attaqué la planète {idtarget} qui appartenait à {ptarget}. Vous lui avez suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène.",
+        "Système"
+    )
 
     addlog(f"{attaker}: #{aplaid} à pillé {ptarget}: #{idtarget}")
-    sendmsg(ptarget, (
+    sendmsg(ptarget,
         f"Défense échouée",
-        f"{attaker} vous a attaqué depuis la planète #{aplaid}. Il vous a suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène."
-    ))
+        f"{attaker} vous a attaqué depuis la planète #{aplaid}. Il vous a suptilisé {tmp[0]} unités de carbone, {tmp[1]} unitées de puces et {tmp[2]} d'hydrogène.",
+        "Système"
+    )
 # endregion
 
 # Supprime la flotte complète d'une planète d'un joueur
-def delflotte(player, plaid):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    data[int(plaid)]["flotte"] = {}
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+def delflotte(plaid):
+    reqsql.reqsql(
+        f'''UPDATE Planets SET Croiseur = 0, Nanosonde = 0, Cargo = 0, Victoire = 0, Colonisateur = 0 WHERE Plaid = {plaid};'''
+    )
+
 
 
 # Retourne le html des messages d'un joueur pour les afficher
 def getmsg(player):
     html = ''
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+    with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    if len(data["pinf"]["msgs"].items()) == 0:
+    if len(data) == 0:
         html = '<h3>Aucun message</h3>'
         return html
-    for k,v in data["pinf"]["msgs"].items():
-        html += "<li class='unmsg'><button>"
-        html += f"<h3>{v['title']}</h3>"
-        html += f"<h6>{v['date'].day}/{v['date'].month}-{v['date'].hour}:{v['date'].minute}</h6>"
-        html += f"<p class='hide'>{v['contenu']}</p>"
-        html += f"<p class='hide'>{k}</p>"
-        html += "</button></li>"
+
+    data.reverse()
+    for msg in data:
+        for k,v in msg.items():
+            html += "<li class='unmsg'><button>"
+            html += f"<h3>{v['title']}</h3>"
+            html += f"<h6>{v['date']}</h6>"
+            html += f"<p class='hide'>{k}</p>"
+            html += "</button></li>"
     return html
 
 def sendmsg(player, title, msg, author):
@@ -504,9 +500,9 @@ def sendmsg(player, title, msg, author):
     idmsg = (
         f'{datetime.datetime.now().month}{datetime.datetime.now().day}{datetime.datetime.now().hour}{datetime.datetime.now().minute}{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
     )
+    idmsg = int(idmsg)
 
     date = f"{datetime.datetime.now().month}/{datetime.datetime.now().day} {datetime.datetime.now().hour}:{datetime.datetime.now().minute}"
-
 
     user = {
         idmsg: {
@@ -517,28 +513,24 @@ def sendmsg(player, title, msg, author):
         }
     }
 
+    data.append(user)
 
     with open(f'data/msgs/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(user, f)
-
-
-    # data["pinf"]["msgs"][idmsg] = {
-    #     "title": titre,
-    #     "contenu": contenu,
-    #     "date": datetime.datetime.now()
-    # }
-
-    # with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-    #     data = yaml.dump(data, f)
+        data = yaml.dump(data, f)
 
 
 def dellmsg(player, idmsg):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
+    with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    del data["pinf"]["msgs"][idmsg]
+    neomsgs = []
+    for msgs in data:
+        for k,v in msgs.items():
+            if k != idmsg:
+                neomsgs.append({k:v})
 
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+    with open(f'data/msgs/{player}.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(neomsgs, f)
+
 
 # region log system
 def addlog(log):

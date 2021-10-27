@@ -249,7 +249,7 @@ def mapla():
     # Récupération des vaisseaux de chaques planètes
     for e in playerpla:
         liste += f'<div class="grid3c" id="vaisseaux" plaid="{e}">'
-        for k, v in across.addvaisseau(session["player"]["pseudo"], e, None, 0).items():
+        for k, v in across.addvaisseau(e, None, 0).items():
             if v != 0:
                 liste += f"""
                     <div>
@@ -302,11 +302,10 @@ def atta():
 
     playeratta = across.checkpla(plaat)
     playerdef = across.checkpla(pladef)
-
-    flotdef = across.addvaisseau(playerdef, pladef, None, None)
+    flotdef = across.addvaisseau(pladef, None, None)
     flotatta = {
         "Croiseur": croiseur,
-        "Nano-Sonde": nanosonde,
+        "Nanosonde": nanosonde,
         "Victoire": victoire,
         "Colonisateur": colonisateur,
         'Cargo': cargo
@@ -318,7 +317,7 @@ def atta():
     # endregion
 
     # region Check si le joueur n'as pas envoyé plus de vaisseaux qu'il n'a
-    tmp = across.addvaisseau(session["player"]['pseudo'], plaat, None, None)
+    tmp = across.addvaisseau(plaat, None, None)
     for k,v in flotatta.items():
         if flotatta[k] > tmp[k]:
             flotatta[k] = tmp[k]
