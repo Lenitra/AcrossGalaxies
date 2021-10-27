@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, redirect, session
 from werkzeug.wrappers.response import ResponseStream
 import yaml
 import across
+from reqsql import readsql, reqsql
 
 app = Flask(__name__)
 app.secret_key = "ahcestcontulaspas"
@@ -284,7 +285,7 @@ def delmsg():
 @app.route("/atta", methods=['POST', 'GET'])
 def atta():
     # region Récupération des éléments
-    
+
     action = request.form['action']
     plaat = int(request.form['platta'])
     pladef = int(request.form['platarg'])
@@ -350,15 +351,16 @@ def jeu():
     except:
         return redirect("/login")
 
-    shield = across.addshield(session["player"]["pseudo"], session['selected'], 0)
+    shield = across.addshield(session['selected'], None)[0]
     if shield < datetime.now():
         shield = "Aucun bouclier"
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
-    power = across.getpower(across.addvaisseau(session["player"]["pseudo"], session['selected'], None,0))
+
+    power = across.getpower(across.addvaisseau(session['selected'], None,0))
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
-    batiments = across.getbats(session["player"]["pseudo"], session["selected"])
-    ressources = across.addplayerress(session["player"]["pseudo"],session["selected"], (0, 0, 0))
+    batiments = across.getbats(session["selected"])
+    ressources = across.addplayerress(session["selected"], (0, 0, 0))
     listeplanetes = across.getplanetslist(session["player"]["pseudo"])
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
     return render_template("jeu.html",
@@ -399,12 +401,8 @@ def checkreg():
         session["player"] = {"pseudo": "", "mail": ""}
         session["player"]["mail"] = mail
         session["player"]["pseudo"] = pseudo
-        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-        for e in data:
-            if e != 'pinf':
-                session["selected"] = e
-                break
+        session["selected"] = readsql(f"SELECT Plaid FROM Planets WHERE Psd = '{pseudo}';")[0]
+
         return redirect("/jeu")
     if regresult == 0:
         session['logerror'] = "Veuillez remplir tout les champs"
@@ -434,12 +432,9 @@ def checklog():
         session["player"]["mail"] = mail
         session["player"]["pseudo"] = psd
 
-        with open(f'data/players/{session["player"]["pseudo"]}.yaml', encoding="utf8") as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-        for e in data:
-            if e != 'pinf' and e != 0:
-                session["selected"] = e
-                break
+
+        session["selected"] = readsql(f"SELECT Plaid FROM Planets WHERE Psd = '{psd}';")[0]
+
 
         session.pop('logerror', None)
         return redirect("/jeu")
@@ -500,6 +495,10 @@ def options():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 404
 
 
 if __name__ == '__main__':

@@ -30,11 +30,11 @@ def decode(token: bytes):
 
 def connect(mail, mdp):
     mailver = reqsql.readsql(f"SELECT Mail FROM Accounts WHERE Mail='{mail}';")
-    if mailver == []:
+    if mailver == None:
         return False
-    if decode(bytes(reqsql.readsql(f"SELECT Mdp FROM Accounts WHERE Mail='{mail}';").split("'")[1], "utf-8")) == mdp:
+    if decode(bytes(reqsql.readsql(f"SELECT Mdp FROM Accounts WHERE Mail='{mail}';")[0].split("'")[1], "utf-8")) == mdp:
         return reqsql.readsql(
-            f"SELECT Psd FROM Accounts WHERE Mail='{mail}';")
+            f"SELECT Psd FROM Accounts WHERE Mail='{mail}';")[0]
     return False
 
 
@@ -50,8 +50,7 @@ def connect(mail, mdp):
 def register(mail, mdp, pseudo):
     updateallplanets()
     plaid = 1
-    while reqsql.readsql(
-            f"SELECT Psd FROM Planets WHERE Plaid='{plaid}';") != None:
+    while reqsql.readsql(f"SELECT Psd FROM Planets WHERE Plaid={plaid};")[0] != None:
         plaid = random.randint(1, 9999)
 
 
@@ -81,68 +80,78 @@ def register(mail, mdp, pseudo):
         # Accounts : Permet la connexion avec Psd | Mail | Mdp
         reqsql.reqsql(f'INSERT INTO Accounts VALUES ("{pseudo}", "{mail}", "{mdp}");')
         # Planets : liste de toutes les planètes avec TOUTES les données internes à chaques planètes
-        
+
         reqsql.reqsql(
-            f'''UPDATE Planets SET Psd = "{pseudo}", Shield = "{datetime.datetime.now()}" ,Ress1 = 250, Ress2 = 250, Ress3 = 250, carbone = 1, puces = 1, hydro = 1, sp = 1, rad = 1, Croiseur = 0, Nanosonde = 0, Cargo = 0, Victoire = 0, Colonisateur = 0 WHERE Plaid = 9999;'''
+            f'''UPDATE Planets SET Psd = "{pseudo}", Shield = "{datetime.datetime.now()}" ,Ress1 = 250, Ress2 = 250, Ress3 = 250, carbone = 1, puces = 1, hydro = 1, sp = 1, rad = 1, Croiseur = 0, Nanosonde = 0, Cargo = 0, Victoire = 0, Colonisateur = 0 WHERE Plaid = {plaid};'''
         )
 
         reqsql.reqsql(
             f'''INSERT INTO PInf VALUES ("{pseudo}", "{datetime.datetime.now()}", "{datetime.datetime.now()}", 0);''')
 
+        idmsg = (
+            f'{datetime.datetime.now().month}/{datetime.datetime.now().day}{datetime.datetime.now().hour} {datetime.datetime.now().minute}:{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
+        )
+
+        date = f"{datetime.datetime.now().month}/{datetime.datetime.now().day} {datetime.datetime.now().hour}:{datetime.datetime.now().minute}"
+
+        user = {
+            idmsg: {
+                "title": "Bienvenue !",
+                "msg":"<p>Bienvenue sur le jeu Across Galaxies ! \nSi vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! \nCordialement l'équipe de Across-Galaxies.</p>",
+                "author": "Système",
+                "date": date
+            }
+        }
+
+        with open(f'data/msgs/{pseudo}.yaml', 'w', encoding='utf8') as f:
+            data = yaml.dump(user, f)
 
         # addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
         # addshield(pseudo, plaid, 48)
-        # sendmsg(pseudo, ("Bienvenue !", "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! Cordialement l'équipe de Across-Galaxies"))
         return 255
 
-
-def addshield(player, plaid, hours):
+# Ajoute un shield effectif de "hours" heures après l'appel de la fonction
+def addshield(plaid, hours):
 
     shield = 0
 
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    if data[int(plaid)]["shield"] <= datetime.datetime.now():
+    if hours != None:
 
         myDate = datetime.datetime.now()
         td = datetime.timedelta(hours = hours)
         shield = myDate + td
-
-        data[int(plaid)]["shield"] = shield
-        with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-            data = yaml.dump(data, f)
+        reqsql.reqsql(f"UPDATE Planets SET Shield = '{shield}' WHERE Plaid = {plaid};")
     else:
-        shield = data[int(plaid)]["shield"]
+        shield = reqsql.readsql(f"SELECT Shield FROM Planets WHERE Plaid = {plaid}")
     return shield
 
-def delshield(player, plaid):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    shield = datetime.datetime.now()
-    data[int(plaid)]["shield"] = shield
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+
+
+def delshield(plaid):
+    reqsql.reqsql(
+        f"UPDATE Planets SET Shield = '{datetime.datetime.now()}' WHERE Plaid = {plaid};"
+    )
 
 
 def getplanetslist(player):
-    ress = {}
     plalist=''
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    for k, v in data.items():
-        if k != "pinf":
-            v = v["ress"]
-            plalist +=f'''
-                <li>
-                <form action="/updatedata" method="POST" name="{k}">
-                <input type="text" name="pla" value ="{k}" class="hide">
-                <button type="submit">
-                <h3>Planète #{k}</h3>
-                <p>C : {v[0]}<br>P : {v[1]}<br>H : {v[2]}</p>
-                </button>
-                </form>
-                </li>
-                '''
+
+    pll = reqsql.retbrut(f"SELECT Plaid FROM Planets WHERE Psd = 'Lenitra';")
+
+    for pl in pll:
+        k = pl[0]
+        v = addplayerress(pl, None)
+        plalist +=f'''
+            <li>
+            <form action="/updatedata" method="POST" name="{k}">
+            <input type="text" name="pla" value ="{k}" class="hide">
+            <button type="submit">
+            <h3>Planète #{k}</h3>
+            <p>C : {v[0]}<br>P : {v[1]}<br>H : {v[2]}</p>
+            </button>
+            </form>
+            </li>
+            '''
     return plalist
 
 # Check si une planète est occupée et si oui retourne le psd du joueur
@@ -235,32 +244,28 @@ def getcostup(bat, lvl):
     return cost
 
 # Retourne un dictionnaire contenant les couts d'upgrade des batiments
-def getbats(player, idpla):
-    if idpla == "*":
-        return {
-            "carbone": ("*", "*", "*", "*"),
-            "puces": ("*", "*", "*", "*"),
-            "hydro": ("*", "*", "*", "*"),
-            "lab": ("*", "*", "*", "*"),
-            "sp": ("*", "*", "*", "*")
-        }
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+def getbats(idpla):
 
-    tmp = getcostup("Carbone", data[int(idpla)]["bat"]["carbone"])
-    c = (data[int(idpla)]["bat"]["carbone"],tmp[0],tmp[1],tmp[2])
+    lvl = reqsql.readsql(
+        f"SELECT carbone FROM Planets WHERE Plaid = {idpla}")[0]
+    tmp = getcostup("Carbone", lvl)
+    c = (lvl,tmp[0],tmp[1],tmp[2])
 
-    tmp = getcostup("Puces", data[int(idpla)]["bat"]["puces"])
-    p = (data[int(idpla)]["bat"]["puces"], tmp[0], tmp[1], tmp[2])
+    lvl = reqsql.readsql(f"SELECT puces FROM Planets WHERE Plaid = {idpla}")[0]
+    tmp = getcostup("Puces", lvl)
+    p = (lvl, tmp[0], tmp[1], tmp[2])
 
-    tmp = getcostup("Hydro", data[int(idpla)]["bat"]["hydro"])
-    h = (data[int(idpla)]["bat"]["hydro"], tmp[0], tmp[1], tmp[2])
+    lvl = reqsql.readsql(f"SELECT hydro FROM Planets WHERE Plaid = {idpla}")[0]
+    tmp = getcostup("Hydro", lvl)
+    h = (lvl, tmp[0], tmp[1], tmp[2])
 
-    tmp = getcostup("Rad", data[int(idpla)]["bat"]["rad"])
-    rad = (data[int(idpla)]["bat"]["rad"], tmp[0], tmp[1], tmp[2])
+    lvl = reqsql.readsql(f"SELECT rad FROM Planets WHERE Plaid = {idpla}")[0]
+    tmp = getcostup("Rad", lvl)
+    rad = (lvl, tmp[0], tmp[1], tmp[2])
 
-    tmp = getcostup("Sp", data[int(idpla)]["bat"]["sp"])
-    spaceport = (data[int(idpla)]["bat"]["sp"], tmp[0], tmp[1], tmp[2])
+    lvl = reqsql.readsql(f"SELECT sp FROM Planets WHERE Plaid = {idpla}")[0]
+    tmp = getcostup("Sp", lvl)
+    spaceport = (lvl, tmp[0], tmp[1], tmp[2])
 
     return {"carbone": c, "puces": p, "hydro": h, "rad": rad, "sp": spaceport}
 
@@ -268,7 +273,7 @@ def getbats(player, idpla):
 def upbat(player, batim, couts, plaid):
     if plaid == "*":
         return 0
-    addplayerress(player, plaid, (-couts[1],-couts[2],-couts[3]))
+    addplayerress(plaid, (-couts[1],-couts[2],-couts[3]))
     with open(f'data/players/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
@@ -283,9 +288,8 @@ def getsp(player, idpla):
     liste = ""
     if idpla == "*":
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    lvl = data[int(idpla)]["bat"]["sp"]
+
+    lvl = reqsql.readsql("SELECT sp FROM Planets WHERE Plaid=1;")[0]
 
     with open(f'config.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
@@ -294,7 +298,7 @@ def getsp(player, idpla):
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'
 
     for k,v in data["Vaisseaux"].items():
-        tmp = addvaisseau(player, idpla, k, 0)[k]
+        tmp = addvaisseau(idpla, k, 0)[k]
         if v[3] <= lvl:
             liste += f'''
                 <style>
@@ -313,18 +317,19 @@ def getsp(player, idpla):
                 '''
     return liste
 
-# Ajoute un vaisseau et retourne la liste de vaisseaux construits
-def addvaisseau(player, plaid, vaiss, nb):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    if vaiss != None:
-        try:
-            data[int(plaid)]["flotte"][vaiss] = int(nb)+int(data[int(plaid)]["flotte"][vaiss])
-        except:
-            data[int(plaid)]["flotte"][vaiss] = int(nb)
-    re = data[int(plaid)]["flotte"]
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+# Ajoute un vaisseau et retourne la liste des vaisseaux construits
+def addvaisseau(plaid, vaiss, nb):
+    if vaiss != None and nb != None:
+        # ajouter un vaisseau
+        pass
+
+    vaisseaux = reqsql.readsql(f"SELECT Croiseur, NanoSonde, Cargo, Victoire, Colonisateur  FROM Planets WHERE Plaid={plaid};")
+    re = {"Croiseur": vaisseaux[0],
+     "Nanosonde": vaisseaux[1],
+     "Cargo": vaisseaux[2],
+     "Victoire": vaisseaux[3],
+     "Colonisateur": vaisseaux[4]
+     }
     return re
 
 # Retourne le html des vaisseaux construitss
@@ -354,15 +359,13 @@ def gethang(player, idpla):
     return liste
 
 # Modifie les ressources du jouer et les retournes
-def addplayerress(player, plaid, ress):
-    if plaid == "*":
-        return ("*", "*", "*")
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    data[int(plaid)]["ress"] = (data[int(plaid)]["ress"][0]+ress[0], data[int(plaid)]["ress"][1]+ress[1], data[int(plaid)]["ress"][2]+ress[2])
-    re = data[int(plaid)]["ress"]
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+def addplayerress(plaid, ress):
+    if ress != None and ress !=0:
+        reqsql.reqsql(
+            f"UPDATE Planets SET Ress1={ress[0]}, Ress2={ress[1]}, Ress3={ress[2]} WHERE Plaid = {plaid};"
+        )
+
+    re = reqsql.readsql(f"SELECT Ress1, Ress2, Ress3 FROM Planets WHERE Plaid = 9999;")
 
     return re
 
@@ -490,25 +493,43 @@ def getmsg(player):
         html += "</button></li>"
     return html
 
-def sendmsg(player, msg):
-    titre = msg[0]
-    contenu = msg[1]
+def sendmsg(player, title, msg, author):
 
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+    try:
+        with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+    except:
+        data = []
 
     idmsg = (
         f'{datetime.datetime.now().month}{datetime.datetime.now().day}{datetime.datetime.now().hour}{datetime.datetime.now().minute}{datetime.datetime.now().second}{datetime.datetime.now().microsecond}'
     )
 
-    data["pinf"]["msgs"][idmsg] = {
-        "title": titre,
-        "contenu": contenu,
-        "date": datetime.datetime.now()
+    date = f"{datetime.datetime.now().month}/{datetime.datetime.now().day} {datetime.datetime.now().hour}:{datetime.datetime.now().minute}"
+
+
+    user = {
+        idmsg: {
+            "title": title,
+            "msg": msg,
+            "author": author,
+            "date": date
+        }
     }
 
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
+
+    with open(f'data/msgs/{player}.yaml', 'w', encoding='utf8') as f:
+        data = yaml.dump(user, f)
+
+
+    # data["pinf"]["msgs"][idmsg] = {
+    #     "title": titre,
+    #     "contenu": contenu,
+    #     "date": datetime.datetime.now()
+    # }
+
+    # with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
+    #     data = yaml.dump(data, f)
 
 
 def dellmsg(player, idmsg):
