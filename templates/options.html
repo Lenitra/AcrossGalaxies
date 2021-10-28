@@ -1,61 +1,67 @@
-<!-- Site créé par Thomas Lemartinel -->
+<!-- Site créé par Thomas Lemartinel et Erwann Coden -->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-  <title>Accross Galaxies</title>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
-  <link rel="stylesheet" media="screen" href="../static/css/global.css" />
-  <link rel="stylesheet" media="screen" href="../static/css/options.css" />
-  <script src="../static/js/elementscommuns.js"></script>
-  </head>
+    <title>Accross Galaxies</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+    <link rel="stylesheet" media="screen" href="../static/css/global.css" />
+    <link rel="stylesheet" media="screen" href="../static/css/options.css" />
+    <script src="../static/js/elementscommuns.js"></script>
+    
+</head>
   
   
-  <body>
+<body>
     <div class="hide" id="hasmsg">{{notifmsg}}</div>
 
-  <div class="page page-wrapper">
-  <div>
-
+    <div class="page page-wrapper">
+    <div class="cadre">
+        <h1 class="opt">Options</h1>
+        <section>
+            <h2>Changer son mot de passe</h2>
+            <form action="changemdp" method="post">
+                <div class="container">
+                    <div class="opt_cont">
+                        <i class="fa fa-key icon"></i>
+                        <input class="input-field" type="password" placeholder="Ancien mot de passe" name="old" required>
+                    </div>
+                    <div class="opt_cont">
+                        <i class="fa fa-key icon"></i>
+                        <input class="input-field" type="password" placeholder="Nouveau mot de passe" name="old" required>
+                    </div>
+                    <div class="opt_cont">
+                        <i class="fa fa-check-square-o icon"></i>
+                        <input class="input-field" type="password" placeholder="Confirmer le mot de passe" name="old" required>
+                    </div>
+                    <button class="button" type="submit">Valider</button>
+                    <!-- <br> -->
+                    <!-- <small>Une fois que vous aurez validé, vous recevrez un mail de confirmation</small> -->
+                </div>
+            </form>
+        </section>
+        <section>
+            <h2>Déconnection</h2>
+            <a href="/login">Se déconnecter</a>
+        </section>
+    </div>
     
-    <form action="changemdp" method="post">
-      <h3>Changer son mot de passe</h3>
-      <p>Ancien mot de passe</p>
-      <input type="password" name="old" required>
-      <p>Nouveau mot de passe</p>
-      <input type="password" name="new" required>
-        <p>Confirmation</p>
-        <input type="password" name="conf" required>
+    <div class="pn">
+        <script>Menu();</script>
         <br>
         <br>
-        <button type="submit">Valider</button>
-        <!-- <br> -->
-        <!-- <small>Une fois que vous aurez validé, vous recevrez un mail de confirmation</small> -->
-      </form>
-      <br>
-      <br>
-      <br>
-      <br>
-      <a href="/login"><button>Se déconecter</button></a>
-
-  </div>
+        <br>
+        <ul class="plist">
+        </ul>
+    </div>
 
 
-<div class="pn">
-  <script>Menu();</script>
-    <br>
-    <br>
-    <br>
-    <ul class="plist">
-    </ul>
-  </div>
-
-
-</div>
-  <script>
-    notifmsg();
-  </script>
+    </div>
+    <script>
+        notifmsg();
+    </script>
 </body>
 
 </html>
