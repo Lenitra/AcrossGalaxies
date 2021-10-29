@@ -48,7 +48,6 @@ def connect(mail, mdp):
 # 5 si le mdp est pas conforme
 # 255 enregistrement réussi !
 def register(mail, mdp, pseudo):
-    updateallplanets()
     plaid = 1
     while reqsql.readsql(f"SELECT Psd FROM Planets WHERE Plaid={plaid};")[0] != None:
         plaid = random.randint(1, 9999)
@@ -120,11 +119,11 @@ def delshield(plaid):
 def getplanetslist(player):
     plalist=''
 
-    pll = reqsql.retbrut(f"SELECT Plaid FROM Planets WHERE Psd = 'Lenitra';")
+    pll = reqsql.retbrut(f"SELECT Plaid FROM Planets WHERE Psd = '{player}';")
 
     for pl in pll:
         k = pl[0]
-        v = addplayerress(pl, None)
+        v = addplayerress(pl[0], None)
         plalist +=f'''
             <li>
             <form action="/updatedata" method="POST" name="{k}">
@@ -156,61 +155,30 @@ def getpsd(mail):
             return user["pseudo"]
     return False
 
-# Permet l'update des "/data/mondeX.yaml"
-def updateallplanets():
-    allpla = {}
-    for e in range(1, 10000):
-        allpla[e] = None
-    li = os.listdir("data/players")
-    for e in li:
-        with open(f'data/players/{e}', encoding='utf8') as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-        pseudo = e.split(".")[0]
-        try:
-            for d in data.keys():
-                if d != "pinf":
-                    if addshield(pseudo, d, 0) > datetime.datetime.now():
-                        shield = True
-                    else:
-                        shield = False
-                    allpla[d] = [pseudo, shield]
-        except:
-            pass
-    monde = {}
-    for a in range(1, 10000):
-        monde[a] = allpla[a]
-    with open(f'data/tmp.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(monde, f)
-        if "Windows" != platform.system():
-            os.system('cp data/tmp.yaml data/planets.yaml')
-        else:
-            os.system('copy data/tmp.yaml data')
+
 
 # Système de récolte des ressources
 def updateressource(player):
     onemore = False
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-        delta = datetime.datetime.now() - data["pinf"]["reco"]
+    olddate = reqsql.readsql(f"SELECT Reco FROM PInf WHERE Psd ='{player}'")[0]
+    delta = datetime.datetime.now() - olddate
     delta = delta.total_seconds()
     delta = (delta/60)/60
+    if delta < 0.1:
+        return
     if delta > 3:
         delta = 3
-    for k,v in data.items():
-        if k != "pinf":
-            tmp1 = int(int(v["bat"]["carbone"])*10*(delta)) + v["ress"][0]
-            tmp2 = int(int(v["bat"]["puces"]) * 10 * (delta)) + v["ress"][1]
-            tmp3 = int(int(v["bat"]["hydro"]) * 10 * (delta)) + v["ress"][2]
-            if tmp1 > v["ress"][0] or tmp2 > v["ress"][1] or tmp3 > v["ress"][2]:
-                onemore = True
-            data[k]["ress"] = (tmp1, tmp2, tmp3)
+    allplaid = getallplaid(player)
 
-    if onemore:
-        data["pinf"]["reco"] = datetime.datetime.now()
+    for pla in allplaid:
+        bat = reqsql.readsql(
+            f"SELECT carbone, puces, hydro FROM Planets WHERE Plaid = {pla}")
+        nres = (int(bat[0] * 10 * (delta)), int(bat[1] * 10 * (delta)), int(bat[2] * 10 * (delta)))
+        addplayerress(pla, nres)
+    reqsql.reqsql(f"UPDATE PInf SET Reco='{datetime.datetime.now()}' WHERE Psd='{player}';")
+    # f"UPDATE Planets SET {vaiss}={nnb} WHERE Plaid = {plaid};"
 
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
-    # Nb ress/h = lvl*10
+
 
 # Retourne les couts d'amélioration d'un batiment en fonction de son lvl (c,p,h)
 def getcostup(bat, lvl):
@@ -348,12 +316,15 @@ def gethang(player, idpla):
 
 # Modifie les ressources du jouer et les retournes
 def addplayerress(plaid, ress):
-    if ress != None and ress !=0:
+    if ress != None and ress != 0:
+        re = reqsql.readsql(
+            f"SELECT Ress1, Ress2, Ress3 FROM Planets WHERE Plaid = {plaid};")
         reqsql.reqsql(
-            f"UPDATE Planets SET Ress1={ress[0]}, Ress2={ress[1]}, Ress3={ress[2]} WHERE Plaid = {plaid};"
+            f"UPDATE Planets SET Ress1={ress[0]+re[0]}, Ress2={ress[1]+re[1]}, Ress3={ress[2]+re[2]} WHERE Plaid = {plaid};"
         )
-
-    re = reqsql.readsql(f"SELECT Ress1, Ress2, Ress3 FROM Planets WHERE Plaid = 9999;")
+    else:
+        re = reqsql.readsql(
+            f"SELECT Ress1, Ress2, Ress3 FROM Planets WHERE Plaid = {plaid};")
 
     return re
 
@@ -368,10 +339,19 @@ def getvaisscost(vaiss, nb):
     return cost
 
 # Récupère les infos d'espionage de la planète
-def getplainfos(player, plaid):
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    return {"ress": data[int(plaid)]["ress"], "flotte": data[int(plaid)]["flotte"]}
+def getplainfos(plaid):
+    tmp = reqsql.readsql(f"SELECT Ress1, Ress2, Ress3, Croiseur, Nanosonde, Cargo, Victoire, Colonisateur FROM Planets WHERE Plaid = 1")
+    result = {
+        "Carbone": tmp[0],
+        "Puces": tmp[1],
+        "Hydrogène": tmp[2],
+        "Croiseur": tmp[3],
+        "Cargo": tmp[4],
+        "Nanosonde": tmp[5],
+        "Victoire": tmp[6],
+        "Colonisateur": tmp[7]
+    }
+    return result
 
 # Réucupère toutes les id des planètes d'un joueur
 def getallplaid(player):
@@ -434,7 +414,7 @@ def attklost(attaker, aplaid, ptarget, idtarget, flota):
         "Système"
     )
 
-    sendmsg(ptarget, 
+    sendmsg(ptarget,
         f"Défense réussie",
         f"{attaker} vous a attaqué depuis la planète #{aplaid}. Vous avez repoussé l'envahiseur",
         "Système")
@@ -475,19 +455,37 @@ def getmsg(player):
     html = ''
     with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    if len(data) == 0:
+    try:
+        len(data)
+    except:
         html = '<h3>Aucun message</h3>'
         return html
 
     data.reverse()
     for msg in data:
         for k,v in msg.items():
-            html += "<li class='unmsg'><button>"
+            html += "<li class='unmsg'><form method='POST' action='/readmsg'><button>"
             html += f"<h3>{v['title']}</h3>"
             html += f"<h6>{v['date']}</h6>"
-            html += f"<p class='hide'>{k}</p>"
-            html += "</button></li>"
+            html += "</button>"
+            html += f"<input type='text' value='{k}' name='idmsg' class='hide'>"
+            html += "</li>"
     return html
+
+def msgidtohtml(player, idmsg):
+    html = []
+    with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for e in data:
+        for k,v in e.items():
+            if int(k) == int(idmsg):
+                html.append(v["title"])
+                html.append(v["date"])
+                html.append(v["author"])
+                html.append(v["msg"])
+                return html
+    return None
+
 
 def sendmsg(player, title, msg, author):
 
@@ -555,22 +553,24 @@ def espionmanager(playeratta, plaat, playerdef, pladef):
     if playeratta == playerdef:
         return
 
-
-    with open(f'data/players/{playeratta}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    attk = data[int(plaat)]["bat"]["sp"]
-
-    with open(f'data/players/{playerdef}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    deff = data[int(pladef)]["bat"]["rad"]
+    attk = reqsql.readsql(f"SELECT sp FROM Planets WHERE Plaid={plaat};")
+    deff = reqsql.readsql(f"SELECT rad FROM Planets WHERE Plaid={pladef};")
 
     if attk > deff:
-        infos = data[int(pladef)]
+        infos = getplainfos(pladef)
+        sendmsg(playeratta,
+            f"Espionnage de la planète #{pladef}",
+            f'''
+                <h3></h3>
+                <p></p>
+            ''',
+            "Système"
+            )
 
-        sendmsg(playeratta, (
-            f"Espionage depuis #{plaat}",
-            f"Vous avez espionné la planète {pladef} qui appartenait à {playerdef}. {infos}"
-        ))
+    else:
+        sendmsg(playeratta, f"Espionnage de la planète #{pladef}", f'''
+                <p>L'espionnage à échoué, votre Nanosonde à été détecté par les radars ennemis.</p>
+            ''', "Système")
 
 
 def sendmail(email, sujet, html):

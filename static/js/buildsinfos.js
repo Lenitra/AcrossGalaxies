@@ -40,7 +40,7 @@ document.getElementById("sp").addEventListener('click', (evt) => createbuildinfo
 
 
 document.getElementById("Croiseur").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Croiseur>inf").textContent));
-document.getElementById("Nano-Sonde").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Nano-Sonde>inf").textContent));
+document.getElementById("Nanosonde").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Nanosonde>inf").textContent));
 document.getElementById("Cargo").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Cargo>inf").textContent));
 document.getElementById("Victoire").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Victoire>inf").textContent));
 document.getElementById("Colonisateur").addEventListener('click', (evt) => createvaissinfos(document.querySelector("#Colonisateur>inf").textContent));

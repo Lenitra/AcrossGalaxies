@@ -70,8 +70,8 @@ function val0() {
     for (let index = 0; index < document.querySelectorAll('#Colonisateur').length; index++) {
         tores.push(document.querySelectorAll('#Colonisateur')[index]);
     }
-    for (let index = 0; index < document.querySelectorAll('#Nano-Sonde').length; index++) {
-        tores.push(document.querySelectorAll('#Nano-Sonde')[index]);
+    for (let index = 0; index < document.querySelectorAll('#Nanosonde').length; index++) {
+        tores.push(document.querySelectorAll('#Nanosonde')[index]);
     }
     for (let index = 0; index < document.querySelectorAll('#Victoire').length; index++) {
         tores.push(document.querySelectorAll('#Victoire')[index]);
@@ -168,7 +168,7 @@ for (let index = 0; index < tmp.length; index++) {
 
         // // Récupérer le nombre de NANO-SONDES
         inputcrois = [];
-        crois = document.querySelectorAll('#Nano-Sonde');
+        crois = document.querySelectorAll('#Nanosonde');
         for (let index = 0; index < crois.length; index++) {
             if (crois[index].classList.contains("hide")) {
             }
@@ -179,7 +179,7 @@ for (let index = 0; index < tmp.length; index++) {
         // // Update les inputs pour les forms finals
         for (let i = 0; i < inputcrois.length; i++) {
             inputcrois[i].addEventListener('change', (event) => {
-                let a = document.querySelectorAll('#Nano-Sonde');
+                let a = document.querySelectorAll('#Nanosonde');
                 console.log(event.path[2].attributes["plaid"].value);
                 for (let index = 0; index < a.length; index++) {
                     a[index].value = event.target.value;

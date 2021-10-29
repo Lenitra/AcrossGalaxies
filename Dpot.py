@@ -100,69 +100,38 @@ async def help(ctx):
         f"\n - {prefix}infos"
         f"\n     # Affiche les stats du jeu."
         f"\n - {prefix}link <e-mail>"
-        f"\n     # Lier votre compte de jeu avec votre compte discord."
+        f"\n     # Lier votre compte de jeu avec votre compte discord. (supprime automatiquement votre mail du chat)"
         f"\n - {prefix}me"
         f"\n     # Vous affiche les données (en mp) de votre compte Across Galaxies si il est lié à votre compte discord."
         "\n```"
         f"**Les commandes Admin** :```"
-        f"\n - {prefix}msgingame <titre>;<contenu>"
-        f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
-        f"\n - {prefix}logs [<day>-<month>-<year>]"
-        f"\n     # Permet d'envoyer un message à tout les joueurs en jeu."
         f"\n - {prefix}purge <nombre>"
         f"\n     # Permet d'effacer un nombre de message définis."
         "\n```"
         f"**Les commandes Opérateur (TauMah)** :```"
+        f"\n - {prefix}logs"
+        f"\n     # Affiche les logs du jour du jeu."
         f"\n - {prefix}restart"
         f"\n     # Redémarre la machine."
         "\n```")
 
 
 
-@commands.has_permissions(administrator=True)
 @bot.command()
 async def logs(ctx, *args):
-    pass
-    date = datetime.now()
-    if args == ():
-        with open(f'logs/{date.day}-{date.month}-{date.year}.yaml', encoding='utf8') as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-            for e in data:
-                await ctx.send(e)
-    else:
-        with open(f'logs/{args[0]}.yaml', encoding='utf8') as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
-            for e in data:
-                await ctx.send(e)
-
-
-
-@commands.has_permissions(administrator=True)
-@bot.command()
-async def msgingame(ctx, *args):
-    print(args)
-    if not ";" in args:
-        await ctx.send(f"Usage : ```{prefix}msgingame <titre> ; <contenu> ```")
-        return
-    titre = ""
-    contenu = ""
-    dotcheck = False
-    for m in args:
-        if m != ";":
-            if not dotcheck:
-                titre += m
-                titre += " "
-            else:
-                contenu += m
-                contenu += " "
+    if ctx.author.id in op:
+        date = datetime.now()
+        if args == ():
+            with open(f'logs/{date.day}-{date.month}-{date.year}.yaml', encoding='utf8') as f:
+                data = yaml.load(f, Loader=yaml.FullLoader)
+                for e in data:
+                    await ctx.send(e)
         else:
-            dotcheck = True
+            with open(f'logs/{args[0]}.yaml', encoding='utf8') as f:
+                data = yaml.load(f, Loader=yaml.FullLoader)
+                for e in data:
+                    await ctx.send(e)
 
-    msg = (titre, contenu)
-    li = os.listdir("data/players")
-    for e in li:
-        player = e.split(".")[0]
-        across.sendmsg(player, msg)
 
 @commands.has_permissions(administrator=True)
 @bot.command()

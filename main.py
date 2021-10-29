@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
+from dns.reversename import to_address
 from confi import *
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, session
@@ -215,11 +216,13 @@ def upbuild():
 def upship():
     vinf = request.form['vinf'] # nom du vaisseau
     nb = request.form['nb']
+
     cost = across.getvaisscost(vinf, nb)
-    ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
+    ress = across.addplayerress(session["selected"], (0,0,0))
     if ress[0] >= -cost[0] and ress[1] >= -cost[1] and ress[2] >= -cost[2]:
-        across.addplayerress(session["player"]["pseudo"], session["selected"], cost)
-        across.addvaisseau(session["player"]["pseudo"], session["selected"], vinf, nb)
+        across.addplayerress(session["selected"], cost)
+        nb = int(nb)
+        across.addvaisseau(session["selected"], vinf, nb)
     return redirect("/jeu")
 
 
@@ -272,13 +275,47 @@ def messages():
         return redirect("/login")
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
     msgs = across.getmsg(session["player"]["pseudo"])
-    return render_template("messages.html", msgs = msgs, notifmsg=notifmsg)
+    try:
+        print(session["msg"])
+    except:
+        session["msg"] = 0
+    if session["msg"] != 0:
+        toaff = across.msgidtohtml(session["player"]["pseudo"], session["msg"])
+        if toaff != None:
+            # titre date author msg
+            toaff = f'''
+            
+            <section id="msg" class="msg">
+            <header>
+                <form method='POST' action="/delmsg">
+                <input type="number" name="idmsg" value="{session["msg"]}" class='hide'>
+                <input type="submit" class="close" value="&times;">
+                </form>
+                <h1>{toaff[0]}</h1>
+            </header>
+            <article class="container">
+                <p class="date">{toaff[1]}</p>
+                <p class="desti"><span id="from">De : </span>{toaff[2]}</p>
+                <hr>
+                {toaff[3]}
+            </article>
+            </section>
+            
+            '''
+            session["msg"] = 0
+
+        else:
+            toaff = ""
+            session["msg"] = 0
+    else:
+        toaff = ""
+    return render_template("messages.html", msgs = msgs, notifmsg = notifmsg, toaff = toaff)
 
 # Intermédiaire pour supprimer un message
 @app.route("/delmsg", methods=['POST', 'GET'])
 def delmsg():
     id = request.form['idmsg']
-    across.dellmsg(session["player"]["pseudo"], id)
+    across.dellmsg(session["player"]["pseudo"], int(id))
     return redirect("/messages")
 
 # Intermédiaire pour lancer une attaque
@@ -374,13 +411,19 @@ def jeu():
 
 
 # Vérifie la connexion
+@app.route("/readmsg", methods=['POST', 'GET'])
+def readmsg():
+    session["msg"] = request.form['idmsg']
+    return redirect("/messages")
+
+# Vérifie la connexion
 @app.route("/checkreg", methods=['POST', 'GET'])
 def checkreg():
     mail = request.form['r_mail']
     pseudo = request.form['r_pseudo']
     mdp = request.form['r_mdp']
     mdp2 = request.form['r_mdp_c']
-    capcha = request.form['captcha']
+    capcha = request.form['captcha'].upper()
     truecapt = request.form['truecapt']
 
 
