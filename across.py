@@ -1,4 +1,5 @@
 from email.mime import text
+from logging import info
 import string
 
 from confi import *
@@ -90,8 +91,13 @@ def register(mail, mdp, pseudo):
         sendmsg(pseudo, "Bienvenue !", "<p>Bienvenue sur le jeu Across Galaxies ! \nSi vous avez des question je vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu ! \nCordialement l'équipe de Across-Galaxies.</p>", "Système")
 
         # addlog(f"{pseudo} s'est inscrit avec le mail {mail}")
-        # addshield(pseudo, plaid, 48)
+        addshield(plaid, 48)
         return 255
+
+def hadshield(plaid):
+    if addshield(plaid, None) > datetime.datetime.now():
+        return True
+    return False
 
 # Ajoute un shield effectif de "hours" heures après l'appel de la fonction
 def addshield(plaid, hours):
@@ -340,7 +346,7 @@ def getvaisscost(vaiss, nb):
 
 # Récupère les infos d'espionage de la planète
 def getplainfos(plaid):
-    tmp = reqsql.readsql(f"SELECT Ress1, Ress2, Ress3, Croiseur, Nanosonde, Cargo, Victoire, Colonisateur FROM Planets WHERE Plaid = 1")
+    tmp = reqsql.readsql(f"SELECT Ress1, Ress2, Ress3, Croiseur, Nanosonde, Cargo, Victoire, Colonisateur FROM Planets WHERE Plaid = {plaid}")
     result = {
         "Carbone": tmp[0],
         "Puces": tmp[1],
@@ -455,9 +461,7 @@ def getmsg(player):
     html = ''
     with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    try:
-        len(data)
-    except:
+    if len(data)==0:
         html = '<h3>Aucun message</h3>'
         return html
 
@@ -558,13 +562,25 @@ def espionmanager(playeratta, plaat, playerdef, pladef):
 
     if attk > deff:
         infos = getplainfos(pladef)
-        sendmsg(playeratta,
-            f"Espionnage de la planète #{pladef}",
-            f'''
-                <h3></h3>
-                <p></p>
-            ''',
-            "Système"
+        sendmsg(
+            playeratta, f"Espionnage de la planète #{pladef}", f'''
+                <style>
+                .inmsgtextclol {{
+                    text-align: center;
+                }}
+                </style>
+                <h3 class="inmsgtextclol">Ressources disponibles</h3>
+                <p class="inmsgtextclol">Carbone : {infos["Carbone"]}</p>
+                <p class="inmsgtextclol">Puces : {infos["Puces"]}</p>
+                <p class="inmsgtextclol">Hydrogène : {infos["Hydrogène"]}</p>
+                <br>
+                <h3 class="inmsgtextclol">Vaisseaux garrés</h3>
+                <p class="inmsgtextclol">Croiseur : {infos["Croiseur"]}</p>
+                <p class="inmsgtextclol">Nanosonde : {infos["Nanosonde"]}</p>
+                <p class="inmsgtextclol">Cargo : {infos["Cargo"]}</p>
+                <p class="inmsgtextclol">Victoire : {infos["Victoire"]}</p>
+                <p class="inmsgtextclol">Colonisateur : {infos["Colonisateur"]}</p>
+            ''', "Système"
             )
 
     else:

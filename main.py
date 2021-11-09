@@ -8,7 +8,7 @@ from flask import Flask, render_template, request, redirect, session
 from werkzeug.wrappers.response import ResponseStream
 import yaml
 import across
-from reqsql import readsql, reqsql
+from reqsql import readsql, reqsql, retbrut
 
 app = Flask(__name__)
 app.secret_key = "ahcestcontulaspas"
@@ -34,6 +34,8 @@ def map():
         univers = int(request.form['wunivers'])
     except:
         liste = "<h2>Selection de l'<strong>univers</strong></h2>"
+        liste += f"<h4></h4><br>"
+        liste += f"<h4></h4><br><br>"
         for id in range(10):
             liste += f'''
                 <li class="mappla">
@@ -97,99 +99,73 @@ def map():
 
     start = f'{univers}{galaxie}{systeme}0'
     start = int(start)
+
     liste = "<h2>Selection de la <strong>planète</strong></h2>"
     liste += f"<h4>Univers {univers} / Galaxie {galaxie} / Système {systeme}</h4>"
     liste += f"<h4>Planètes {univers}{galaxie}{systeme}x</h4>"
 
-    with open(f'data/planets.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    if start == 0:
-        start = 1
-        for id in range(start, start + 9):
-            if data[int(id)] == None:
-                liste += f'''
-                    <li class="mappla">
-                        <form action="" method="POST" name="{id}">
-                            <input type="text" name="pla" value ="{id}" class="hide">
-                            <button type="submit" style="border: 0; background: transparent">
-                                <img src="/static/imgs/planet.png" alt="submit" />
-                                <h3>#{id}</h3>
-                                <h3> &nbsp; </h3>
-                            </button>
-                        </form>
-                    </li>
-                    '''
-            else:
-                if data[int(id)][1] == False:
-                    liste += f'''
-                        <li class="mappla">
-                            <form action="mapla" method="POST" name="{id}">
-                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
-                                <button type="submit" style="border: 0; background: transparent">
-                                    <img src="/static/imgs/planetcol.png" alt="submit" />
-                                    <h3>#{id}</h3>
-                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
-                                </button>
-                            </form>
-                        </li>
-                        '''
 
-                else:
-                    liste += f'''
-                        <li class="mappla">
-                            <form action="mapla" method="POST" name="{id}">
-                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
-                                <button type="submit" style="border: 0; background: transparent">
-                                    <img src="/static/imgs/planetcolprot.png" alt="submit" />
-                                    <h3>#{id}</h3>
-                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
-                                </button>
-                            </form>
-                        </li>
-                        '''
-    else:
-        for id in range(start, start+10):
-            if data[int(id)] == None:
-                liste += f'''
-                    <li class="mappla">
-                        <form action="" method="POST" name="{id}">
-                            <input type="text" name="pla" value ="{id}" class="hide">
-                            <button type="submit" style="border: 0; background: transparent">
-                                <img src="/static/imgs/planet.png" alt="submit" />
-                                <h3>#{id}</h3>
-                                <h3> &nbsp; </h3>
-                            </button>
-                        </form>
-                    </li>
-                    '''
-            else:
-                if data[int(id)][1] == False:
-                    liste += f'''
-                        <li class="mappla">
-                            <form action="mapla" method="POST" name="{id}">
-                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
-                                <button type="submit" style="border: 0; background: transparent">
-                                    <img src="/static/imgs/planetcol.png" alt="submit" />
-                                    <h3>#{id}</h3>
-                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
-                                </button>
-                            </form>
-                        </li>
-                        '''
+    # A partir d'ici c'est pété !
 
-                else:
-                    liste += f'''
-                        <li class="mappla">
-                            <form action="mapla" method="POST" name="{id}">
-                                <input type="text" name="pla" value ="{id}|{data[int(id)][0]}" class="hide">
-                                <button type="submit" style="border: 0; background: transparent">
-                                    <img src="/static/imgs/planetcolprot.png" alt="submit" />
-                                    <h3>#{id}</h3>
-                                    <h3 class="conqueror">{data[int(id)][0]}</h3>
-                                </button>
-                            </form>
-                        </li>
-                        '''
+    tmp = retbrut(
+        f"SELECT Plaid, Psd, Shield FROM Planets WHERE Plaid < {start+10} AND PLAID >= {start}"
+    )
+
+
+    for pl in range(len(tmp)):
+        toadd = ""
+
+        id = tmp[pl][0]
+        owner = tmp[pl][1]
+        if owner != None:
+            if tmp[pl][2] > datetime.now():
+                shield = True
+            else:
+                shield = False
+
+        # Si pas de proprio
+        if owner == None:
+            toadd += f"""
+            
+                            <li class="mappla">
+                                <form action="" method="POST" name="{id}">
+                                    <input type="text" name="pla" value ="{id}" class="hide">
+                                    <button type="submit" style="border: 0; background: transparent">
+                                        <img src="/static/imgs/planet.png" alt="submit" />
+                                        <h3>#{id}</h3>
+                                        <h3> &nbsp; </h3>
+                                    </button>
+                                </form>
+                            </li>
+            """
+        else:
+            if shield:
+                toadd += f'''
+                            <li class="mappla">
+                                <form action="mapla" method="POST" name="{id}">
+                                    <input type="text" name="pla" value ="{id}|{owner}" class="hide">
+                                    <button type="submit" style="border: 0; background: transparent">
+                                        <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                        <h3>#{id}</h3>
+                                        <h3 class="conqueror">{owner}</h3>
+                                    </button>
+                                </form>
+                            </li>
+                            '''
+            else:
+                toadd += f'''
+                            <li class="mappla">
+                                <form action="mapla" method="POST" name="{id}">
+                                    <input type="text" name="pla" value ="{id}|{owner}" class="hide">
+                                    <button type="submit" style="border: 0; background: transparent">
+                                        <img src="/static/imgs/planetcol.png" alt="submit" />
+                                        <h3>#{id}</h3>
+                                        <h3 class="conqueror">{owner}</h3>
+                                    </button>
+                                </form>
+                            </li>
+                            '''
+        liste += toadd
 
 
     return render_template("map.html", plas=liste, notifmsg=notifmsg)
@@ -367,6 +343,7 @@ def atta():
             return redirect("/map")
         resultat = across.attackmanager(playeratta, plaat,
                                         playerdef,pladef , flotatta, flotdef)
+
     if action == "Espionner":
         print("espionnage !!!!")
         across.espionmanager(playeratta, plaat, playerdef, pladef)
