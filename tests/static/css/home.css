@@ -1,0 +1,530 @@
+@font-face {
+  font-family: "Titres";
+  src: url("../fonts/Aileron.otf")
+}
+
+@font-face {
+  font-family: "Textes";
+  src: url("../fonts/neuro.ttf")
+}
+
+html{
+  background: center/90% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  overflow:hidden;
+  height: 100%;
+  color: white;
+  margin: 0;
+}
+
+h1{
+  font-family: "Titres";
+  color: rgba(0, 214, 252, 0.8);
+  font-size: 6vw;
+  margin: 10px;
+  text-align: center;
+  padding: 1px;
+  width: 55vw;  
+}
+
+/* Separation de la page en 3*/
+.separate{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin:auto;
+  height: 100%;
+}
+
+/* Partie de gauche */
+#txt1{
+  color: #cdffd0;
+  font-size: 35px;
+  font-weight: 300;
+  margin-top: 10%;
+  text-align: center;
+}
+
+.rs{
+  position: fixed;
+  bottom: 7%;
+}
+
+.rs h2{
+  margin-bottom: 0%;
+}
+
+.div_rs{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  grid-gap: 40px;
+}
+
+.div_rs p{
+  color: #00d6fc;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.img_rs{
+  max-width: 50px;
+}
+
+/* Actualites */
+.actu{
+	background-color: rgba(98, 101, 103, 0.3);
+	border-radius: 10px;
+	margin: 15% 20px;
+	/* border: 4px solid black; */
+  border-top: 0;
+  overflow: hidden;
+
+}
+
+.actu h2{
+	font-size: 4vw;
+	border-radius: 10px 10px 0px 0px;
+  background-color: #00000062;
+  text-align: center;
+  color: white;
+  margin: 0;
+  font-family: "Textes";
+}
+
+li:hover{
+  background-color: #25222262;
+}
+
+.news {
+  padding: 16px;
+  border-bottom: 1px dashed rgba(221, 221, 221, 0.336);
+}
+
+.ul-actu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 60vh;
+  overflow: auto;
+}
+
+.logo-actu{
+  color: #00d6fc;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #117081; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0c4b57; 
+}
+
+/* Footer */
+footer{
+  position: fixed;
+  bottom: 0;
+}
+
+/* Background anime*/
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:#fff;
+  right:0;
+  animation:starTwinkle 3s infinite linear;
+}
+
+@keyframes starTwinkle{
+  0%{
+     background:rgba(255,255,255,0.4);
+  }
+  25%{
+    background:rgba(255,255,255,0.8);
+  }
+  50%{
+   background:rgba(255,255,255,1);
+  }
+  75%{
+    background:rgba(255,255,255,0.8);
+  }
+  100%{
+    background:rgba(255,255,255,0.4);
+  }
+}
+
+/* Bouton de jeu */
+.btn-play {
+	width: 100%; 
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+  top: 20vh;
+}
+
+.kave-line{
+  text-align: center;
+  text-decoration: none;
+  font-family: "Titres";
+  color: rgba(0, 214, 252, 0.5);
+  font-size: 6vw;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+.kave-btn {
+  position: absolute;
+  background: none;
+  border: solid 1px rgba(0, 214, 252, 0.3);
+  color: rgba(0, 214, 252, 0.5);
+  letter-spacing: 3px;
+}
+
+.kave-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 60px;
+  height: 1px;
+  transform: translateY(-1px);
+  background-color: #00d6fc;
+  transition: all 0.25s ease;
+}
+
+.kave-btn:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  width: 60px;
+  height: 1px;
+  transform: translateY(1px);
+  background-color: #00d6fc;
+  transition: all 0.25s ease;
+}
+
+.kave-btn:hover {
+  box-shadow: 1px 1px 8px rgba(0, 214, 252, 0.3);
+  color: #00d6fc;
+  text-shadow: 0 0 8px rgba(0, 214, 252, 0.4);
+}
+
+.kave-btn:hover.kave-btn:before {
+  left: 0;
+  width: 20px;
+}
+
+.kave-btn:hover.kave-btn:after {
+  right: 0;
+  width: 20px;
+}
+
+.kave-btn:hover .kave-line:before {
+  bottom: 0;
+}
+
+.kave-btn:hover .kave-line:after {
+  top: 0;
+}
+
+.kave-line:hover{
+  color: #01568b;
+}
+
+.kave-line:before {
+  content: "";
+  position: absolute;
+  bottom: 30%;
+  right: 0;
+  width: 1px;
+  height: 20px;
+  transform: translateX(1px);
+  background-color: #00d6fc;
+  transition: all 0.25s ease;
+}
+
+.kave-line:after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 0;
+  width: 1px;
+  height: 20px;
+  transform: translateX(-1px);
+  background-color: #00d6fc;
+  transition: all 0.25s ease;
+}
+
+@media (max-width:1300px){
+  .actu{
+    margin: 2% 5px;
+  }
+  .actu {
+    height: 75vh;
+  }
+  .ul-actu {
+    height: 65vh;
+  }
+}
+
+@media (max-width:900px){
+  .actu{
+    margin: 2% 5px;
+  }
+  .actu {
+    height: 80vh;
+  }
+  .ul-actu {
+    height: 72vh;
+  }
+  .version{
+    font-size: 25px;
+  }
+  .news li{
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-device-width : 1024px) and (min-device-width : 479px){
+  html{
+    background: top/120% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+  }
+  h1{
+    font-size: 10vw;
+    width: 90vw;
+  }
+  #txt1{
+    font-size: 6vw;
+    margin: 5% 0 0 0;
+    width: 200%;
+  }
+  .separate{
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    height: 100%;
+    grid-gap: 3vw;
+  }
+  footer, .btn-play {
+    grid-column: 1;
+  }
+  .kave-line{
+    font-size: 13vw;
+  }
+  .actu{
+    grid-column: 2;
+    background-color: rgba(98, 101, 103, 0.7);
+    margin: 0;
+    height: 70vh;
+  }  
+  .actu h2{
+    font-size: 6vw;
+  }
+  .ul-actu {
+    height: 62vh;
+    font-size: 2.5vw;
+  }
+  .rs{
+    position: unset;
+  }
+  .rs h2{
+    font-size: 3vw;
+  }
+  .div_rs{
+    grid-gap: 1vw;
+  }
+  footer{
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+/* For phones */
+@media only screen and (max-device-width : 480px) {
+  html{
+    background: top/200% no-repeat url("../imgs/logo_anime_bg.gif"), linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    overflow: auto;
+    height: auto;
+  }
+  h1{
+    font-size: 11vw;
+    width: 100%;
+  }
+  .separate{
+    grid-template-columns: 1fr;
+    grid-gap: 1vh;
+  }
+  #txt1{
+    font-size: 6vw;
+    font-weight: 300;
+    margin-top: 5%;
+    margin-bottom: 0;
+  }
+  .kave-line{
+    font-size: 9vh;
+  }
+  .actu{
+    background-color: rgba(98, 101, 103, 0.8);
+    margin: 10vh 1vw 0;
+    height: 60vh;
+  }
+  .ul-actu {
+    height: 52vh;
+  }
+  .actu h2{
+    font-size: 9vw;
+  }
+  .btn-play{
+    top:unset;
+    margin: 6vh 0 10vh;
+  }
+  .rs, footer{
+    position:unset;
+  }
+  .rs h2{
+    font-size: 5.5vw;
+  }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (max-device-height :600px){
+  .btn-play{
+    margin: 6vh 0 15vh;
+  }
+}
+
+
+
+.box {
+  margin-left: 22.5vw;
+  text-align: center;
+  --b:3px;   /* thickness of the border */
+  --c:rgba(255, 255, 255, 0.658);   /* color of the border */
+  --w:20px;  /* width of border */
+  
+
+  border:var(--b) solid transparent; /* space for the border */
+  --g:#0000 90deg,var(--c) 0;
+  background:
+    conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--g)) 0    0,
+    conic-gradient(from 180deg at top    var(--b) right var(--b),var(--g)) 100% 0,
+    conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--g)) 0    100%,
+    conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--g)) 100% 100%;
+  background-size:var(--w) var(--w);
+  background-origin:border-box;
+  background-repeat:no-repeat;
+
+  display:inline-flex;
+  line-height:10vh;
+}
+
+
+
+
+/* "Graphs" données sur le jeu */
+
+  .graphplan {
+      height: 150px;
+      position: relative;
+      margin-left: 15px;
+      margin-top: 15px;
+    }
+  .pieContainer {
+      height: 150px;
+      position: relative;
+      margin-left: 15px;
+      margin-top: 50px;
+    }
+    
+    .pieBackground {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      box-shadow: 0px 0px 8px rgb(0, 0, 0);
+    } 
+    
+    .pie {
+      transition: all 1s;
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      clip: rect(0px, 75px, 150px, 0px);
+    }
+    
+    .hold {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      clip: rect(0px, 150px, 150px, 75px);
+    }
+    
+    
+    #pieSlice1 {
+      transform: rotate(0deg);
+    }
+    
+    #pieSlice1 .pie {
+      background-color: rgba(0, 214, 252, 0.8);
+      transform: rotate(10.8deg);
+    }
+        
+    
+    #pieSlice2 {
+      transform: rotate(180deg);
+    }
+    
+    #pieSlice2 .pie {
+      background-color: rgba(0, 214, 252, 0.8);
+      transform: rotate(0deg);
+    }
+    
+
+    #pieSlice3 {
+      transform: rotate(0deg);
+    }
+    
+    #pieSlice3 .pie {
+      background-color: rgba(0, 214, 252, 0.8);
+      transform: rotate(0.936deg);
+    }
+    #pieSlice4 {
+      transform: rotate(180deg);
+    }
+    
+    #pieSlice4 .pie {
+      background-color: rgba(0, 214, 252, 0.8);
+      transform: rotate(0deg);
+    }
+    
+    
+    .innerCircle {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: #171717;
+      border-radius: 100%;
+      top: 15px;
+      left: 15px; 
+      color: white;
+    }
+    .innerCircle .content {
+      position: absolute;
+      display: block;
+      width: 120px;
+      top: 30px;
+      left: 0;
+      text-align: center;
+      font-size: 14px;
+    }

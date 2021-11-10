@@ -299,6 +299,16 @@ div.page {
 .map form :hover .conqueror{
   display: block;
 }
+.map img.flag {
+  /* float: right; */
+  height: 3vw;
+  width: auto;
+  margin-left: -3vw;
+}
+
+.map img .systemesol{
+  opacity: 0.8;
+}
 
 .map img {
   width: 6vw;

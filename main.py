@@ -88,7 +88,7 @@ def map():
                         <input type="text" name="wgalaxie" value ="{galaxie}" class="hide">
                         <input type="text" name="wsysteme" value ="{id}" class="hide">
                         <button type="submit" style="border: 0; background: transparent">
-                            <img src="/static/imgs/sys.png" alt="submit" />
+                            <img src="/static/imgs/sys.png" alt="submit" class="systemesol" />
                             <h3>{id}</h3>
                             <h3> &nbsp; </h3>
                         </button>
@@ -105,7 +105,6 @@ def map():
     liste += f"<h4>Planètes {univers}{galaxie}{systeme}x</h4>"
 
 
-    # A partir d'ici c'est pété !
 
     tmp = retbrut(
         f"SELECT Plaid, Psd, Shield FROM Planets WHERE Plaid < {start+10} AND PLAID >= {start}"
@@ -146,6 +145,7 @@ def map():
                                     <input type="text" name="pla" value ="{id}|{owner}" class="hide">
                                     <button type="submit" style="border: 0; background: transparent">
                                         <img src="/static/imgs/planetcolprot.png" alt="submit" />
+                                        <img src="/static/imgs/flag.png" class="flag" alt="submit" />
                                         <h3>#{id}</h3>
                                         <h3 class="conqueror">{owner}</h3>
                                     </button>
@@ -158,7 +158,8 @@ def map():
                                 <form action="mapla" method="POST" name="{id}">
                                     <input type="text" name="pla" value ="{id}|{owner}" class="hide">
                                     <button type="submit" style="border: 0; background: transparent">
-                                        <img src="/static/imgs/planetcol.png" alt="submit" />
+                                        <img src="/static/imgs/planet.png" alt="submit" />
+                                        <img src="/static/imgs/flag.png" class="flag" alt="submit" />
                                         <h3>#{id}</h3>
                                         <h3 class="conqueror">{owner}</h3>
                                     </button>
@@ -370,11 +371,11 @@ def jeu():
     else:
         shield = f"{shield.day}/{shield.month} - {shield.hour}h"
 
+    listeplanetes = across.getplanetslist(session["player"]["pseudo"])
     power = across.getpower(across.addvaisseau(session['selected'], None,0))
     spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
     batiments = across.getbats(session["selected"])
     ressources = across.addplayerress(session["selected"], (0, 0, 0))
-    listeplanetes = across.getplanetslist(session["player"]["pseudo"])
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
     return render_template("jeu.html",
                            listpla=listeplanetes,
