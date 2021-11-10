@@ -1,0 +1,175 @@
+pinf:
+  msgs: {}
+  reco: 2021-11-03 21:27:28.456494
+  vip: 0
+1:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 247
+    Nano-Sonde: 0
+    Victoire: 10001
+  ress: !!python/tuple
+  - 11689
+  - 16994
+  - 19116
+  shield: 2021-11-10 16:56:07.552866
+2:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.587074
+3:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.618830
+4:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.651071
+5:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.686692
+6:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.719658
+7:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.752293
+8:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.785442
+9:
+  bat:
+    carbone: 20
+    energy: 20
+    hydro: 20
+    puces: 20
+    rad: 20
+    sp: 20
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 248
+    Nano-Sonde: 0
+    Victoire: 10000
+  ress: !!python/tuple
+  - 7714
+  - 7714
+  - 7714
+  shield: 2021-11-10 16:56:07.827527

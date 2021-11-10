@@ -1,0 +1,23 @@
+pinf:
+  msgs: {}
+  reco: 2021-11-04 13:07:12.944632
+  vip: 0
+1234:
+  bat:
+    carbone: 20
+    energy: 1
+    hydro: 11
+    puces: 14
+    rad: 14
+    sp: 14
+  flotte:
+    Cargo: 0
+    Colonisateur: 1
+    Croiseur: 450
+    Nano-Sonde: 9
+    Victoire: 10
+  ress: !!python/tuple
+  - 3816
+  - 12835
+  - 17498
+  shield: 2021-11-10 16:56:07.501614

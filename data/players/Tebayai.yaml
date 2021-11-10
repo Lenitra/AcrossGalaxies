@@ -1,0 +1,28 @@
+pinf:
+  msgs:
+    '1010145030836811':
+      contenu: "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je\
+        \ vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu\
+        \ ! Cordialement l'\xE9quipe de Across-Galaxies"
+      date: 2021-10-10 14:50:30.836813
+      title: Bienvenue !
+  reco: 2021-10-11 12:32:30.333051
+  vip: 0
+7984:
+  bat:
+    carbone: 5
+    hydro: 5
+    puces: 6
+    rad: 2
+    sp: 4
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 1
+    Nano-Sonde: 2
+    Victoire: 0
+  ress: !!python/tuple
+  - 47
+  - 15
+  - 88
+  shield: 2021-11-10 16:56:07.386067

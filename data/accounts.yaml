@@ -33,7 +33,7 @@
     Z0FBQUFBQmhKLXBvMFc5OTVQaDNuRzBLaGx5VUUtME9kSjlFdmQzWTNXNlBydklwY2IwNGtBejYt
     OTlFRnpKY01JMnBFREsxVUExbHRtODYyc1VXY2oxazRISVpvTkNvZXc9PQ==
   pseudo: "B\xE9bech"
-- mail: Antoine.vauclin@outlook.com
+- mail: 'Antoine.vauclin@outlook.com '
   mdp: !!binary |
     Z0FBQUFBQmhLNFhJT1BScXdEcHpITjlWTUJUMTZvSkJYUXBZRkNiQ0R5empfU1l5dmJaNDl0QjVD
     TXNGQWYzbUJyVjVOeVFNNVp1bl85OTc3WjViMzVBMGdsZHZEb0tLUVE9PQ==
@@ -50,9 +50,31 @@
   pseudo: Lenitra
 - mail: erwann2002.ec@gmail.com
   mdp: !!binary |
-    Z0FBQUFBQmhYZU9IM3czQlpJUGw4NnFzbmU4LV8wM29SZmxkaGs3cU9aWW1KbEpGbGQ5OVJOMUJBVWNCOE9NOS1wMFBkRmRRR1FmY2V3STBGMnFQdF90aWd3YWo3NmhSQ0E9PQ==
+    Z0FBQUFBQmhYZU9IM3czQlpJUGw4NnFzbmU4LV8wM29SZmxkaGs3cU9aWW1KbEpGbGQ5OVJOMUJB
+    VWNCOE9NOS1wMFBkRmRRR1FmY2V3STBGMnFQdF90aWd3YWo3NmhSQ0E9PQ==
   pseudo: erwann
 - mail: yvannerick@gmail.com
   mdp: !!binary |
-    Z0FBQUFBQmhZdjIyVjc4THh6V09VYnpMTF9lMXNKT21RMktNM2hPQXFUV3dHS2V1aG1lQXBxQ2ZHSmxJcU5LS01jZnlqMzdKT2VNUG5Qa3dsdDdnQjNtR29RUUlTLWNQY3c9PQ==
+    Z0FBQUFBQmhZdjIyVjc4THh6V09VYnpMTF9lMXNKT21RMktNM2hPQXFUV3dHS2V1aG1lQXBxQ2ZH
+    SmxJcU5LS01jZnlqMzdKT2VNUG5Qa3dsdDdnQjNtR29RUUlTLWNQY3c9PQ==
   pseudo: Tebayai
+- mail: lealemart@orange.fr
+  mdp: !!binary |
+    Z0FBQUFBQmhjZmZxSnQyTFNpX2VzaHNKd3dIMVRJREhpVnc0TnhjSi12bzNZaUp3TGJBSzVqV2M3
+    SUNqaUFjYXN1WEdTaF9uQ2tqcERNa0tMWldFZ0ZRMDRPdlJ4dGJVRWc9PQ==
+  pseudo: Meilleuresoeur
+- mail: Froster775@gmail.com
+  mdp: !!binary |
+    Z0FBQUFBQmhjZnFmaDVwaUlNTmhYMXhjdUFoMkZYYUwzUFBzc2pNejVYT29YNGZyR0VLejRhZHot
+    bWo1dEZqSGJKeHBGNWZIMklTNEtoV0dHV01mVjJZQm5mazFhRVN6V3c9PQ==
+  pseudo: Maxinymous
+- mail: mathis.enguehard@gmail.com
+  mdp: !!binary |
+    Z0FBQUFBQmhldnZCWUNrcWk1cURjQThFS2QyOXdZdGZyYUkyTkhDUldJbVVITi1VelRWSzNkODVG
+    UnNyVDJVN0FKV19XT1RWdlB6bDFsT1FsSnRqZmhFTFhveC1Ca2liYnc9PQ==
+  pseudo: Xenophiro
+- mail: arnaud.varidel@gmail.com
+  mdp: !!binary |
+    Z0FBQUFBQmhlNkozZ09EMmt2ZGRxUWxmYVB3bTZPQ0JfRnFZY21aRUlWVjVoTTFheHJ4Y3VvQk9B
+    MGlHdHdXU3FfZlpVQ2IyRXgxNWhPNk4wdExRdnc4UmxfNWpYTVc0WHc9PQ==
+  pseudo: XS-ARK

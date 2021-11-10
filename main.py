@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
-from dns.reversename import to_address
 from confi import *
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, session
-from werkzeug.wrappers.response import ResponseStream
 import yaml
 import across
 from reqsql import readsql, reqsql, retbrut
@@ -180,11 +178,10 @@ def giveress():
 
 @app.route("/upbuild", methods=['POST', 'GET'])
 def upbuild():
-    cout = across.getbats(session["player"]["pseudo"],
-                          session["selected"])[request.form['bat']]
-    ress = across.addplayerress(session["player"]["pseudo"], session["selected"], (0,0,0))
+    cout = across.getbats(session["selected"])[request.form['bat']]
+    ress = across.addplayerress(session["selected"], (0,0,0))
     if cout[1] <= ress[0] and cout[2] <= ress[1] and cout[3] <= ress[2]:
-        across.upbat(session["player"]["pseudo"], request.form['bat'], cout, session["selected"])
+        across.upbat(request.form['bat'], cout, session["selected"])
     return redirect("/jeu")
 
 
@@ -365,7 +362,7 @@ def jeu():
     except:
         return redirect("/login")
 
-    shield = across.addshield(session['selected'], None)[0]
+    shield = across.addshield(session["selected"], 0)
     if shield < datetime.now():
         shield = "Aucun bouclier"
     else:
@@ -373,7 +370,7 @@ def jeu():
 
     listeplanetes = across.getplanetslist(session["player"]["pseudo"])
     power = across.getpower(across.addvaisseau(session['selected'], None,0))
-    spaceport = across.getsp(session["player"]["pseudo"],session['selected'])
+    spaceport = across.getsp(session['selected'])
     batiments = across.getbats(session["selected"])
     ressources = across.addplayerress(session["selected"], (0, 0, 0))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])

@@ -1,0 +1,83 @@
+pinf:
+  msgs:
+    '1029111359867474':
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
+        \ 421 unit\xE9s de carbone, 1372 unit\xE9es de puces et 1838 d'hydrog\xE8\
+        ne."
+      date: 2021-10-29 11:13:59.867477
+      title: "D\xE9fense \xE9chou\xE9e"
+    '10617572744272':
+      contenu: "Bienvenue sur le jeu Across Galaxies ! Si vous avez des question je\
+        \ vous prie de rejoindre le serveur discord. En vous souhaitant un bon jeu\
+        \ ! Cordialement l'\xE9quipe de Across-Galaxies"
+      date: 2021-10-06 17:57:27.044274
+      title: Bienvenue !
+  reco: 2021-10-30 23:52:51.756540
+  vip: 0
+12:
+  bat:
+    carbone: 16
+    hydro: 12
+    puces: 15
+    rad: 10
+    sp: 10
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 1
+    Nano-Sonde: 1
+    Victoire: 0
+  ress: !!python/tuple
+  - 147
+  - 1697
+  - 2808
+  shield: 2021-11-10 16:56:07.409501
+15:
+  bat:
+    carbone: 15
+    hydro: 12
+    puces: 15
+    rad: 8
+    sp: 9
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 0
+    Nano-Sonde: 0
+    Victoire: 0
+  ress: !!python/tuple
+  - 3154
+  - 2882
+  - 3507
+  shield: 2021-11-10 16:56:07.428788
+13:
+  bat:
+    carbone: 16
+    hydro: 12
+    puces: 13
+    rad: 10
+    sp: 8
+  flotte: {}
+  ress: !!python/tuple
+  - 901
+  - 1763
+  - 2199
+  shield: 2021-11-10 16:56:07.449431
+14:
+  bat:
+    carbone: 16
+    hydro: 12
+    puces: 13
+    rad: 10
+    sp: 8
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 0
+    Nano-Sonde: 0
+    Victoire: 0
+  ress: !!python/tuple
+  - 1322
+  - 3135
+  - 4037
+  shield: 2021-11-10 16:56:07.471380

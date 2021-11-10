@@ -228,21 +228,18 @@ def getbats(idpla):
     return {"carbone": c, "puces": p, "hydro": h, "rad": rad, "sp": spaceport}
 
 # Améliora un batiment et retire les ressources du joueur
-def upbat(player, batim, couts, plaid):
+def upbat(batim, couts, plaid):
     if plaid == "*":
         return 0
     addplayerress(plaid, (-couts[1],-couts[2],-couts[3]))
-    with open(f'data/players/{player}.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
+    lvl = reqsql.readsql(
+        f"SELECT {batim} FROM Planets WHERE Plaid = {plaid}")[0] + 1
 
+    reqsql.reqsql(f"UPDATE Planets SET {batim} = {lvl} WHERE Plaid = {plaid};")
 
-    data[int(plaid)]["bat"][batim] += 1
-
-    with open(f'data/players/{player}.yaml', 'w', encoding='utf8') as f:
-        data = yaml.dump(data, f)
 
 # Récupère le html des vaisseaux dispo en fonction du lvl du sp
-def getsp(player, idpla):
+def getsp(idpla):
     liste = ""
     if idpla == "*":
         return '<h2>Veuillez améliorer votre spatioport pour pouvoir construire des vaisseaux</h3>'

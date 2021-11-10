@@ -1,0 +1,60 @@
+pinf:
+  msgs:
+    '10617847598560':
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
+        \ 1793 unit\xE9s de carbone, 3308 unit\xE9es de puces et 3317 d'hydrog\xE8\
+        ne."
+      date: 2021-10-06 17:08:47.598562
+      title: "D\xE9fense \xE9chou\xE9e"
+    '106181446171244':
+      contenu: "Bonjour comme vous pouvez voir sur votre jeu, beaucoup de travail\
+        \ \xE0 \xE9t\xE9 fournis sur l'aspect graphique du jeu. CE N'EST QUE LE D\xC9\
+        BUT ! Par ailleurs suite \xE0 cette mise \xE0 jour, si vous avez un probl\xE8\
+        me ou une suggestion, merci de faire part de votre soucis/avis sur le discord\
+        \ ! Bon jeu et bonne continuation ! "
+      date: 2021-10-06 18:14:46.171246
+      title: 'Version B42 '
+    '1061815258749':
+      contenu: "Bonjour comme vous pouvez voir sur votre jeu, beaucoup de travail\
+        \ \xE0 \xE9t\xE9 fournis sur l'aspect graphique du jeu. CE N'EST QUE LE D\xC9\
+        BUT ! Par ailleurs suite \xE0 cette mise \xE0 jour, si vous avez un probl\xE8\
+        me ou une suggestion, merci de faire part de votre soucis/avis sur le discord\
+        \ ! Bon jeu et bonne continuation ! "
+      date: 2021-10-06 18:15:25.008753
+      title: 'Version B42 '
+    '91081654772261':
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
+        \ 602 unit\xE9s de carbone, 1514 unit\xE9es de puces et 1960 d'hydrog\xE8\
+        ne."
+      date: 2021-09-10 08:16:54.772263
+      title: "D\xE9fense \xE9chou\xE9e"
+    '9178519958684':
+      contenu: 'Salut '
+      date: 2021-09-17 08:05:19.958686
+      title: 'Test Discord '
+    '929145026241040':
+      contenu: "Message test envoy\xE9 depuis le discord ! "
+      date: 2021-09-29 14:50:26.241042
+      title: 'BONJOUR ! '
+    '9863556113687':
+      contenu: "Lenitra vous a attaqu\xE9 depuis la plan\xE8te #1. Il vous a suptilis\xE9\
+        \ 810 unit\xE9s de carbone, 2314 unit\xE9es de puces et 2201 d'hydrog\xE8\
+        ne."
+      date: 2021-09-08 06:35:56.113688
+      title: "D\xE9fense \xE9chou\xE9e"
+  reco: 2021-09-18 19:23:37.594046
+  vip: 0
+666:
+  bat:
+    carbone: 17
+    energy: 1
+    hydro: 15
+    puces: 16
+    rad: 10
+    sp: 10
+  flotte: {}
+  ress: !!python/tuple
+  - 1793
+  - 3309
+  - 3317
+  shield: 2021-11-10 16:56:07.371311

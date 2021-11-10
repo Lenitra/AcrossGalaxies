@@ -1,0 +1,31 @@
+pinf:
+  msgs:
+    '917852020003':
+      contenu: 'Salut '
+      date: 2021-09-17 08:05:20.020005
+      title: 'Test Discord '
+    '929145026275593':
+      contenu: "Message test envoy\xE9 depuis le discord ! "
+      date: 2021-09-29 14:50:26.275595
+      title: 'BONJOUR ! '
+  reco: 2021-08-23 17:17:18.285018
+  vip: 0
+6278:
+  bat:
+    carbone: 3
+    energy: 1
+    hydro: 3
+    puces: 4
+    rad: 3
+    sp: 5
+  flotte:
+    Cargo: 0
+    Colonisateur: 0
+    Croiseur: 1
+    Nano-Sonde: 0
+    Victoire: 0
+  ress: !!python/tuple
+  - 10
+  - 42
+  - 91
+  shield: 2021-11-10 16:56:07.893709
