@@ -391,7 +391,7 @@ def readmsg():
     session["msg"] = request.form['idmsg']
     return redirect("/messages")
 
-# Vérifie la connexion
+# Vérifie l'inscription
 @app.route("/checkreg", methods=['POST', 'GET'])
 def checkreg():
     mail = request.form['r_mail']

@@ -6,6 +6,7 @@ import psutil
 import os
 import yaml
 import across
+from reqsql import readsql, reqsql, retbrut
 
 
 prefix = "$"
@@ -57,24 +58,29 @@ async def infos(ctx):
         description="",
         colour=discord.Colour.blue()
     )
-    inscrits = 0
-    for _ in os.listdir("data/players"):
-        inscrits += 1
-    nb_pla_col = 0
-    with open(f'data/planets.yaml') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    for e in data.values():
-        if e != None:
-            nb_pla_col +=1
 
-    msg.add_field(name="Nombre d'inscrits :", value=f"{inscrits}")
+    msg.add_field(name="Nombre d'inscrits :", value=len(retbrut(f"SELECT Psd FROM Accounts")))
     msg.add_field(name="Nombre de planètes colonisées :",
-                  value=f"{nb_pla_col}", inline=False)
+                  value=len(retbrut(f"SELECT * FROM Planets WHERE Psd != 'None'")), inline=False)
     await ctx.send(embed=msg)
 
 
 @bot.command()
 async def restart(ctx):
+    if ctx.author.id in op:
+        await ctx.channel.purge(limit=1)
+        await bot.change_presence(activity=discord.Game(name="redémarrer"))
+        os.system("sudo reboot")
+
+@bot.command()
+async def reload(ctx):
+    if ctx.author.id in op:
+        await ctx.channel.purge(limit=1)
+        await bot.change_presence(activity=discord.Game(name="redémarrer"))
+        os.system("sudo reboot")
+
+@bot.command()
+async def reboot(ctx):
     if ctx.author.id in op:
         await ctx.channel.purge(limit=1)
         await bot.change_presence(activity=discord.Game(name="redémarrer"))
@@ -91,32 +97,77 @@ async def restart(ctx):
 # region Commande help (affiche le message d'aide) (à finir)
 @bot.command()
 async def help(ctx):
-    await ctx.send(
-        f"**Les commandes utilisateur** :```"
-        f"\n - {prefix}help"
-        f"\n     # Affiche ce message."
-        f"\n - {prefix}serveur"
-        f"\n     # Affiche les donées de la machine."
-        f"\n - {prefix}infos"
-        f"\n     # Affiche les stats du jeu."
-        f"\n - {prefix}link <e-mail>"
-        f"\n     # Lier votre compte de jeu avec votre compte discord. (supprime automatiquement votre mail du chat)"
-        f"\n - {prefix}me"
-        f"\n     # Vous affiche les données (en mp) de votre compte Across Galaxies si il est lié à votre compte discord."
-        "\n```"
-        f"**Les commandes Admin** :```"
-        f"\n - {prefix}purge <nombre>"
-        f"\n     # Permet d'effacer un nombre de message définis."
-        "\n```"
-        f"**Les commandes Opérateur (TauMah)** :```"
-        f"\n - {prefix}logs"
-        f"\n     # Affiche les logs du jour du jeu."
-        f"\n - {prefix}restart"
-        f"\n     # Redémarre la machine."
-        "\n```")
+    await ctx.channel.purge(limit=1)
+    embed = discord.Embed(title="Les commandes utilisateur.",
+                          description="Vous avez accès à ces commandes",
+                          color=discord.Colour.blue())
+    embed.add_field(name="$help", value="Affiche les commandes disponibles.", inline=False)
+    embed.add_field(name="$serveur", value="Affiche les informations du serveur.", inline=False)
+    embed.add_field(name="$infos", value="Affiche les informations du jeu.", inline=False)
+    embed.add_field(name="$link <e-mail>",value="Lier votre compte de jeu avec votre compte discord. (supprime automatiquement votre mail du chat)",inline=False)
+    embed.set_footer(text="Across-Galaxies.fr")
+    await ctx.send(embed=embed)
+
+    with open(f'data/discorddata.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    duser = ctx.author.id
+    try:
+        player = data[duser]
+    except:
+        await ctx.send("*Veuillez connecter votre compte Across-Galaxies et votre discord pour avoir accès à plus de commandes*")
+        return
 
 
+    embed = discord.Embed(
+        title="Les commandes joueur.",
+        description=
+        "Vous avez accès à ces commandes car votre compte Across-Galaxies est lié à votre discord.",
+        color=discord.Colour.blue())
+    embed.add_field(name="$me <'player'-'ress'-'infra'-'flotte'>", value="Affiche les informations de votre compte.", inline=False)
+    embed.add_field(name="$unlink", value="Délier votre compte de jeu avec votre compte discord.", inline=False)
+    embed.set_footer(text="Across-Galaxies.fr")
+    await ctx.send(embed=embed)
 
+
+    if across.isvip(player) or ctx.author.guild_permissions.administrator:
+        embed = discord.Embed(
+            title="Les commandes vip.",
+            description="Vous avez accès à ces commandes car vous êtes VIP sur le jeu.",
+            color=discord.Colour.blue())
+        embed.add_field(
+            name="$recolte",
+            value="Récolte les ressources sur toutes vos planètes.",
+            inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+
+    else:
+        await ctx.send("*Pour avoir accès à plus de commandes, il vous faut être VIP.*")
+        return
+
+
+    if ctx.author.guild_permissions.administrator:
+        embed = discord.Embed(
+            title="Les commandes administrateur.",
+            description="Vous avez accès à ces commandes car vous êtes administrateur.",
+            color=discord.Colour.blue())
+        embed.add_field(name="$purge <nombre>", value="Supprime un nombre défini de messages", inline=False)
+        embed.add_field(name="$logs", value="Affiche les logs du jeu de la journée.", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+
+    if ctx.author.id in op:
+        embed = discord.Embed(
+            title="Les commandes fondateur.",
+            description=
+            "Vous avez accès à ces commandes car vous êtes fondateur.",
+            color=discord.Colour.blue())
+        embed.add_field(name="$restart | $reboot | $reload", value="Redémarre la machine.", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+
+
+@commands.has_permissions(administrator=True)
 @bot.command()
 async def logs(ctx, *args):
     if ctx.author.id in op:
@@ -138,6 +189,35 @@ async def logs(ctx, *args):
 async def purge(ctx, limit: int):
     await ctx.channel.purge(limit=limit + 1)
 
+
+@bot.command()
+async def unlink(ctx):
+    await ctx.channel.purge(limit=1)
+    with open(f'data/discorddata.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+
+    duser = ctx.author.id
+    try:
+        player = data[duser]
+    except:
+        embed = discord.Embed(
+            title=
+            "Votre compte Across Galaxies n'est pas lié à votre compte discord.",
+            description="$link <e-mail>",
+            color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+        return
+    data.pop(duser)
+    with open(f'data/discorddata.yaml', 'w', encoding='utf8') as f:
+        yaml.dump(data, f, default_flow_style=False)
+    embed = discord.Embed(title="Votre compte Across Galaxies a bien été délié.",
+                          description="",
+                          color=discord.Colour.blue())
+    embed.set_footer(text="Across-Galaxies.fr")
+    await ctx.send(embed=embed)
+
+
 @bot.command()
 async def link(ctx, mail:str):
     await ctx.channel.purge(limit=1)
@@ -155,57 +235,197 @@ async def link(ctx, mail:str):
 
     for iddis, psds in data.items():
         if game == psds :
-            await ctx.send("Ce compte Across Galaxies est déjà lié à compte discord")
+            embed = discord.Embed(
+                title="Votre compte Across Galaxies est déjà lié à un compte discord.",
+                description="",
+                color=discord.Colour.blue())
+            embed.set_footer(text="Across-Galaxies.fr")
+            await ctx.send(embed=embed)
             return
+
         if discord == iddis :
-            await ctx.send("Ce compte discord est déjà lié à compte Across Galaxies")
+            embed = discord.Embed(
+                title="Votre compte discord est déjà lié à un compte Across Galaxies.",
+                description="",
+                color=discord.Colour.blue())
+            embed.set_footer(text="Across-Galaxies.fr")
+            await ctx.send(embed=embed)
             return
 
     data[discord] = game
 
     with open(f'data/discorddata.yaml', 'w', encoding='utf8') as f:
         data = yaml.dump(data, f)
-
-    await ctx.send("Vos comptes ont bien été liés")
+    embed = discord.Embed(title="Vos comptes ont bien été liés.",
+                          description="",
+                          color=discord.Colour.blue())
+    embed.set_footer(text="Across-Galaxies.fr")
+    await ctx.send(embed=embed)
 
 
 @bot.command()
-async def me(ctx):
+async def recolte(ctx):
     await ctx.channel.purge(limit=1)
+
     with open(f'data/discorddata.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    user = data[ctx.author.id]
-    with open(f'data/players/{user}.yaml', encoding='utf8') as f:
+
+    duser = ctx.author.id
+    try:
+        player = data[duser]
+    except:
+        embed = discord.Embed(
+            title=
+            "Votre compte Across Galaxies n'est pas lié à votre compte discord.",
+            description="$link <e-mail>",
+            color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+        return
+
+    if across.isvip(player):
+        across.updateressource(player)
+        await ctx.send(f"Vous avez récolté vos ressources.")
+        return
+    else:
+        embed = discord.Embed(
+            title="Vous devez avoir un compte vip pour effectuer cette action.",
+            description="Plus d'informations directement en jeu.",
+            color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+        return
+
+
+@bot.command()
+async def me(ctx, *args):
+    await ctx.channel.purge(limit=1)
+
+    with open(f'data/discorddata.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
+    duser = ctx.author.id
+    try:
+        player = data[duser]
+    except:
+        embed = discord.Embed(
+            title=
+            "Votre compte Across Galaxies n'est pas lié à votre compte discord.",
+            description="$link <e-mail>",
+            color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+        return
 
-    msg = discord.Embed(title=f"Infos de {user}",
-                        description="",
-                        colour=discord.Colour.blue())
-    msg.add_field(name="Messages",
-                  value=f"{len(data['pinf']['msgs'])} non lus",
-                  inline=False)
-    for plaid, dete in data.items():
-        if plaid != "pinf":
-            msg.add_field(name=f"\x00", value=f"__-----__", inline=False)
-            msg.add_field(name=f"Planète #{plaid}", value=f"\x00", inline=False)
-            msg.add_field(name=f"Ressources", value=f"{dete['ress']}")
-            msg.add_field(name=f"Batiments", value=f"{dete['bat']}")
-            msg.add_field(name=f"Flotte", value=f"{dete['flotte']}")
+    if args == ():
+        embed = discord.Embed(title="Commande mal utilisée",
+                              description="$me <donnée>",
+                              color=discord.Colour.blue())
+        embed.add_field(name="$me player", value="Envoie les information générale du joueur", inline=False)
+        embed.add_field(name="$me ress", value="Envoie les information relatives aux __ressources__ de toutes vos planètes", inline=False)
+        embed.add_field(name="$me infra", value="Envoie les information relatives aux __infrastructures__ de toutes vos planètes", inline=False)
+        embed.add_field(name="$me flotte", value="Envoie les information relatives aux __flottes__ de toutes vos planètes", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+        return
+
+    if args[0] == "player":
+        embed = discord.Embed(title=f"Informations de {player}",
+                              description="",
+                              color=discord.Colour.blue())
+
+        data = readsql(f"SELECT * FROM PInf WHERE Psd='{player}'")
+        embed.add_field(name=f"Vos planètes", value=f"{across.getallplaid(player)}", inline=False)
+        embed.add_field(name="Date de dernière récolte : ", value=f"{data[1]}", inline=False)
+        if datetime.now() > data[2]:
+            embed.add_field(name="Date d'expiration du vip : ", value="Exipiré", inline=False)
+        else:
+            embed.add_field(name="Date d'expiration du vip : ", value=f"{data[1]}", inline=False)
+        embed.add_field(name="Statut : ", value=f"{data[3]}", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.author.send(embed=embed)
+        return
+
+    if args[0] == "ress":
+        count = 0
+        embed = discord.Embed(title="Ressource de toutes vos planètes",
+                              description="",
+                              color=discord.Colour.blue())
+        data = retbrut(f"SELECT Plaid, Ress1, Ress2, Ress3 FROM Planets WHERE Psd='{player}'")
+        for e in range(len(data)):
+            count += 1
+            if count < 7:
+                embed.add_field(name=f"---", value=f"**Planète #{data[e][0]}**", inline=False)
+                embed.add_field(name="Carbone : ", value=f"{data[e][1]}", inline=True)
+                embed.add_field(name="Puces : ", value=f"{data[e][2]}", inline=True)
+                embed.add_field(name="Hydrogène :", value=f"{data[e][3]}", inline=True)
+            else:
+                embed.add_field(name=f"---", value=f"*Désolé je ne peux pas afficher plus d'informations*", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.author.send(embed=embed)
+        return
+
+    if args[0] == "infra":
+        count = 0
+        embed = discord.Embed(title="Infrastructures de vos planètes",
+                              description="",
+                              color=discord.Colour.blue())
+        data = retbrut(f"SELECT Plaid, Carbone, Puces, Hydro, Sp, Rad FROM Planets WHERE Psd='{player}'")
+        for e in range(len(data)):
+            count += 1
+            if count < 5:
+                embed.add_field(name=f"---", value=f"**Planète #{data[e][0]}**", inline=False)
+                embed.add_field(name="Mine de carbone : ", value=f"{data[e][1]}", inline=True)
+                embed.add_field(name="Raffinerie de puces : ", value=f"{data[e][2]}", inline=True)
+                embed.add_field(name="Centrale d'hydrogène :", value=f"{data[e][3]}", inline=True)
+                embed.add_field(name="Spatioport :", value=f"{data[e][4]}", inline=True)
+                embed.add_field(name="Radar :", value=f"{data[e][5]}", inline=True)
+            else:
+                embed.add_field(name=f"---", value=f"*Désolé je ne peux pas afficher plus d'informations*", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.author.send(embed=embed)
+        return
+
+    if args[0] == "flotte":
+        count = 0
+        embed = discord.Embed(title="Infrastructures de vos planètes",
+                              description="",
+                              color=discord.Colour.blue())
+        data = retbrut(f"SELECT Plaid, Croiseur, Nanosonde, Cargo, Victoire, Colonisateur FROM Planets WHERE Psd='{player}'")
+        for e in range(len(data)):
+            count += 1
+            if count < 5:
+                embed.add_field(name=f"---", value=f"**Planète #{data[e][0]}**", inline=False)
+                embed.add_field(name="Croiseurs : ", value=f"{data[e][1]}", inline=True)
+                embed.add_field(name="Nanosondes : ", value=f"{data[e][2]}", inline=True)
+                embed.add_field(name="Cargos :", value=f"{data[e][3]}", inline=True)
+                embed.add_field(name="Victoires :", value=f"{data[e][4]}", inline=True)
+                embed.add_field(name="Colonisateurs :", value=f"{data[e][5]}", inline=True)
+            else:
+                embed.add_field(name=f"---", value=f"*Désolé je ne peux pas afficher plus d'informations*", inline=False)
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.author.send(embed=embed)
+        return
 
 
-    await ctx.author.send(embed=msg)
 
-    # await ctx.send(data)
 
 
 
 @purge.error
 async def purge(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(f"```Usage : {prefix}purge (nombre)```")
+        embed = discord.Embed(title=f"Usage : {prefix}purge (nombre)", description="", color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
+
     else:
-        await ctx.send("Tu n'as pas la permission de faire ça.")
+        embed = discord.Embed(
+            title=f"Erreur : Tu n'as pas la permission de faire ça.",
+            description="",
+            color=discord.Colour.blue())
+        embed.set_footer(text="Across-Galaxies.fr")
+        await ctx.send(embed=embed)
 
 
 bot.run(jeton)

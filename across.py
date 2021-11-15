@@ -162,6 +162,10 @@ def getpsd(mail):
     return False
 
 
+def isvip(player):
+    if datetime.datetime.now() > reqsql.readsql(f"SELECT Vip FROM PInf WHERE Psd='{player}'")[0]:
+        return False
+    return True
 
 # Système de récolte des ressources
 def updateressource(player):
