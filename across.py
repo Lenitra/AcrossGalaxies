@@ -474,6 +474,7 @@ def getmsg(player):
             html += f"<h6>{v['date']}</h6>"
             html += "</button>"
             html += f"<input type='text' value='{k}' name='idmsg' class='hide'>"
+            html += "</form>"
             html += "</li>"
     return html
 
