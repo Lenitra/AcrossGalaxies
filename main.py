@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
+import platform
 from confi import *
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, session
@@ -519,8 +520,9 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-    # website_url = 'across-galaxies.fr:80'
-    # app.config['SERVER_NAME'] = website_url
+    if platform.system() != "Windows":
+        website_url = 'across-galaxies.fr:80'
+        app.config['SERVER_NAME'] = website_url
     app.config['SESSION_COOKIE_SECURE'] = False
     app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
     app.run()
