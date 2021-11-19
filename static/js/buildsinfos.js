@@ -76,13 +76,20 @@ function createvaissinfos(bat) {
         clearpopup()
         console.log(bat);
 
+// 0 Name
+// 1 Nb possédés
+// 2*3*4 prix
+// 5 Lvl de sp pour unlock
+// 6 power
+// 7 Stockage
+
         let namevaiss = bat.split(";")[0];
         let nb = bat.split(";")[1];
         let price_c = bat.split(";")[2];
         let price_p = bat.split(";")[3];
         let price_h = bat.split(";")[4];
-        let pow = bat.split(";")[5];
-        let cargo = bat.split(";")[6];
+        let pow = bat.split(";")[6];
+        let cargo = bat.split(";")[7];
 
         document.getElementById("popup").classList.remove("hide");
         document.getElementById("popup").innerHTML+=(`

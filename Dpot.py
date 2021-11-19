@@ -340,8 +340,17 @@ async def me(ctx, *args):
         if datetime.now() > data[2]:
             embed.add_field(name="Date d'expiration du vip : ", value="Exipiré", inline=False)
         else:
-            embed.add_field(name="Date d'expiration du vip : ", value=f"{data[1]}", inline=False)
-        embed.add_field(name="Statut : ", value=f"{data[3]}", inline=False)
+            embed.add_field(name="Date d'expiration du vip : ",
+                            value=f"{data[2]}",
+                            inline=False)
+        with open(f'data/msgs/{player}.yaml', encoding='utf8') as f:
+            msgs = yaml.load(f, Loader=yaml.FullLoader)
+
+        embed.add_field(name="Messages : ", value=f"{len(msgs)}", inline=False)
+        if data[3] == 0:
+            embed.add_field(name="Statut : ", value=f"Joueur", inline=False)
+        if data[3] == 5:
+            embed.add_field(name="Statut : ", value=f"Administrateur", inline=False)
         embed.set_footer(text="Across-Galaxies.fr")
         await ctx.author.send(embed=embed)
         return
@@ -406,9 +415,6 @@ async def me(ctx, *args):
         embed.set_footer(text="Across-Galaxies.fr")
         await ctx.author.send(embed=embed)
         return
-
-
-
 
 
 

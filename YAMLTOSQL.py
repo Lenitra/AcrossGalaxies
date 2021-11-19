@@ -1,5 +1,4 @@
 from datetime import date, datetime, time
-from dns.rdatatype import A
 import mysql.connector
 import os
 import yaml
