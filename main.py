@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
+import json
 import platform
 from confi import *
 from datetime import datetime
@@ -13,11 +14,25 @@ app = Flask(__name__)
 app.secret_key = "ahcestcontulaspas"
 app.debug = True
 
+def loadconfig():
+    tosave = "// carbone - Puces - Hydrogène - lvl du sp - Puissance - Capacité de transport\n"
+    with open('config.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    for k, v in data["Vaisseaux"].items():
+        count = 0
+        for e in v:
+            tosave += f"let {k}{count} = {e};\n"
+            count += 1
+        tosave += "\n\n"
+    with open('static/js/config.js', 'w', encoding='utf8') as f:
+        f.write(tosave)
 
 @app.route('/')
 def home():
-    # affichage
-    return render_template("index.html")
+    nbinscrits = len(retbrut(f"SELECT Psd FROM Accounts"))
+    nbpla = len(retbrut(f"SELECT * FROM Planets WHERE Psd != 'None'"))
+    nbpla = f'{nbpla}/{nbinscrits*25}'
+    return render_template("index.html", ins = nbinscrits, pla = nbpla)
 
 
 @app.route("/map", methods=['POST', 'GET'])
@@ -519,9 +534,13 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
+    loadconfig()
     if platform.system() != "Windows":
+
+
         website_url = 'across-galaxies.fr:80'
         app.config['SERVER_NAME'] = website_url
+
     app.config['SESSION_COOKIE_SECURE'] = False
     app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
     app.run()

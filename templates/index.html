@@ -4,10 +4,10 @@
 <head>
     <title>Accross Galaxies</title>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="../static/imgs/logo.png"/>
-    <link rel="stylesheet" href="../static/css/home.css"/>
-    <link rel="stylesheet" href="../static/css/bg.css"/>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link rel="icon" type="image/png" href="static/imgs/logo.png"/>
+    <link rel="stylesheet" href="static/css/home.css"/>
+    <link rel="stylesheet" href="static/css/bg.css"/>
+    <!-- <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -20,128 +20,190 @@
         <div class="particle particle-3"></div>
         <div class="particle particle-4"></div>
     </div>
-    <h1>Across-Galaxies</h1>
-
-    <div class="separate">
-        <section class="left">
-            <article>
-                <p id="txt1">Jeu de gestion en ligne GRATUIT</p>
-            </article>
-
-        </section>
-
-        <section class="btn-play">
-            <button class="kave-btn" id="pbuilds"><a href="jeu" class="kave-line">JOUER</a></button>
-        </section>
-
-        <section class="actu">
-            <h2>Actualités</h2><hr>
-            <ul class="ul-actu">
+    <header>
 
 
-              <li class="news">
-                <i class="fa fa-bullhorn fa-2x logo-actu">
-                <span class="version">Version Bot discord V1</span></i>
-                <h3>Changelog du 15/11/2021</h3>
-                <ul>
-                    <li>Il a accès à la nouvelle base de donnés</li>
-                    <li>3 "grades" pour les utilisateurs :
-                        <ul>
-                            <li>"Utilisateur" attribué par défaut</li>
-                            <li>"Joueur" attribué lors d'une liaison de votre compte discord à celui d'Across-Galaxies ($link)</li>
-                            <li>"VIP" attribué quand vous vous abonnerai au vip (on en reparlera plus tard)</li>
-                        </ul>
-                    </li>
-                    <li>Commande $help qui affiche les commandes disponible en fonction de votre "grade"</li>
-                    <li>Nouvelle commande VIP : $recolte, permet de récolter les ressources de ses planètes</li>
-                    <li>Refonte du $me : Vous pourrez voir de manière plus lisible vos stats(wip)/ressources/infrastructures/flottes</li>
-                    <li>Modifications pour le staff aussi mais pas besoin de détailler ici (pour les concernés tout est dans le $help)</li>
-                    <li>Nouvelle commande Joueur : $unlink, pour délier vos comptes discord et Across-Galaxies (ça vous fera passer donc au
-                    grade Utilisateur)</li>
-                    <li>Modifications visuelles diverses</li>
-                </ul>
-            </li>
-                
-              <li class="news">
-                <i class="fa fa-bullhorn fa-2x logo-actu">
-                <span class="version">Version B44</span></i>
-                <h3>Changelog du 10/11/2021</h3>
-                <ul>
-                    <li>Passage des sauvegardes des joueurs vers une base MySQL</li>
-                    <li>Ajout d'une page pour l'erreur 500</li>
-                    <li>Changement des images des vaisseaux</li>
-                    <li>Changement des images dans la map</li>
-                    <li>Refonte du système de messages</li>
-                    <li>Refonte visuelle des options</li>
-                    <li>Modifications mineures et correction de bugs</li>
-                </ul>
-            </li>
-                
-              <li class="news">
-                <i class="fa fa-bullhorn fa-2x logo-actu">
-                <span class="version">Version B43</span></i>
-                <h3>Changelog du 10/10/2021</h3>
-                <ul>
-                    <li>L'onglet message s'affichera en "surbrillance" quand votre boite n'est pas vide</li>
-                    <li>Ajout d'un système de captcha à l'inscription</li>
-                    <li>Ajout d'une scroll-bar sur la liste des planètes colonisées</li>
-                    <li>Ajout de la fonctionnalité de récuperation du mot de passe par mail en cas d'oubli (mot de passe oublié)</li>
-                    <li>Ajout de la puissance millitaire d'une planète dans ses stats (sur la page de gestion de votre planète(infrastructures/spacioport))</li>
-                    <li>Début de l'onglet "options" en jeu</li>
-                    <ul>
-                        <li>Bouton de déconexion</li>
-                        <li>Changement de mot de passe</li>
-                    </ul>
-                    <li>Modifications mineures</li>
-                </ul>
-                
-              </li>
-              
-              <li class="news">
-                <i class="fa fa-bullhorn fa-2x logo-actu">
-                <span class="version">Version B42</span></i>
-                <br>
-                <h3>Mise à jour graphique</h3>
-                <ul>
-                    <li>Refonte entière du graphisme de la page d'accueil</li>
-                    <li>Refont entière de la page de connexion et d'inscription</li>
-                    <li>Page d'accueil et de login adaptable pour portable et tablettes</li>
-                    <li>Modifications visuelles pour la page d'interaction entre planètes</li>
-                    <li>Refonte de l'interface de jeu pour les infrastructures et le spacioport</li>
-                </ul>
-                <h3>Mise à jour technique</h3>
-                <ul>
-                    <li>Le bouton "jouer" de la page d'accueil redirige vers le jeu si vous étiez déjà conecté</li>
-                    <li>Système de newsletter (pas encore actif)</li>
-                    <li>Compactage du html</li>
-                    <li>Sécurisation des clefs d'api</li>
-                </ul>
-              </li>
 
 
-              </ul>
-        </section>
-        <footer>
-    <article class="rs">
-        <h2>Rejoins nous sur les réseaux sociaux :</h2>
-        <div class="div_rs">
-            <div>
-                <p>Discord</p>
-                <a href="https://discord.gg/2PVtNnRKWy" target="_blank"><img class="img_rs discord" src="../static/imgs/ext/discordlogo.png" alt="logo discord"></a>
-            </div>
-            <div>
-                <p>Instagram</p>
-                <a href="https://www.instagram.com/taumah.l/" target="_blank"><img class="img_rs insta" src="../static/imgs/ext/insta.png" alt="logo instagram"></a>
-            </div>
-            <div>
-                <p>Mail</p>
-                <a href="mailto:support@across-galaxies.fr" target="_blank"><img class="img_rs mail" src="../static/imgs/ext/gmail.png" alt="logo mail"></a>
-            </div>
-        </div>
-    </article>
-    <p>|| Copyright © 2021 Across-Galaxies.fr ||</p>
-</footer>
+    <div class="box">
+        <h1>Across-Galaxies</h1>
+    </div>
+    
+    
+
+    <div class="stats">
+        <span class="dot"></span>
+        <hr id="s1">
+        <hr id="s12">
+        <div id="t1">{{ins}}</div>
+        <div id="t12">Nombre d'inscrits</div>
+        
+        <span class="dot"></span>
+        <hr id="s2">
+        <hr id="s22">
+        <div id="t2">{{pla}}</div>
+        <div id="t22">Planètes colonisées</div>
+        
+        <!-- <span class="dot"></span> -->
+        <!-- <hr id="s3">
+        <hr id="s32">
+        <div id="t3"></div>
+        <div id="t2"></div> -->
+
     </div>
 
+
+    <nav>
+
+    <div class="hexagon-item">
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+                                
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+            <a class="hex-content" href="#news">
+                <span class="hex-content-inner">
+                    <span class="icon">
+                        <i class="fa fa-newspaper-o"></i>
+                    </span>
+                    <span class="title">Actualités</span>
+                </span>
+                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                        fill="#1e2530"></path>
+                </svg>
+            </a>
+        </div>
+
+    <div class="hexagon-item">
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+                                
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+            <a class="hex-content" href="/jeu">
+                <span class="hex-content-inner">
+                    <span class="icon">
+                        <i class="fa fa-play-circle"></i>
+                    </span>
+                    <span class="title">Jouer</span>
+                </span>
+                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                        fill="#1e2530"></path>
+                </svg>
+            </a>
+        </div>
+
+    <div class="hexagon-item">
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+                                
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+            <a class="hex-content">
+                <span class="hex-content-inner">
+                    <span class="icon">
+                        <i class="fa fa-cog"></i>
+                    </span>
+                    <span class="title">En développement</span>
+                </span>
+                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                        fill="#1e2530"></path>
+                </svg>
+            </a>
+        </div>
+
+    <div class="hexagon-item"  id="casthex">
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+                                
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+            <a class="hex-content" href="https://discord.gg/FJenequy5A " target="_blank">
+                <span class="hex-content-inner">
+                    <span class="icon">
+                        <i class="fa fa-simplybuilt"></i>
+                    </span>
+                    <span class="title">Discord</span>
+                </span>
+                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                        fill="#1e2530"></path>
+                </svg>
+            </a>
+        </div>
+        
+
+    <div class="hexagon-item" id="lasthex">
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+                                
+        <div class="hex-item">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+            <a class="hex-content" href="https://www.instagram.com/taumah.l/" target="_blank">
+                <span class="hex-content-inner">
+                    <span class="icon">
+                        <i class="fa fa-instagram"></i>
+                    </span>
+                    <span class="title">Instagram</span>
+                </span>
+                <svg viewBox="0 0 173.20508075688772 200" height="200" width="174" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z"
+                        fill="#1e2530"></path>
+                </svg>
+            </a>
+        </div>
+        
+        <img src="https://img.icons8.com/dotty/80/000000/swipe-down.png" id="scrolldown"/>
+    </nav>
+
+
+
+    </header>
+    <hr>
+
+    <div id="news">
+        <h1>Actualités</h1>
+    </div>
+
+
+<footer>
+    || Copyright © <span id="year"></span> Across-Galaxies.fr ||
+</footer>
+
+<script src="static/js/news.js"></script>
+<script src="static/js/putnews.js"></script>
 </body>
 </html>

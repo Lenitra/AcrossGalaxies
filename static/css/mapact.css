@@ -43,3 +43,8 @@ ul.action button {
     font-family: Titres;
     font-size: 175%;
 }
+
+.selectedstats * {
+    font-family: Textes;
+    color: white;
+}

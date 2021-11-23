@@ -7,7 +7,29 @@ hidevaiss()
 function checkbtns() {
     checkatta();
     checkesp();
+    updatestatsflotteselect();
 }
+
+
+function updatestatsflotteselect() {
+    let btn = document.querySelector("#Attaquer");
+    let Scroiseur = parseInt(btn[2].value);
+    let Snanosonde = parseInt(btn[3].value);
+    let Scargo = parseInt(btn[4].value);
+    let Svictoire = parseInt(btn[5].value);
+    let Scolonisateur = parseInt(btn[6].value);
+
+    let nbvaiss = Scroiseur + Snanosonde + Scargo + Svictoire + Scolonisateur;
+
+    let Spower = (Scroiseur) * (Croiseur4) + (Scargo) * (Cargo4) + (Svictoire) * (Victoire4);
+
+    let Sstock = (Scroiseur) * (Croiseur5) + (Scargo) * (Cargo5) + (Svictoire) * (Victoire5) + (Snanosonde) * (Nanosonde5) + (Scolonisateur) * (Colonisateur5);
+
+    document.querySelector("#nbvaiss").textContent = "Vaissaux : " + nbvaiss;
+    document.querySelector("#pow").textContent = "Puissance :" + Spower;
+    document.querySelector("#stock").textContent = "Stockage : " + Sstock;
+}
+
 
 function checkatta() {
     let btn = document.querySelector("#Attaquer");
@@ -249,3 +271,4 @@ for (let index = 0; index < vaisseaux.length; index++) {
         }
     }
 }
+
