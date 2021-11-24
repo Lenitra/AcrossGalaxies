@@ -757,3 +757,32 @@ def checkmsgs(psd):
     if getmsg(psd) == '<h3>Aucun message</h3>':
         return 0
     return 1
+
+
+def addchangelog(titre, soustitre, liste):
+    toadd = "<article>"
+    toadd += f"<h2 class='newstitle'>{titre}</h2>"
+    toadd += f"<h3 class='newssubtitle'>{soustitre}</h3><hr><ul>"
+
+    for i in liste:
+        toadd += f"<li>{i}</li>"
+
+    toadd += "</ul></article>"
+
+    newlines = []
+    newfile = ""
+
+    with open('static/js/news.js', encoding='utf8') as f:
+        data = f.readlines()
+
+    newlines.append(f"let n1 = `{toadd}`\n")
+    newlines.append(f"let n2 = `{data[0].split('`')[1]}`;\n")
+    newlines.append(f"let n3 = `{data[1].split('`')[1]}`;\n")
+    newlines.append(f"let n4 = `{data[2].split('`')[1]}`;\n")
+    newlines.append(f"let n5 = `{data[3].split('`')[1]}`;\n")
+
+    for e in newlines:
+        newfile += e
+
+    with open('static/js/news.js', 'w', encoding='utf8') as f:
+        f.write(newfile)

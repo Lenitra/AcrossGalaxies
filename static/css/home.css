@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  background-color: #18181a;
 }
 
   @font-face {
@@ -92,6 +93,16 @@ body {
 
 
 
+@keyframes main {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes affichage {
   from {
     width: 0vw;
@@ -112,6 +123,13 @@ body {
   }
 }
 
+
+header, .page-bg, .animation-wrapper {
+  
+  animation-name: main;
+
+  animation-duration: 3s;
+}
 
 #s1, #s2, #s3{
   position: absolute;

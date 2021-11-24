@@ -86,7 +86,60 @@ async def reboot(ctx):
         await bot.change_presence(activity=discord.Game(name="redémarrer"))
         os.system("sudo reboot")
 
+@bot.command()
+async def changelog(ctx):
+    if ctx.author.id in op:
+        await ctx.channel.purge(limit=1)
 
+        msg = ""
+
+        with open('static/js/news.js', encoding='utf8') as f:
+            data = f.readlines()
+        data[0].split('`')[1]
+        titre = data[0].split("<article><h2 class='newstitle'>")[1]
+        titre = titre.split("</h2>")[0]
+
+        soustitre = data[0].split("<h3 class='newssubtitle'>")[1]
+        soustitre = soustitre.split("</h3><hr>")[0]
+
+        cahnges = data[0].split("<ul><li>")[1]
+        cahnges = cahnges.split("</li><li>")
+        cahnges[-1] = cahnges[-1].split("</li></ul>")[0]
+
+        msg += f"**{titre}**\n"
+        msg += f"*{soustitre}*\n"
+        msg += "```"
+        for e in cahnges:
+            msg += f"- {e}\n"
+        msg += "```"
+        await ctx.send(msg)
+@bot.command()
+async def changelogs(ctx):
+    if ctx.author.id in op:
+        await ctx.channel.purge(limit=1)
+
+        msg = ""
+
+        with open('static/js/news.js', encoding='utf8') as f:
+            data = f.readlines()
+        data[0].split('`')[1]
+        titre = data[0].split("<article><h2 class='newstitle'>")[1]
+        titre = titre.split("</h2>")[0]
+
+        soustitre = data[0].split("<h3 class='newssubtitle'>")[1]
+        soustitre = soustitre.split("</h3><hr>")[0]
+
+        cahnges = data[0].split("<ul><li>")[1]
+        cahnges = cahnges.split("</li><li>")
+        cahnges[-1] = cahnges[-1].split("</li></ul>")[0]
+
+        msg += f"**{titre}**\n"
+        msg += f"*{soustitre}*\n"
+        msg += "```"
+        for e in cahnges:
+            msg += f"- {e}\n"
+        msg += "```"
+        await ctx.send(msg)
 # @bot.command()
 # async def mdp(ctx):
 #     await ctx.channel.purge(limit=1)
@@ -152,7 +205,7 @@ async def help(ctx):
             description="Vous avez accès à ces commandes car vous êtes administrateur.",
             color=discord.Colour.blue())
         embed.add_field(name="$purge <nombre>", value="Supprime un nombre défini de messages", inline=False)
-        embed.add_field(name="$logs", value="Affiche les logs du jeu de la journée.", inline=False)
+        embed.add_field(name="$log(s)", value="Affiche les logs du jeu de la journée.", inline=False)
         embed.set_footer(text="Across-Galaxies.fr")
         await ctx.send(embed=embed)
 
@@ -163,6 +216,7 @@ async def help(ctx):
             "Vous avez accès à ces commandes car vous êtes fondateur.",
             color=discord.Colour.blue())
         embed.add_field(name="$restart | $reboot | $reload", value="Redémarre la machine.", inline=False)
+        embed.add_field(name="$changelog(s)", value="Affiche le dernier changelog affiché sur le site.", inline=False)
         embed.set_footer(text="Across-Galaxies.fr")
         await ctx.send(embed=embed)
 
@@ -170,6 +224,23 @@ async def help(ctx):
 @commands.has_permissions(administrator=True)
 @bot.command()
 async def logs(ctx, *args):
+    if ctx.author.id in op:
+        date = datetime.now()
+        if args == ():
+            with open(f'logs/{date.day}-{date.month}-{date.year}.yaml', encoding='utf8') as f:
+                data = yaml.load(f, Loader=yaml.FullLoader)
+                for e in data:
+                    await ctx.send(e)
+        else:
+            with open(f'logs/{args[0]}.yaml', encoding='utf8') as f:
+                data = yaml.load(f, Loader=yaml.FullLoader)
+                for e in data:
+                    await ctx.send(e)
+
+
+@commands.has_permissions(administrator=True)
+@bot.command()
+async def log(ctx, *args):
     if ctx.author.id in op:
         date = datetime.now()
         if args == ():
