@@ -22,7 +22,7 @@ def getbackup():
     with open(f'backup/{now}/Accounts.yaml', 'w', encoding='utf8') as f:
         yaml.dump(retbrut("SELECT * FROM Accounts"),f)
 
-    print(datetime.now() - datet)
+    # print(datetime.now() - datet)
 
 
 def pushbackup(date):
@@ -87,7 +87,7 @@ def pushbackup(date):
 
 
 getbackup()
-pushbackup("2021-11-24")
+# pushbackup("2021-11-22")
 
 # a = retbrut("DESCRIBE Planets")
 

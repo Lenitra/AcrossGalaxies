@@ -29,6 +29,11 @@ def loadconfig():
 
 @app.route('/')
 def home():
+    with open('data/stats.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data[f"{datetime.now().year}-{datetime.now().month}-{datetime.now().day}"] += 1
+    with open(f'data/stats.yaml','w',encoding='utf8') as f:
+        data = yaml.dump(data, f)
     nbinscrits = len(retbrut(f"SELECT Psd FROM Accounts"))
     nbpla = len(retbrut(f"SELECT * FROM Planets WHERE Psd != 'None'"))
     nbpla = f'{nbpla}/{nbinscrits*25}'
@@ -531,6 +536,45 @@ def page_not_found(e):
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template('500.html'), 404
+
+
+@app.route("/admin", methods=['GET', 'POST'])
+def admin():
+    if readsql(f"SELECT Staff FROM PInf WHERE Psd = '{session['player']['pseudo']}';")[0] != 5:
+        return redirect("/")
+    else:
+
+        now = datetime.now()
+
+        # region Stats
+        with open('data/stats.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        impr = [0,0,0]
+        for k,v in data.items():
+            if k.split("-")[0] == f"{now.year}":
+                impr[0] += v
+            if k.split("-")[1] == f"{now.month}":
+                impr[1] += v
+            if k.split("-")[2] == f"{now.day}":
+                impr[2] += v
+        #endregion
+
+        # region Logs
+        loghtml = ""
+        try:
+            with open(f'logs/{now.day}-{now.month}-{now.year}.yaml',
+                    encoding='utf8') as f:
+                data = yaml.load(f, Loader=yaml.FullLoader)
+            for log in data:
+                loghtml += f"""<div class="log">{log}</div>"""
+        except:
+            loghtml = "<div class='log'>Pas de logs aujourd'hui</div>"
+
+        
+
+        #endregion
+        return render_template("admin.html",impr = impr, uniques = (2125,125,20))
+
 
 
 if __name__ == '__main__':

@@ -548,10 +548,7 @@ def addlog(log):
 
     data.append(f"{date.hour}:{date.minute}:{date.second} >> {log}")
 
-    with open(f'logs/{date.day}-{date.month}-{date.year}.yaml',
-              'w',
-              encoding='utf8') as f:
-        data = yaml.dump(data, f)
+
 
 
 
