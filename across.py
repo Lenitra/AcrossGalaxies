@@ -1,15 +1,8 @@
-from email.mime import text
-from logging import info
-import string
-
 from werkzeug.utils import redirect
-
 from confi import *
 import random
 import yaml
 import datetime
-import os
-import platform
 import smtplib
 from cryptography.fernet import Fernet
 from email.mime.text import MIMEText
@@ -96,18 +89,10 @@ def register(mail, mdp, pseudo):
         addshield(plaid, 48)
         return 255
 
-def hadshield(plaid):
-    if addshield(plaid, None) > datetime.datetime.now():
-        return True
-    return False
 
-# Ajoute un shield effectif de "hours" heures après l'appel de la fonction
+# Ajoute un shield effectif de "hours" heures après l'appel de la fonction et retourne la datetime du shield
 def addshield(plaid, hours):
-
-    shield = 0
-
     if hours != None:
-
         myDate = datetime.datetime.now()
         td = datetime.timedelta(hours = hours)
         shield = myDate + td
@@ -116,7 +101,10 @@ def addshield(plaid, hours):
         shield = reqsql.readsql(f"SELECT Shield FROM Planets WHERE Plaid = {plaid}")
     return shield
 
-
+# Fonction appellée en début de chargement de page pour vérifier si l'utilisateur est connecté/staff/si maintenance...
+# Retourne directement la redirection
+# arg 1 : session : session flask
+# arg 2 : checks : liste de check à vérifier (login, maintenance)
 def testpage(session, checks):
     if "login" in checks:
         try:
@@ -135,13 +123,14 @@ def testpage(session, checks):
 
     return False
 
-
+# Supprime le shield d'une planète
 def delshield(plaid):
     reqsql.reqsql(
         f"UPDATE Planets SET Shield = '{datetime.datetime.now()}' WHERE Plaid = {plaid};"
     )
 
-
+# HTML
+# Retourne le html du menu de droite dans "colonie"
 def getplanetslist(player):
     plalist=''
 
