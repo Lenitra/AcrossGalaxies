@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: Utf-8 -*-
 
-import json
 import platform
 from confi import *
 from datetime import datetime
@@ -27,13 +26,23 @@ def loadconfig():
     with open('static/js/config.js', 'w', encoding='utf8') as f:
         f.write(tosave)
 
+
 @app.route('/')
 def home():
+
+    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+
     with open('data/stats.yaml', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-    data[f"{datetime.now().year}-{datetime.now().month}-{datetime.now().day}"] += 1
+    try:
+        data["hompageimpr"][
+        f"{datetime.now().year}-{datetime.now().month}-{datetime.now().day}"] += 1
+    except:
+        data["hompageimpr"][
+        f"{datetime.now().year}-{datetime.now().month}-{datetime.now().day}"] = 1
     with open(f'data/stats.yaml','w',encoding='utf8') as f:
         data = yaml.dump(data, f)
+
     nbinscrits = len(retbrut(f"SELECT Psd FROM Accounts"))
     nbpla = len(retbrut(f"SELECT * FROM Planets WHERE Psd != 'None'"))
     nbpla = f'{nbpla}/{nbinscrits*25}'
@@ -42,11 +51,8 @@ def home():
 
 @app.route("/map", methods=['POST', 'GET'])
 def map():
-
-    try:
-        playerinf = session["player"]["pseudo"]
-    except:
-        return redirect("/login")
+    if across.testpage(session, ("maintenance", "login")):
+        return across.testpage(session, ("maintenance", "login"))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
     liste = ""
     try:
@@ -203,6 +209,9 @@ def upbuild():
     ress = across.addplayerress(session["selected"], (0,0,0))
     if cout[1] <= ress[0] and cout[2] <= ress[1] and cout[3] <= ress[2]:
         across.upbat(request.form['bat'], cout, session["selected"])
+    else:
+        notifmsg = "Vous n'avez pas assez de ressources pour construire ce batiment"
+        session["popup"] = f"""<div id="error_cont"><p>{notifmsg}</p></div>"""
     return redirect("/jeu")
 
 
@@ -218,17 +227,17 @@ def upship():
         across.addplayerress(session["selected"], cost)
         nb = int(nb)
         across.addvaisseau(session["selected"], vinf, nb)
+    else:
+        notifmsg = "Vous n'avez pas assez de ressources pour construire ce(s) vaisseau(x)"
+        session["popup"] = f"""<div id="error_cont"><p>{notifmsg}</p></div>"""
     return redirect("/jeu")
 
 
 @app.route("/mapla", methods=['POST', 'GET'])
 def mapla():
+    if across.testpage(session, ("maintenance", "login")):
+        return across.testpage(session, ("maintenance", "login"))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
-
-    try:
-        playerinf = session["player"]["pseudo"]
-    except:
-        return redirect("/login")
     sel = request.form['pla']
     player = sel.split("|")[1]
     plaid = sel.split("|")[0]
@@ -364,8 +373,14 @@ def atta():
                                         playerdef,pladef , flotatta, flotdef)
 
     if action == "Espionner":
+        if playeratta == playerdef:
+            return redirect("/map")
         print("espionnage !!!!")
         across.espionmanager(playeratta, plaat, playerdef, pladef)
+
+    if action == "Docker":
+        print("docker !!!!")
+        across.dockermanager(flotatta, plaat, pladef)
     return redirect("/messages")
 
 # Intermédiaire pour update les ressources
@@ -377,11 +392,8 @@ def updatedata():
 # Page principale du jeu (colonie)
 @app.route("/jeu",  methods=['POST', 'GET'])
 def jeu():
-    print(session)
-    try:
-        playerinf = session["player"]["pseudo"]
-    except:
-        return redirect("/login")
+    if across.testpage(session, ("maintenance", "login")):
+        return across.testpage(session, ("maintenance", "login"))
 
     shield = across.addshield(session["selected"], 0)
     if shield < datetime.now():
@@ -395,6 +407,13 @@ def jeu():
     batiments = across.getbats(session["selected"])
     ressources = across.addplayerress(session["selected"], (0, 0, 0))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
+
+    try:
+        popup = session["popup"]
+        session["popup"] = ""
+    except:
+        popu = ""
+
     return render_template("jeu.html",
                            listpla=listeplanetes,
                            ress=ressources,
@@ -403,7 +422,8 @@ def jeu():
                            bat=batiments,
                            spaceport=spaceport,
                            power=power,
-                           notifmsg = notifmsg)
+                           notifmsg = notifmsg,
+                           popup = popup)
 
 
 # Vérifie la connexion
@@ -483,6 +503,7 @@ def checklog():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+
     session["player"] = {}
     try:
         error = session["logerror"]
@@ -518,12 +539,8 @@ def changemdp():
 
 @app.route("/options", methods=['GET', 'POST'])
 def options():
-
-    try:
-        playerinf = session["player"]["pseudo"]
-    except:
-        return redirect("/login")
-
+    if across.testpage(session, ("maintenance", "login")):
+        return across.testpage(session, ("maintenance", "login"))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
 
     return render_template("options.html", notifmsg=notifmsg)
@@ -538,8 +555,33 @@ def page_not_found(e):
     return render_template('500.html'), 404
 
 
+@app.route("/togglemaintenance", methods=['GET', 'POST'])
+def togglemaintenance():
+    with open('data/stats.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    if data["Maintenance"]:
+        data["Maintenance"] = False
+    else:
+        data["Maintenance"] = True
+
+    with open(f'data/stats.yaml','w',encoding='utf8') as f:
+        data = yaml.dump(data, f)
+
+
+    return redirect("/admin")
+
+
+@app.route("/maintenance", methods=['GET', 'POST'])
+def maintenance():
+    return render_template("maintenance.html")
+
+
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
+    try:
+        print(session['player']['pseudo'])
+    except:
+        return redirect("/login")
     if readsql(f"SELECT Staff FROM PInf WHERE Psd = '{session['player']['pseudo']}';")[0] != 5:
         return redirect("/")
     else:
@@ -550,7 +592,7 @@ def admin():
         with open('data/stats.yaml', encoding='utf8') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         impr = [0,0,0]
-        for k,v in data.items():
+        for k, v in data["hompageimpr"].items():
             if k.split("-")[0] == f"{now.year}":
                 impr[0] += v
             if k.split("-")[1] == f"{now.month}":
@@ -560,7 +602,7 @@ def admin():
         #endregion
 
         # region Logs
-        loghtml = ""
+        loghtml = f"<h2>{now.year}-{now.month}-{now.day}</h2>"
         try:
             with open(f'logs/{now.day}-{now.month}-{now.year}.yaml',
                     encoding='utf8') as f:
@@ -569,22 +611,30 @@ def admin():
                 loghtml += f"""<div class="log">{log}</div>"""
         except:
             loghtml = "<div class='log'>Pas de logs aujourd'hui</div>"
-
-        
-
         #endregion
-        return render_template("admin.html",impr = impr, uniques = (2125,125,20))
+
+        # region Options>Maintenance
+        with open('data/stats.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        if data["Maintenance"]:
+            maintenance = "Maintenance active"
+        else:
+            maintenance = "Maintenance inactive"
+        # endregion
+
+        return render_template("admin.html",impr = impr, logs = loghtml, maintenance = maintenance)
 
 
 
 if __name__ == '__main__':
     loadconfig()
+
+
     if platform.system() != "Windows":
-
-
         website_url = 'across-galaxies.fr:80'
         app.config['SERVER_NAME'] = website_url
 
     app.config['SESSION_COOKIE_SECURE'] = False
     app.config['SESSION_COOKIE_NAME'] = "BonsCookies"
+
     app.run()

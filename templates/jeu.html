@@ -36,12 +36,6 @@
         <header>
           <ul class="plastats">
             <div>
-          
-              <li>
-                <abbr title="Identifiant de planète"><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{
-                    pname}}</strong></abbr>
-              </li>
-          
               <li>
                 <abbr title="Date de fin du bouclier"><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield
                     }}</strong></abbr>
@@ -69,6 +63,8 @@
               <li><abbr title="Production d'hydrogène">{{ bat["hydro"][0]*10 }}/h</abbr></li>
             </div>
           </ul>
+          <abbr title="Identifiant de planète" id="idplanetehead"><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{
+              pname}}</strong></abbr>
         </header>
 
         <section id="carbone" class="batbuild">
@@ -116,10 +112,6 @@
             <div>
 
               <li>
-                <abbr title="Identifiant de planète"><img src="../static/imgs/planet.png" alt="Numéro de plannete :"><strong>#{{ pname}}</strong></abbr>
-              </li>
-
-              <li>
                 <abbr title="Date de fin du bouclier"><img src="../static/imgs/shield.png" alt="Bouclier : "><strong>{{ shield }}</strong></abbr>
               </li>
               
@@ -144,10 +136,15 @@
               <li><abbr title="Production d'hydrogène">{{ bat["hydro"][0]*10 }}/h</abbr></li>
             </div>
           </ul>
+          <abbr title="Identifiant de planète" id="idplanetehead"><img src="../static/imgs/planet.png"
+              alt="Numéro de plannete :"><strong>#{{
+              pname}}</strong></abbr>
         </header>
         {{ spaceport | safe }}
       </main>
 
+      <section>{{popup| safe}}</section>
+    
     </div>
 
     <div class="pn">
@@ -170,6 +167,7 @@
 
   <script>
     notifmsg();
+
   </script>
   <script>
   "use strict";
@@ -217,7 +215,11 @@
 
 
   </script>
-
+<script>
+  setTimeout(function () {
+    document.getElementById("error_cont").style.display = "none";
+  }, 5000);
+</script>
 <script src="../static/js/buildsinfos.js"></script>
 </body>
 </html>

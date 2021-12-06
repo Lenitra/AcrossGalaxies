@@ -156,6 +156,46 @@
     margin-top: 1vh;
   } 
 
+abbr#idplanetehead{
+  position: relative;
+  font-size: 4vh;
+  margin-left: 24vw;
+  top: -5vh;
+  padding: 0;
+  font-family: Titres;
+  text-align: center;
+}
+abbr#idplanetehead img{
+    height: 5.5vh;
+    width: auto;
+    float: none;
+    position: relative;
+    padding: 0;
+    top: 1.5vh;
+}
+
+/* Message d'erreur*/
+#error_cont {
+  visibility: show;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: rgba(255, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px 0;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 5%;
+}
+
+#error_cont.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
   /* #endregion */  
   
   /* #region SPACEPORT */

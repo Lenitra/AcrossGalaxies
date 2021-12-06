@@ -2,6 +2,8 @@ from email.mime import text
 from logging import info
 import string
 
+from werkzeug.utils import redirect
+
 from confi import *
 import random
 import yaml
@@ -115,6 +117,24 @@ def addshield(plaid, hours):
     return shield
 
 
+def testpage(session, checks):
+    if "login" in checks:
+        try:
+            player = session["player"]["pseudo"]
+        except:
+            return redirect('/login')
+
+
+    if "maintenance" in checks:
+        with open('data/stats.yaml', encoding='utf8') as f:
+            data = yaml.load(f, Loader=yaml.FullLoader)
+        if data["Maintenance"]:
+            if reqsql.readsql(f"SELECT Staff FROM PInf WHERE Psd='{player}'")[0] == 5:
+                return False
+            return redirect('/maintenance')
+
+    return False
+
 
 def delshield(plaid):
     reqsql.reqsql(
@@ -145,10 +165,9 @@ def getplanetslist(player):
 
 # Check si une planète est occupée et si oui retourne le psd du joueur
 def checkpla(id):
-    with open(f'data/planets.yaml', encoding='utf8') as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-    if data[id] != None:
-        return data[id][0]
+    data = reqsql.readsql(f"SELECT Psd FROM Planets WHERE Plaid = {id}")[0]
+    if data != None:
+        return data
     else:
         return False
 
@@ -455,6 +474,11 @@ def delflotte(plaid):
         f'''UPDATE Planets SET Croiseur = 0, Nanosonde = 0, Cargo = 0, Victoire = 0, Colonisateur = 0 WHERE Plaid = {plaid};'''
     )
 
+
+def dockermanager(flotte, plaida, plaidd):
+    for k, v in flotte.items():
+        addvaisseau(plaidd, k, v)
+        addvaisseau(plaida, k, -v)
 
 
 # Retourne le html des messages d'un joueur pour les afficher

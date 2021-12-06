@@ -8,6 +8,7 @@ function checkbtns() {
     checkatta();
     checkesp();
     updatestatsflotteselect();
+    checkdock();
 }
 
 
@@ -33,6 +34,28 @@ function updatestatsflotteselect() {
 
 function checkatta() {
     let btn = document.querySelector("#Attaquer");
+    if (btn[2].value == 0 && btn[3].value == 0 && btn[4].value == 0 && btn[5].value == 0 && btn[6].value == 0) {
+        btn[11].classList.remove("kave-btn");
+        btn[11].classList.add("kave-btnd");
+        btn[11].setAttribute("disabled", "true");
+        return 0;
+    }
+    if (btn[7].value != 0 || btn[9].value != 0 || btn[8].value != 0) {
+        btn[11].classList.remove("kave-btn");
+        btn[11].classList.add("kave-btnd");
+        btn[11].setAttribute("disabled", "true");
+        return 0;
+    }
+    // Quand l'attaque est dispo 
+    else {
+        btn[11].classList.remove("kave-btnd");
+        btn[11].classList.add("kave-btn");
+        btn[11].removeAttribute("disabled");
+    }
+}
+
+function checkdock() {
+    let btn = document.querySelector("#Docker");
     if (btn[2].value == 0 && btn[3].value == 0 && btn[4].value == 0 && btn[5].value == 0 && btn[6].value == 0) {
         btn[11].classList.remove("kave-btn");
         btn[11].classList.add("kave-btnd");

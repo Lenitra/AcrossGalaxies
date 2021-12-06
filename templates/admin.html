@@ -19,12 +19,23 @@
             <div id="stats">
                 <h1>Impressions de la home page<br><br><span>{{impr[0]}}</span> || <span>{{impr[1]}}</span> || <span>{{impr[2]}}</span></h1>
                 <hr>
-                <!-- <h1>Visites uniques<br><br><span>{{uniques[0]}}</span> || <span>{{uniques[1]}}</span> || <span>{{uniques[2]}}</span></h1> -->
             </div>
 
-            <div id="options"></div>
-            <div id="logs"></div>
+            <div id="options">
+                
+                <form action="/togglemaintenance">
+                    <button type="submit">{{maintenance}}</button>
+                </form>
+
+            </div>
+
+            <div id="logs">
+                {{logs |safe}}
+            </div>
+
             <div id="membres"></div>
+
+            <div id="changelog"></div>
 
         </div>
 
@@ -35,10 +46,13 @@
             <section id="optionsbtn">Options</section>
             <section id="logsbtn">Logs</section>
             <section id="membresbtn">Membres</section>
+            <section id="changelogbtn">Changelog</section>
         </div>
 
 
     </div>
+<script src="../static/js/admin.js"></script>
+
 </body>
 
 
