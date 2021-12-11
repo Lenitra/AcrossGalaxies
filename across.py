@@ -169,7 +169,7 @@ def getpsd(mail):
             return user["pseudo"]
     return False
 
-
+# Retourne true si le joueur est vip
 def isvip(player):
     if datetime.datetime.now() > reqsql.readsql(f"SELECT Vip FROM PInf WHERE Psd='{player}'")[0]:
         return False
@@ -191,10 +191,12 @@ def updateressource(player):
     for pla in allplaid:
         bat = reqsql.readsql(
             f"SELECT carbone, puces, hydro FROM Planets WHERE Plaid = {pla}")
-        nres = (int(bat[0] * 10 * (delta)), int(bat[1] * 10 * (delta)), int(bat[2] * 10 * (delta)))
+        if isvip(player):
+            nres = (int(bat[0] * 12.5 * (delta)), int(bat[1] * 12.5 * (delta)), int(bat[2] * 12.5 * (delta)))
+        else:
+            nres = (int(bat[0] * 10 * (delta)), int(bat[1] * 10 * (delta)), int(bat[2] * 10 * (delta)))
         addplayerress(pla, nres)
     reqsql.reqsql(f"UPDATE PInf SET Reco='{datetime.datetime.now()}' WHERE Psd='{player}';")
-    # f"UPDATE Planets SET {vaiss}={nnb} WHERE Plaid = {plaid};"
 
 
 
@@ -239,7 +241,7 @@ def getbats(idpla):
 
     return {"carbone": c, "puces": p, "hydro": h, "rad": rad, "sp": spaceport}
 
-# Améliora un batiment et retire les ressources du joueur
+# Améliore un batiment et retire les ressources du joueur
 def upbat(batim, couts, plaid):
     if plaid == "*":
         return 0
@@ -284,7 +286,7 @@ def getsp(idpla):
                 '''
     return liste
 
-# Ajoute un vaisseau et retourne la liste des vaisseaux construits
+# Ajoute des vaisseau et retourne la liste des vaisseaux construits
 def addvaisseau(plaid, vaiss, nb):
     if vaiss != None and nb != None:
         # ajouter un vaisseau
@@ -295,39 +297,15 @@ def addvaisseau(plaid, vaiss, nb):
         )
 
     vaisseaux = reqsql.readsql(f"SELECT Croiseur, NanoSonde, Cargo, Victoire, Colonisateur  FROM Planets WHERE Plaid={plaid};")
-    re = {"Croiseur": vaisseaux[0],
-     "Nanosonde": vaisseaux[1],
-     "Cargo": vaisseaux[2],
-     "Victoire": vaisseaux[3],
-     "Colonisateur": vaisseaux[4]
-     }
-    return re
 
-# Retourne le html des vaisseaux construitss
-def gethang(player, idpla):
-    if idpla == "*":
-        return '<h2>Aucun vaisseau sur cette planète</h3>'
-    liste = ""
-    flotte = addvaisseau(player, idpla, None, None)
+    return {
+        "Croiseur": vaisseaux[0],
+        "Nanosonde": vaisseaux[1],
+        "Cargo": vaisseaux[2],
+        "Victoire": vaisseaux[3],
+        "Colonisateur": vaisseaux[4]
+        }
 
-    if flotte == {} :
-        liste = '<h2>Aucun vaisseau sur cette planète</h3>'
-    for k, v in flotte.items():
-        if v > 0 :
-            liste += f'''
-                <style>
-                #{k} {{
-                    background-image: url("../static/imgs/{k}.png");
-                    background-repeat: no-repeat;
-                    background-size: 20%;
-                 }}
-            </style>
-              <section id="{k}">
-                <h4>{k} - ({v})</h4>
-              </section>
-            '''
-
-    return liste
 
 # Modifie les ressources du jouer et les retournes
 def addplayerress(plaid, ress):
@@ -387,6 +365,17 @@ def getpower(flotte):
         power += data[k][4] * v
     return power
 
+# Retourne la capacité de transport de ressources d'une flotte
+def getcargo(flotte):
+    cargo = 0
+    with open('config.yaml', encoding='utf8') as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+    data = data["Vaisseaux"]
+    for k, v in flotte.items():
+        cargo += data[k][5] * v
+    return cargo
+
+
 # region Gestion d'attaques
 def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     with open('config.yaml', encoding='utf8') as f:
@@ -411,7 +400,7 @@ def attackmanager(attaker, aplaid, ptarget, idtarget, flota, flotd):
     if powatta == 0:
         return None
     if powatta >= powdeff:
-        attkwin(attaker, aplaid, ptarget, idtarget)
+        attkwin(attaker, aplaid, ptarget, idtarget, flota)
         return True
     else:
         attklost(attaker, aplaid, ptarget, idtarget, flota)
@@ -435,12 +424,24 @@ def attklost(attaker, aplaid, ptarget, idtarget, flota):
         "Système")
 
 
-def attkwin(attaker, aplaid, ptarget, idtarget):
+def attkwin(attaker, aplaid, ptarget, idtarget, flota):
     delflotte(idtarget)
     addshield(idtarget, 48)
+
     tmp = addplayerress(idtarget, (0,0,0))
-    print(tmp)
-    tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))
+
+    allress = 0
+    for e in tmp:
+        allress += e
+
+    cargoattak = getcargo(flota)
+
+    if allress > cargoattak:
+        a = int(cargoattak/3)
+        tmp = (a,a,a)
+    else:
+        tmp = (int(tmp[0]/2), int(tmp[1]/2), int(tmp[2]/2))
+
     addplayerress(idtarget, (-tmp[0],-tmp[1],-tmp[2]))
     addplayerress(aplaid, (tmp[0],tmp[1],tmp[2]))
     sendmsg(attaker,
@@ -490,6 +491,7 @@ def getmsg(player):
             html += "</form>"
             html += "</li>"
     return html
+
 
 def msgidtohtml(player, idmsg):
     html = []
@@ -562,9 +564,6 @@ def addlog(log):
     data.append(f"{date.hour}:{date.minute}:{date.second} >> {log}")
 
 
-
-
-
 def espionmanager(playeratta, plaat, playerdef, pladef):
     if playeratta == playerdef:
         return
@@ -614,7 +613,6 @@ def sendmail(email, sujet, html):
     message.attach(MIMEText(html, "html"))
     s.sendmail("across.galaxies.web@gmail.com", email, message.as_string())
     s.quit()
-
 
 
 def resetmdp(email):

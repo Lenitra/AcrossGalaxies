@@ -349,7 +349,7 @@ def atta():
         "Nanosonde": nanosonde,
         "Victoire": victoire,
         "Colonisateur": colonisateur,
-        'Cargo': cargo
+        "Cargo": cargo
     }
 
     ress = (carbone, puces, hydro)
@@ -379,8 +379,40 @@ def atta():
         across.espionmanager(playeratta, plaat, playerdef, pladef)
 
     if action == "Docker":
+        if plaat == pladef:
+            return redirect("/map")
         print("docker !!!!")
         across.dockermanager(flotatta, plaat, pladef)
+        across.sendmsg(
+            playeratta,
+            f"Vous avez envoyé des vaisseaux vers la planète #{pladef}", f'''
+                <style>
+                .inmsgtextclol {{
+                    text-align: center;
+                }}
+                </style>
+                <h3 class="inmsgtextclol">Vaisseaux envoyés<br>Sur : #{pladef} ({playerdef})<br>Depuis : #{plaat} ({playeratta})</h3>
+                <p class="inmsgtextclol">Croiseur : {flotatta["Croiseur"]}</p>
+                <p class="inmsgtextclol">Nanosonde : {flotatta["Nanosonde"]}</p>
+                <p class="inmsgtextclol">Cargo : {flotatta["Cargo"]}</p>
+                <p class="inmsgtextclol">Victoire : {flotatta["Victoire"]}</p>
+                <p class="inmsgtextclol">Colonisateur : {flotatta["Colonisateur"]}</p>
+            ''', "Système")
+        across.sendmsg(
+            playerdef,
+            f"Vous avez reçu des vaisseaux depuis la planète #{plaat}", f'''
+                <style>
+                .inmsgtextclol {{
+                    text-align: center;
+                }}
+                </style>
+                <h3 class="inmsgtextclol">Vaisseaux reçus<br>Sur : #{pladef} ({playerdef})<br>Depuis : #{plaat} ({playeratta})</h3>
+                <p class="inmsgtextclol">Croiseur : {flotatta["Croiseur"]}</p>
+                <p class="inmsgtextclol">Nanosonde : {flotatta["Nanosonde"]}</p>
+                <p class="inmsgtextclol">Cargo : {flotatta["Cargo"]}</p>
+                <p class="inmsgtextclol">Victoire : {flotatta["Victoire"]}</p>
+                <p class="inmsgtextclol">Colonisateur : {flotatta["Colonisateur"]}</p>
+            ''', "Système")
     return redirect("/messages")
 
 # Intermédiaire pour update les ressources
@@ -628,7 +660,6 @@ def admin():
 
 if __name__ == '__main__':
     loadconfig()
-
 
     if platform.system() != "Windows":
         website_url = 'across-galaxies.fr:80'
