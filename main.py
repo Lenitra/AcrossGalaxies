@@ -54,26 +54,30 @@ def map():
         return across.testpage(session, ("maintenance", "login"))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
     liste = ""
-    try:
-        univers = int(request.form['wunivers'])
-    except:
-        liste = "<h2>Selection de l'<strong>univers</strong></h2>"
-        liste += f"<h4></h4><br>"
-        liste += f"<h4></h4><br><br>"
-        for id in range(10):
-            liste += f'''
-                <li class="mappla">
-                    <form action="" method="POST" name="{id}">
-                        <input type="text" name="wunivers" value ="{id}" class="hide">
-                        <button type="submit" style="border: 0; background: transparent">
-                            <img src="/static/imgs/univers.png" alt="submit" />
-                            <h3>{id}</h3>
-                            <h3> &nbsp; </h3>
-                        </button>
-                    </form>
-                </li>
-                '''
-        return render_template("map.html", plas=liste, notifmsg=notifmsg)
+    nbpla = readsql("SELECT COUNT(*) FROM Planets")[0]
+    if nbpla < 1000:
+        univers = 0
+    else:
+        try:
+            univers = int(request.form['wunivers'])
+        except:
+            liste = "<h2>Selection de l'<strong>univers</strong></h2>"
+            liste += f"<h4></h4><br>"
+            liste += f"<h4></h4><br><br>"
+            for id in range(int(nbpla / 1000) + 1):
+                liste += f'''
+                    <li class="mappla">
+                        <form action="" method="POST" name="{id}">
+                            <input type="text" name="wunivers" value ="{id}" class="hide">
+                            <button type="submit" style="border: 0; background: transparent">
+                                <img src="/static/imgs/univers.png" alt="submit" />
+                                <h3>{id}</h3>
+                                <h3> &nbsp; </h3>
+                            </button>
+                        </form>
+                    </li>
+                    '''
+            return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
     try:
         galaxie = int(request.form['wgalaxie'])
@@ -81,8 +85,10 @@ def map():
         liste = "<h2>Selection de la <strong>galaxie</strong></h2>"
         liste += f"<h4>Univers {univers}</h4>"
         liste += f"<h4>Planètes {univers}xxx</h4>"
-
-        for id in range(10):
+        rangee = 10
+        if univers == int(nbpla/1000):
+            rangee = int((nbpla%1000)/100)+1
+        for id in range(rangee):
             liste += f'''
                 <li class="mappla">
                     <form action="" method="POST" name="{id}">
@@ -104,7 +110,10 @@ def map():
         liste = "<h2>Selection du <strong>système</strong></h2>"
         liste += f"<h4>Univers {univers} / Galaxie {galaxie}</h4>"
         liste += f"<h4>Planètes {univers}{galaxie}xx</h4>"
-        for id in range(10):
+        rangee = 10
+        if univers == int(nbpla / 1000) and galaxie == int(nbpla%1000 /100):
+            rangee = int((nbpla % 1000) % 100/10) +1
+        for id in range(rangee):
             liste += f'''
                 <li class="mappla">
                     <form action="" method="POST" name="{id}">

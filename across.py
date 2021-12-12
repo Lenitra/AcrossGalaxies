@@ -75,7 +75,7 @@ def register(mail, mdp, pseudo):
             # Créer 20 planètes vierges
             for i in range(20):
                 nbpla += 1
-                reqsql(f"INSERT INTO Planets(Plaid) VALUES({nbpla})")
+                reqsql.reqsql(f"INSERT INTO Planets(Plaid) VALUES({nbpla})")
 
         mdp = encode(mdp)
         # Accounts : Permet la connexion avec Psd | Mail | Mdp
