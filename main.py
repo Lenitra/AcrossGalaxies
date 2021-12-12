@@ -43,9 +43,8 @@ def home():
     with open(f'data/stats.yaml','w',encoding='utf8') as f:
         data = yaml.dump(data, f)
 
-    nbinscrits = len(retbrut(f"SELECT Psd FROM Accounts"))
-    nbpla = len(retbrut(f"SELECT * FROM Planets WHERE Psd != 'None'"))
-    nbpla = f'{nbpla}/{nbinscrits*25}'
+    nbinscrits = readsql("SELECT COUNT(*) FROM Accounts")[0]
+    nbpla = f'''{readsql("SELECT COUNT(*) FROM Planets WHERE Psd !='None'")[0]}/{readsql("SELECT COUNT(*) FROM Planets")[0]}'''
     return render_template("index.html", ins = nbinscrits, pla = nbpla)
 
 

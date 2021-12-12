@@ -45,12 +45,9 @@ def connect(mail, mdp):
 # 255 enregistrement réussi !
 def register(mail, mdp, pseudo):
     plaid = 1
+    maxpla = (reqsql.readsql("SELECT COUNT(*) FROM Accounts")[0]*20)-1
     while reqsql.readsql(f"SELECT Psd FROM Planets WHERE Plaid={plaid};")[0] != None:
-        plaid = random.randint(1, 9999)
-
-
-    # with open('data/accounts.yaml', encoding='utf8') as f:
-    #     users = yaml.load(f, Loader=yaml.FullLoader)
+        plaid = random.randint(1, maxpla)
 
     if mail == "" or mdp == "" or pseudo == "":
         return 0
@@ -71,6 +68,15 @@ def register(mail, mdp, pseudo):
         return 5
 
     else:
+        # Ajout de 20 planètes vierges
+        oldinscrits  = reqsql.readsql("SELECT COUNT(*) FROM Accounts")[0]
+        nbpla = reqsql.readsql("SELECT COUNT(*) FROM Planets")[0]
+        if (oldinscrits * 20 <= nbpla):
+            # Créer 20 planètes vierges
+            for i in range(20):
+                nbpla += 1
+                reqsql(f"INSERT INTO Planets(Plaid) VALUES({nbpla})")
+
         mdp = encode(mdp)
         # Accounts : Permet la connexion avec Psd | Mail | Mdp
         reqsql.reqsql(f'INSERT INTO Accounts VALUES ("{pseudo}", "{mail}", "{mdp}");')

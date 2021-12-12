@@ -11,15 +11,15 @@ def getbackup():
     now = datetime.now()
     datet = now
     now = f"{now.year}-{now.month}-{now.day}"
-    os.mkdir(f"backup/{now}")
+    os.mkdir(f"../backup/{now}")
 
-    with open(f'backup/{now}/Planets.yaml', 'w', encoding='utf8') as f:
+    with open(f'../backup/{now}/Planets.yaml', 'w', encoding='utf8') as f:
         yaml.dump(retbrut("SELECT * FROM Planets WHERE Psd != 'None'"),f)
 
-    with open(f'backup/{now}/PInf.yaml', 'w', encoding='utf8') as f:
+    with open(f'../backup/{now}/PInf.yaml', 'w', encoding='utf8') as f:
         yaml.dump(retbrut("SELECT * FROM PInf"),f)
 
-    with open(f'backup/{now}/Accounts.yaml', 'w', encoding='utf8') as f:
+    with open(f'../backup/{now}/Accounts.yaml', 'w', encoding='utf8') as f:
         yaml.dump(retbrut("SELECT * FROM Accounts"),f)
 
     # print(datetime.now() - datet)
@@ -29,7 +29,7 @@ def pushbackup(date):
     now = datetime.now()
     # region Backup PLANETS
 
-    with open(f'backup/{date}/Planets.yaml', 'r', encoding='utf8') as f:
+    with open(f'../backup/{date}/Planets.yaml', 'r', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
 
@@ -53,7 +53,7 @@ def pushbackup(date):
 
     # region Backup PInf
 
-    with open(f'backup/{date}/PInf.yaml', 'r', encoding='utf8') as f:
+    with open(f'../backup/{date}/PInf.yaml', 'r', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
     print("Suppression des datas des joueurs")
@@ -67,7 +67,7 @@ def pushbackup(date):
 
     # region Backup Accounts
 
-    with open(f'backup/{date}/Accounts.yaml', 'r', encoding='utf8') as f:
+    with open(f'../backup/{date}/Accounts.yaml', 'r', encoding='utf8') as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
 
     print("Suppression des datas des joueurs")
@@ -86,8 +86,9 @@ def pushbackup(date):
 
 
 
-getbackup()
-# pushbackup("2021-11-22")
+# getbackup()
+pushbackup("2021-12-11")
+
 
 # a = retbrut("DESCRIBE Planets")
 
