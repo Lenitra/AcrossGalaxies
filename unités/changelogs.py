@@ -1,3 +1,6 @@
+
+import sys
+sys.path.insert(0, "C:/Users/thoma/Desktop/Let's Conquest/AcrossGalaxies/")
 from across import *
 
 titre = "Version B45"

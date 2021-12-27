@@ -44,7 +44,7 @@ def home():
         data = yaml.dump(data, f)
 
     nbinscrits = readsql("SELECT COUNT(*) FROM Accounts")[0]
-    nbpla = f'''{readsql("SELECT COUNT(*) FROM Planets WHERE Psd !='None'")[0]}/{readsql("SELECT COUNT(*) FROM Planets")[0]}'''
+    nbpla = f'''{readsql("SELECT COUNT(*) FROM Planets WHERE Psd !='None'")[0]}/{readsql("SELECT COUNT(*) FROM Planets")[0]+1}'''
     return render_template("index.html", ins = nbinscrits, pla = nbpla)
 
 
@@ -447,12 +447,15 @@ def jeu():
     batiments = across.getbats(session["selected"])
     ressources = across.addplayerress(session["selected"], (0, 0, 0))
     notifmsg = across.checkmsgs(session["player"]["pseudo"])
-
+    if across.isvip(session["player"]["pseudo"]):
+        prod = (batiments["carbone"][0]*12.5, batiments["puces"][0]*12.5, batiments["hydro"][0]*12.5)
+    else:
+        prod = (batiments["carbone"][0]*10, batiments["puces"][0]*10, batiments["hydro"][0]*10)
     try:
         popup = session["popup"]
         session["popup"] = ""
     except:
-        popu = ""
+        popup = ""
 
     return render_template("jeu.html",
                            listpla=listeplanetes,
@@ -463,7 +466,8 @@ def jeu():
                            spaceport=spaceport,
                            power=power,
                            notifmsg = notifmsg,
-                           popup = popup)
+                           popup = popup,
+                           prod = prod)
 
 
 # Vérifie la connexion

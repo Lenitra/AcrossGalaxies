@@ -71,7 +71,7 @@ def register(mail, mdp, pseudo):
         # Ajout de 20 planètes vierges
         oldinscrits  = reqsql.readsql("SELECT COUNT(*) FROM Accounts")[0]
         nbpla = reqsql.readsql("SELECT COUNT(*) FROM Planets")[0]
-        if (oldinscrits * 20 <= nbpla):
+        if (oldinscrits * 20 >= nbpla):
             # Créer 20 planètes vierges
             for i in range(20):
                 nbpla += 1
