@@ -1,61 +1,63 @@
 <!-- Site créé par Thomas Lemartinel -->
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-  <title>Accross Galaxies</title>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
-  <link rel="stylesheet" media="screen" href="../static/css/map.css" />
-  <link rel="stylesheet" media="screen" href="../static/css/global.css" />
-  <script src="../static/js/elementscommuns.js"></script>
+  
+  <head>
+    <title>Accross Galaxies</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="../static/imgs/logo.png" />
+    <link rel="stylesheet" media="screen" href="../static/css/map.css" />
+    <link rel="stylesheet" media="screen" href="../static/css/global.css" />
+    <script src="../static/js/elementscommuns.js"></script>
+    <script src="../static/js/mapdyn.js"></script>
 </head>
-    
-    
+
+
 <body>
   <div class="hide" id="hasmsg">{{notifmsg}}</div>
   <div class="page page-wrapper">
-
-  <div class="map ">
+    
+    <div class="map ">
       {{ plas | safe }}
+    </div>
+    
+    <div class="pn">
+      
+      <script>Menu()</script>
+      <br>
+      <br>
+      <br>
+      <ul class="plist">
+        <li>
+          <form action="/map" method="POST" name="osef">
+            <p class="mapii">Univers</p>
+            <input type="number" max="10" min ="0" name="wunivers" value="0" placeholder="Univers" class="imputmap"><br>
+            <p class="mapii">Galaxie</p>
+            <input type="number" max="10" min ="0" name="wgalaxie" value="0" placeholder="Galaxie" class="imputmap"><br>
+            <p class="mapii">Système</p>
+            <input type="number" max="10" min ="0" name="wsysteme" value="0" placeholder="Système" class="imputmap"><br><br>
+            <button class="kave-btn" id="go"><span class="kave-line"></span>S'y rendre</button>
+          </form>
+          <br>
+          <br>
+          <br>
+          <form action="/map" method="POST" name="osef">
+            <button type="submit">
+              <h3>Retour</h3>
+            </button>
+          </form>
+          
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+    
   </div>
-
-  <div class="pn">
-
-  <script>Menu()</script>
-    <br>
-    <br>
-    <br>
-    <ul class="plist">
-      <li>
-        <form action="/map" method="POST" name="osef">
-          <p class="mapii">Univers</p>
-          <input type="number" max="10" min ="0" name="wunivers" value="0" placeholder="Univers" class="imputmap"><br>
-          <p class="mapii">Galaxie</p>
-          <input type="number" max="10" min ="0" name="wgalaxie" value="0" placeholder="Galaxie" class="imputmap"><br>
-          <p class="mapii">Système</p>
-          <input type="number" max="10" min ="0" name="wsysteme" value="0" placeholder="Système" class="imputmap"><br><br>
-          <button class="kave-btn" id="go"><span class="kave-line"></span>S'y rendre</button>
-        </form>
-        <br>
-        <br>
-        <br>
-        <form action="/map" method="POST" name="osef">
-          <button type="submit">
-            <h3>Retour</h3>
-          </button>
-        </form>
-
-      </li>
-
-
-    </ul>
-  </div>
-
-
-</div>
   <script>
     notifmsg();
+    move();
   </script>
 </body>
 

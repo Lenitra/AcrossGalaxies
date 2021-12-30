@@ -158,8 +158,6 @@ def map():
         # Si pas de proprio
         if owner == None:
             toadd += f"""
-            
-                            <li class="mappla">
                                 <form action="" method="POST" name="{id}">
                                     <input type="text" name="pla" value ="{id}" class="hide">
                                     <button type="submit" style="border: 0; background: transparent">
@@ -168,12 +166,10 @@ def map():
                                         <h3> &nbsp; </h3>
                                     </button>
                                 </form>
-                            </li>
             """
         else:
             if shield:
                 toadd += f'''
-                            <li class="mappla">
                                 <form action="mapla" method="POST" name="{id}">
                                     <input type="text" name="pla" value ="{id}|{owner}" class="hide">
                                     <button type="submit" style="border: 0; background: transparent">
@@ -183,11 +179,9 @@ def map():
                                         <h3 class="conqueror">{owner}</h3>
                                     </button>
                                 </form>
-                            </li>
                             '''
             else:
                 toadd += f'''
-                            <li class="mappla">
                                 <form action="mapla" method="POST" name="{id}">
                                     <input type="text" name="pla" value ="{id}|{owner}" class="hide">
                                     <button type="submit" style="border: 0; background: transparent">
@@ -197,11 +191,9 @@ def map():
                                         <h3 class="conqueror">{owner}</h3>
                                     </button>
                                 </form>
-                            </li>
                             '''
         liste += toadd
-
-
+    
     return render_template("map.html", plas=liste, notifmsg=notifmsg)
 
 
